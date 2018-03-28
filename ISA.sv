@@ -1,10 +1,10 @@
-/*****************************************************************************
- * The RV32I Base Instruction Set opcodes as is defined in                   *
- * Volume I: RISC-V User-Level ISA V2.2                                      *
- * Authors: Vardas Ioannis                                                   *
- * created for the purposes of CS-523 RISC-V 32 bit implementation project   *
- * Computer Science Department University of Crete 27/03/2018                *
- *****************************************************************************/
+/***************************************************************
+ * The RV32I Base Instruction Set opcodes as is defined in     *
+ * Volume I: RISC-V User-Level ISA V2.2                        *
+ * Authors: Vardas Ioannis                                     *
+ * CS-523 RISC-V 32 bit implementation project                 *
+ * Computer Science Department University of Crete 27/03/2018  *
+ ***************************************************************/
 
 package BIS;
     `define LUI 32'b?????????????????????????0110111
