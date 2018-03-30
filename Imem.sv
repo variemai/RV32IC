@@ -7,16 +7,48 @@
  *****************************************************************************/
 
  module Imem (
-     input [9:0] address,
+	 input clk,
+	 input reset,
+	 input [7:0] address,
      input we,
-     input [31:0] data_in,
-     output [32:0] data_out
+	 input oe,
+     input [7:0] data_in,
+     output logic [7:0] data_out
      );
-
-     logic[31:0] memory[9:0];
-
-     assign data_out = we==0 ? memory[address] : 8'hzzzzzzzz;
-     always @ ( we ) begin
-         memory[address] = data_in;
-	 end
+	 integer out,i;
+     logic [7:0] memory [7:0];
+	 logic [7:0] memory_q [7:0];
+     
+	always @(posedge clk or negedge reset)
+	begin
+    	if (!reset)
+    	begin
+        	for (i=0;i<8; i=i+1)
+            memory_q[i] <= 0;
+   		end
+		else
+		begin
+			for(i=0; i<8; i=i+1)
+				memory_q[i]<=memory[i];
+		end
+	end
+	
+	always @(*)
+	begin
+		for(i=0; i<8; i=i+1)
+			memory[i]=memory_q[i];
+		if( we && !oe)
+			memory[i] = data_in;
+		if(!we && oe)
+			data_out = memory[address];
+	end
+	 /*assign data_out = (oe && !we) ? memory[address] : 8'bzzzzzzzz;
+	 always @( we or oe)
+	 begin
+		 if(we && oe) $display("ERROR BOTH OE and WE ENABLED");
+		 if(we) begin
+		 	memory[address] = data_in;
+		 	$display("ADDR: %b, DATA: %b",address,data_in);
+	 	end
+	 end*/
 endmodule
