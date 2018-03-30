@@ -4,7 +4,7 @@ clean:
 	\rm -rf simv csrc simv* comp.log sim.log
 
 comp:
-	vcs -sverilog Imem_test_top.sv ../Imem.sv Imem_test.sv -debug_all  -l comp.log
+	vcs -sverilog Imem_test_top.sv ../Imem.sv -debug_all  -l comp.log
 
 run:
 	./simv -l sim.log

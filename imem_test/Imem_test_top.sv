@@ -53,7 +53,8 @@ begin
         end
     end
 end
-mem_ram_sync u_dut_ram (
+
+Imem dut(
     .clk(clk),
     .rst(rst),
     .read_rq(read_rq),
@@ -62,3 +63,4 @@ mem_ram_sync u_dut_ram (
     .write_data(write_data),
     .read_data(read_data)
 );
+endmodule
