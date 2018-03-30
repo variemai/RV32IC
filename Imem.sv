@@ -6,49 +6,57 @@
  * Computer Science Department University of Crete 27/03/2018                *
  *****************************************************************************/
 
- module Imem (
-	 input clk,
-	 input reset,
-	 input [7:0] address,
-     input we,
-	 input oe,
-     input [7:0] data_in,
-     output logic [7:0] data_out
-     );
-	 integer out,i;
-     logic [7:0] memory [7:0];
-	 logic [7:0] memory_q [7:0];
-     
-	always @(posedge clk or negedge reset)
-	begin
-    	if (!reset)
-    	begin
-        	for (i=0;i<8; i=i+1)
-            memory_q[i] <= 0;
-   		end
-		else
-		begin
-			for(i=0; i<8; i=i+1)
-				memory_q[i]<=memory[i];
-		end
-	end
-	
-	always @(*)
-	begin
-		for(i=0; i<8; i=i+1)
-			memory[i]=memory_q[i];
-		if( we && !oe)
-			memory[i] = data_in;
-		if(!we && oe)
-			data_out = memory[address];
-	end
-	 /*assign data_out = (oe && !we) ? memory[address] : 8'bzzzzzzzz;
-	 always @( we or oe)
-	 begin
-		 if(we && oe) $display("ERROR BOTH OE and WE ENABLED");
-		 if(we) begin
-		 	memory[address] = data_in;
-		 	$display("ADDR: %b, DATA: %b",address,data_in);
-	 	end
-	 end*/
+ module Imem(
+    clk,
+    rst,
+    read_rq,
+    write_rq,
+    rw_address,
+    write_data,
+    read_data
+);
+input           clk;
+input           rst;
+input           read_rq;
+input           write_rq;
+input[5:0]      rw_address;
+input[7:0]      write_data;
+output[7:0]     read_data;
+
+reg[7:0]     read_data;
+
+integer out, i;
+
+// Declare memory 64x8 bits = 512 bits or 64 bytes
+reg [7:0] memory_ram_d [63:0];
+reg [7:0] memory_ram_q [63:0];
+
+// Use positive edge of clock to read the memory
+// Implement cyclic shift right
+always @(posedge clk or
+    negedge rst)
+begin
+    if (!rst)
+    begin
+        for (i=0;i<64; i=i+1)
+            memory_ram_q[i] <= 0;
+    end
+    else
+    begin
+        for (i=0;i<64; i=i+1)
+             memory_ram_q[i] <= memory_ram_d[i];
+    end
+end
+
+
+always @(*)
+begin
+    for (i=0;i<64; i=i+1)
+        memory_ram_d[i] = memory_ram_q[i];
+    if (write_rq && !read_rq)
+        memory_ram_d[rw_address] = write_data;
+    if (!write_rq && read_rq)
+        read_data = memory_ram_q[rw_address];
+end
+
 endmodule
