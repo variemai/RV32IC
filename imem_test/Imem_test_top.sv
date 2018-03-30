@@ -4,7 +4,7 @@ module Imem_test_top;
     bit clk;
     wire [9:0] addr;
     wire [31:0] data;
-    wire we
+    wire we;
 
     Imem dut(
         .clk(clk),
