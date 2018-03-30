@@ -9,13 +9,14 @@
  module Imem (
      input [9:0] address,
      input we,
-     inout [31:0] data
+     input [31:0] data_in,
+     output [32:0] data_out
      );
 
      logic[31:0] memory[9:0];
 
-     assign data = we==0 ? memory[address] : 8'hzzzzzzzz;
+     assign data_out = we==0 ? memory[address] : 8'hzzzzzzzz;
      always @ ( we ) begin
-         memory[address] = data;
+         memory[address] = data_in;
 	 end
 endmodule

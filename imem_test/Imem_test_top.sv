@@ -3,19 +3,22 @@ module Imem_test_top;
     parameter clock_cycle = 200;
     bit clk;
     wire [9:0] addr;
-    logic [31:0] data;
+    wire [31:0] din;
+    wire [31:0] dout
     wire we;
 
     Imem dut(
         .address(addr),
-        .data(data),
+        .data_in(din),
+        .data_out(dout),
         .we(we)
     );
 
     Imem_test testbench(
         .clk(clk),
         .address(addr),
-        .data(data),
+        .data_in(dout),
+        .data_out(din),
         .we(we)
     );
 
