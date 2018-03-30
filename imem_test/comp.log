@@ -1,0 +1,55 @@
+
+Warning-[LNX_OS_VERUN] Unsupported Linux version
+  Linux version 'CentOS Linux release 7.4.1708 (Core) ' is not supported on 
+  'x86_64' officially, assuming linux compatibility by default. Set 
+  VCS_ARCH_OVERRIDE to linux or suse32 to override.
+  Please refer to release notes for information on supported platforms.
+
+Command: vcs -sverilog Imem_test_top.sv ../Imem.sv Imem_test.sv -debug_all -l comp.log \
+
+                         Chronologic VCS (TM)
+       Version L-2016.06-SP2_Full64 -- Fri Mar 30 13:59:41 2018
+               Copyright (c) 1991-2016 by Synopsys Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+Parsing design file 'Imem_test_top.sv'
+Parsing design file '../Imem.sv'
+
+Warning-[TMBIN] Too many bits in Based Number
+../Imem.sv, 17
+  The specified width is '8' bits, actually got '32' bits.
+  The offending number is : 'zzzzzzzz'.
+
+Parsing design file 'Imem_test.sv'
+Top Level Modules:
+       Imem_test_top
+No TimeScale specified
+
+Error-[VIHIOP] Variable in high conn of inout port
+Imem_test_top.sv, 6
+"data"
+  This variable is not a net, it cannot be connected to an inout port.
+  "Imem_test_top.sv", 9: Imem dut( .address (addr),  .data (data),  .we (we));
+
+
+Error-[VIHIOP] Variable in high conn of inout port
+Imem_test_top.sv, 6
+"data"
+  This variable is not a net, it cannot be connected to an inout port.
+  "Imem_test_top.sv", 15: Imem_test testbench( .clk (clk),  .address (addr),  
+  .data (data),  .we (we));
+
+
+Error-[VILIOP] Variable in low conn of inout port
+Imem_test.sv, 5
+"data"
+  Non-net variable 'data' cannot be an inout port.
+  Try changing the port to a ref variable.
+
+1 warning
+3 errors
+CPU time: .118 seconds to compile

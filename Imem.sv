@@ -8,8 +8,8 @@
 
  module Imem (
      input [9:0] address,
-     input we;
-     inout [31:0] data;
+     input we,
+     inout [31:0] data
      );
 
      logic[31:0] memory[9:0];
@@ -17,6 +17,5 @@
      assign data = we==0 ? memory[address] : 8'hzzzzzzzz;
      always @ ( we ) begin
          memory[address] = data;
-     end
-
- endmodule //
+	 end
+endmodule

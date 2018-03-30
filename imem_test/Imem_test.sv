@@ -5,16 +5,14 @@ program Imem_test(
     inout logic [31:0] data
     );
     wire [9:0] addr = 10'b0000011111;
-    wire [31:0] data_to_write = 32'h0000ffff;
+    //wire [31:0] data_to_write = 32'h0000ffff;
     initial begin
-        writeOP(addr,data_to_write);
+        WriteOP(addr,32'h0000ffff);
         ReadOP(addr);
-        $finish
     end
-
 task ReadOP(bit [9:0] addr);
     @(posedge clk)
-    addrress <= addr;
+    address <= addr;
     we = 0;
     @(posedge clk)
     $display("DATA: %h",data);
@@ -23,7 +21,7 @@ endtask
 
 task WriteOP(bit [9:0] addr_write, bit [31:0] data_write);
     @(posedge clk)
-    address <= addres_write;
+    address <= addr_write;
     data <= data_write;
     we = 1;
     @(posedge clk)
