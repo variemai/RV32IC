@@ -1,5 +1,5 @@
 /*****************************************************************************
- * The Instruction Memory module, reads the instruction from the IMemory      *
+ * The Instruction Memory module, reads the instruction from the IMemory     *
  * and increases the PC writes the instruction to the PC pipeline register   *
  * Authors: Vardas Ioannis                                                   *
  * created for the purposes of CS-523 RISC-V 32 bit implementation project   *

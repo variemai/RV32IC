@@ -1,15 +1,25 @@
-interface mem_interface (input clk);
-
-
-endinterface
-
 
 module Imem_test_top;
     parameter clock_cycle = 200;
     bit clk;
+    wire [9:0] addr;
+    wire [31:0] data;
+    wire we
 
-    /* Top and test bench files
-     */
+    Imem dut(
+        .clk(clk),
+        .address(addr),
+        .data(data),
+        .we(we)
+    );
+
+    Imem_test testbench(
+        .clk(clk)
+        .address(addr),
+        .data(data),
+        .we(we)
+    );
+
 
     initial begin
         clk = 1'b0;
