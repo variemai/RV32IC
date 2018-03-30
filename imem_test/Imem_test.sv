@@ -16,14 +16,14 @@ task ReadOP(bit [9:0] addr);
     address <= addr;
     we = 0;
     @(posedge clk)
-    $display("DATA: %h",data);
+    $display("DATA: %h",data_in);
 endtask
 
 
 task WriteOP(bit [9:0] addr_write, bit [31:0] data_write);
     @(posedge clk)
     address <= addr_write;
-    data <= data_write;
+    data_out <= data_write;
     we = 1;
     @(posedge clk)
     we = 0;
