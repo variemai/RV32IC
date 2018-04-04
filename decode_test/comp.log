@@ -1,0 +1,57 @@
+
+Warning-[LNX_OS_VERUN] Unsupported Linux version
+  Linux version 'CentOS Linux release 7.4.1708 (Core) ' is not supported on 
+  'x86_64' officially, assuming linux compatibility by default. Set 
+  VCS_ARCH_OVERRIDE to linux or suse32 to override.
+  Please refer to release notes for information on supported platforms.
+
+Command: vcs -sverilog Decode_test_top.sv Decode_test.sv Decoder.sv -debug_all -l \
+comp.log
+                         Chronologic VCS (TM)
+       Version L-2016.06-SP2_Full64 -- Wed Apr  4 15:35:07 2018
+               Copyright (c) 1991-2016 by Synopsys Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+Parsing design file 'Decode_test_top.sv'
+Parsing included file '../PipelineRegs.sv'.
+Back to file 'Decode_test_top.sv'.
+Parsing design file 'Decode_test.sv'
+Parsing included file '../PipelineRegs.sv'.
+Back to file 'Decode_test.sv'.
+Parsing included file '../ISA.sv'.
+Back to file 'Decode_test.sv'.
+Parsing design file 'Decoder.sv'
+Parsing included file '../PipelineRegs.sv'.
+Back to file 'Decoder.sv'.
+Parsing included file '../ISA.sv'.
+Back to file 'Decoder.sv'.
+Top Level Modules:
+       decode_test_top
+No TimeScale specified
+Starting vcs inline pass...
+4 unique modules to generate
+recompiling package PipelineReg
+recompiling module decode_test_top
+recompiling package BIS
+recompiling module decode_test
+All of 4 modules done
+make[1]: Entering directory `/home/vardas/rv32ic/decode_test/csrc'
+rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+if [ -x ../simv ]; then chmod -x ../simv; fi
+g++  -o ../simv   -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ \
+-Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -rdynamic   objs/amcQw_d.o   _8374_archive_1.so \
+SIM_l.o       rmapats_mop.o rmapats.o rmar.o  rmar_llvm_0_1.o rmar_llvm_0_0.o    \
+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libzerosoft_rt_stubs.so /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libvirsim.so \
+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/liberrorinf.so /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libsnpsmalloc.so \
+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libvcsnew.so /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libsimprofile.so \
+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libuclinative.so   -Wl,-whole-archive \
+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libvcsucli.so -Wl,-no-whole-archive \
+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/vcs_save_restore_new.o -ldl  -lc -lm \
+-lpthread -ldl 
+../simv up to date
+make[1]: Leaving directory `/home/vardas/rv32ic/decode_test/csrc'
+CPU time: .230 seconds to compile + .329 seconds to elab + .195 seconds to link
