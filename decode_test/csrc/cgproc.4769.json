@@ -1,0 +1,107 @@
+{
+    "Modules": {
+        "PipelineReg": {
+            "Compiled": "Yes",
+            "Compiled Times": 1
+        },
+        "...MASTER...": {},
+        "std": {
+            "Compiled": "Yes",
+            "Compiled Times": 1
+        },
+        "decode_test_top": {
+            "Compiled": "Yes",
+            "Compiled Times": 1
+        },
+        "BIS": {
+            "Compiled": "Yes",
+            "Compiled Times": 1
+        },
+        "decode_test": {
+            "Compiled": "Yes",
+            "Compiled Times": 1
+        }
+    },
+    "CompUnits": {
+        "azMJL_d": {
+            "archive": "archive.0/_4769_archive_1.a",
+            "mod": "decode_test_top",
+            "out": "azMJL_d.o",
+            "checksum": 0,
+            "bytes": 15070,
+            "mode": 4
+        },
+        "amcQw_d": {
+            "mod": "...MASTER...",
+            "out": "objs/amcQw_d.o",
+            "checksum": 0,
+            "bytes": 8078,
+            "mode": 4
+        },
+        "reYIK_d": {
+            "archive": "archive.0/_4769_archive_1.a",
+            "mod": "std",
+            "out": "reYIK_d.o",
+            "checksum": 0,
+            "bytes": 41718,
+            "mode": 4
+        },
+        "GsD89_d": {
+            "archive": "archive.0/_4769_archive_1.a",
+            "mod": "BIS",
+            "out": "GsD89_d.o",
+            "checksum": 0,
+            "bytes": 6339,
+            "mode": 4
+        },
+        "pcq8y_d": {
+            "archive": "archive.0/_4769_archive_1.a",
+            "mod": "PipelineReg",
+            "out": "pcq8y_d.o",
+            "checksum": 0,
+            "bytes": 8633,
+            "mode": 4
+        },
+        "qmckj_d": {
+            "archive": "archive.0/_4769_archive_1.a",
+            "mod": "decode_test",
+            "out": "qmckj_d.o",
+            "checksum": 0,
+            "bytes": 30433,
+            "mode": 4
+        }
+    },
+    "reusePaths": {},
+    "ObjArchives": [
+        {
+            "archive": "archive.0/_4769_archive_1.a",
+            "objects": [
+                [
+                    "reYIK_d.o",
+                    41718
+                ],
+                [
+                    "pcq8y_d.o",
+                    8633
+                ],
+                [
+                    "azMJL_d.o",
+                    15070
+                ],
+                [
+                    "GsD89_d.o",
+                    6339
+                ],
+                [
+                    "qmckj_d.o",
+                    30433
+                ],
+                [
+                    "amcQwB.o",
+                    93851
+                ]
+            ],
+            "size": 196044
+        }
+    ]
+}

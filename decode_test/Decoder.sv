@@ -10,12 +10,12 @@
 module decoder(
     input clk,
     input reset,
-    input PipelineRegs::ID_STATE id_state,
-    output PipelineRegs::EX_STATE ex_state
+    input PipelineReg::ID_STATE id_state,
+    output PipelineReg::EX_STATE ex_state
     );
 	
 	always @(posedge clk) begin
-		case(id_state.instruction)
+		casez(id_state.instruction)
 			`ADD: begin
 				ex_state.pc <= id_state.pc;
 				ex_state.rd <= id_state.instruction[11:7];
