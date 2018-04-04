@@ -1,46 +1,30 @@
 program Imem_test(
     input clk,
-	output logic reset,
-    input logic [7:0] data_in,
-    output logic [7:0] address,
+    input logic [31:0] din,
+    output logic [8:0] address,
     output logic we,
-	output logic oe,
-    output logic [7:0] data_out
+    output logic [31:0] dout
     );
-    logic [7:0] addr = 8'b00000000;
-	logic [7:0] data_to_write = 8'b00000000;
-	logic [7:0] addr_to_read = 8'b00000000;
-	logic [3:0] i=4'b0000;
-	logic [3:0] j=4'b0000;
-	always @(posedge clk or negedge reset)
+	logic [31:0] addr = 32'b0;
+	integer i;
 	begin
-		if(!reset)
-		begin
-			if(i<16)
-			begin
-				data_out <= data_to_write+i;
-				we <= 1;
-				oe <= 0;
-				address <= addr + i;
-				i<=i+1;
-			end
-			else
-			begin
-				if(j<16)
-				begin
-				data_to_write <= 0;
-				we <= 0;
-				oe <= 1;
-				data_out <= data_to_write;
-				address <= addr_to_read+j;
-				j<=j+1;
-				$display("Addr: %b, Data: %b",address,data_in);
-				end
-				else $finish;
-			end
-
-		end	
+		for(i=0; i<10; i++) begin
+			checkReadOP(addr);
+			addr = addr +1;
+		end
 	end
+/******************************************************
+	task checkWriteOP(bit [31:0] data, bit [8:0] addr);
+		
+	endtask
+*******************************************************/
 
-	
+	task checkReadOP(bit [8:0] addr);
+	@(posedge clk) begin
+		address <= addr;
+		we <= 0;
+	end
+	@(posedge clk) $write("DATA: %b, ADDR: %b",din,addr);
+	endtask
+
 endprogram
