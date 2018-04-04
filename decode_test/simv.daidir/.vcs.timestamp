@@ -1,0 +1,155 @@
+0 
+32
++itf+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/vcsdp.tab
++memcbk
++vcsd
++vpi
+-Mamsrun=
+-Masflags=
+-Mcc=gcc
+-Mcfl= -pipe -fPIC -O -I/eda/synopsys/vcs-mx/L-2016.06-SP2/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mexternalobj=
+-Mldflags= -rdynamic
+-Mobjects= /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libvirsim.so /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/liberrorinf.so /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libsnpsmalloc.so
+-Mout=simv
+-Msaverestoreobj=/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/vcs_save_restore_new.o
+-Msyslibs=-ldl
+-Mvcsaceobjs=
+-Mxcflags= -pipe -fPIC -I/eda/synopsys/vcs-mx/L-2016.06-SP2/include
+-Xpiyushb1=0x80
+-debug_access+all+dmptf+bc
+-debug_region=cell+lib
+-gen_obj
+-l
+-picarchive
+-sverilog
+/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/bin/vcs1
+Decode_test.sv
+Decode_test_top.sv
+Decoder.sv
+comp.log
+106
+sysc_uni_pwd=/home/vardas/rv32ic/decode_test
+mraarch=linux_64
+installdir=/eda/synopsys/hspice/L-2016.06-SP2-1/hspice
+XNLSPATH=/eda/synopsys/ic_val/M-2016.12/lib-u/X11/nls
+XKEYSYMDB=/eda/synopsys/ic_val/M-2016.12/lib-u/X11/XKeysymDB
+XDG_SESSION_ID=5430
+XDG_RUNTIME_DIR=/run/user/1008
+XDG_DATA_DIRS=/home/vardas/.local/share/flatpak/exports/share/:/var/lib/flatpak/exports/share/:/usr/local/share/:/usr/share/
+XARCH=linux64
+XAPPLRESDIR=/eda/synopsys/ic_val/M-2016.12/app-defaults
+VMR_MODE_FLAG=32
+VERDI_HOME=/eda/synopsys/Verdi3/L-2016.06-SP2
+VC_VIP_HOME=/eda/synopsys/vc-vip/L-2106.12
+VCS_TARGET_ARCH=linux64
+VCS_MX_HOME_INTERNAL=1
+VCS_LOG_FILE=comp.log
+VCS_HOME=/eda/synopsys/vcs-mx/L-2016.06-SP2
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=linux64
+UNAME=/bin/uname
+TOOL_HOME=/eda/synopsys/vcs-mx/L-2016.06-SP2/linux64
+TMIARCH=_64
+SYN_HOME=/eda/synopsys/syn/M-2016.12
+SYNOPSYS_SYSTYPE=LINUX64_L31el
+SYNOPSYS_LC_ROOT=/eda/synopsys/lc/M-2016.12
+STARRC_HOME=/eda/synopsys/starrc/M-2016.12
+SSV_V=SSV171
+SSV_TOOLS=/eda/cadence/installs/SSV171/tools
+SSH_TTY=/dev/pts/1
+SSH_CONNECTION=139.91.92.165 50300 139.91.184.102 22
+SSH_CLIENT=139.91.92.165 50300 22
+SPECTRE_V=SPECTRE161
+SPECTRE_TOOLS=/eda/cadence/installs/SPECTRE161/tools
+SPB_V=SPB172
+SPB_TOOLS=/eda/cadence/installs/SPB172/tools
+SNPS_PLATFORM=linux64
+SNPS_DIR=/eda/synopsys
+SNPS_64=1
+SELINUX_USE_CURRENT_RANGE=
+SELINUX_ROLE_REQUESTED=
+SELINUX_LEVEL_REQUESTED=
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+QT_GRAPHICSSYSTEM_CHECKED=1
+QT_GRAPHICSSYSTEM=native
+QTLIB=/usr/lib64/qt-3.3/lib
+QTINC=/usr/lib64/qt-3.3/include
+QTDIR=/usr/lib64/qt-3.3
+PVS_V=PVS161
+PVS_TOOLS=/eda/cadence/installs/PVS161/tools
+PT_HOME=/eda/synopsys/pt/M-2016.12
+OVA_UUM=0
+MW_HOME=/eda/synopsys/mw/M-2016.12
+MODUS_V=MODUS171
+MODUS_TOOLS=/eda/cadence/installs/MODUS171/tools
+MFLAGS=
+MAKELEVEL=1
+MAKEFLAGS=
+LIBERATE_V=LIBERATE161
+LIBERATE_TOOLS=/eda/cadence/installs/LIBERATE161/tools
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LC_TIME=el_GR.UTF-8
+LC_TELEPHONE=el_GR.UTF-8
+LC_PAPER=el_GR.UTF-8
+LC_NUMERIC=el_GR.UTF-8
+LC_NAME=el_GR.UTF-8
+LC_MONETARY=el_GR.UTF-8
+LC_MEASUREMENT=el_GR.UTF-8
+LC_IDENTIFICATION=el_GR.UTF-8
+LC_HOME=/eda/synopsys/lc/M-2016.12
+LC_ALL=C
+LC_ADDRESS=el_GR.UTF-8
+JLS_V=JLS171
+JLS_TOOLS=/eda/cadence/installs/JLS171/tools
+INNOVUS_V=INNOVUS171
+INNOVUS_TOOLS=/eda/cadence/installs/INNOVUS171/tools
+INDAGO_V=INDAGOA1
+INDAGO_TOOLS=/eda/cadence/installs/INDAGOA1/tools
+INCISIVE_V=INCISIVE152
+INCISIVE_TOOLS=/eda/cadence/installs/INCISIVE152/tools
+IC_V=IC617
+IC_TOOLS=/eda/cadence/installs/IC617/tools
+ICV_HOME_DIR=/eda/synopsys/ic_val/M-2016.12
+ICV_HOME=/eda/synopsys/ic_val/M-2016.12
+ICC_HOME=/eda/synopsys/ic_comp/M-2016.12
+HSP_HOME=/eda/synopsys/hspice/L-2016.06-SP2-1/hspice
+HSP_GCC_VERSION=4.8.3
+HSP_GCC=/eda/synopsys/hspice/L-2016.06-SP2-1/hspice/GNU/linux64/gcc-4.8.3/bin/gcc -m64 
+HSPICE_V=L-2016.06-SP2-1
+HSPICE_HOME=/eda/synopsys/hspice/L-2016.06-SP2-1/hspice
+HISTCONTROL=ignoredups
+GENUS_V=GENUS171
+GENUS_TOOLS=/eda/cadence/installs/GENUS171/tools
+EXT_V=EXT171
+EXT_TOOLS=/eda/cadence/installs/EXT171/tools
+DESIGNWARE_HOME=/eda/synopsys/vc-vip/L-2106.12
+CONFRML_V=CONFRML171
+CONFRML_TOOLS=/eda/cadence/installs/CONFRML171/tools
+CMIARCH=_64
+CDS_LOAD_ENV=CSF
+CDS_LIC_FILE=5280@troia-cds.ics.forth.gr
+CDS_DIR=/eda/cadence/installs
+ASSURA_V=ASSURA41
+ASSURA_TOOLS=/eda/cadence/installs/ASSURA41/tools
+ARCH=linux64
+0
+6
+1522840625 ../ISA.sv
+1522840250 ../PipelineRegs.sv
+1522841788 Decoder.sv
+1522845303 Decode_test.sv
+1522840792 Decode_test_top.sv
+1517248793 /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/vcsdp.tab
+4
+0 
+1517248782 /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libvirsim.so
+1517248784 /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/liberrorinf.so
+1517248771 /eda/synopsys/vcs-mx/L-2016.06-SP2/linux64/lib/libsnpsmalloc.so
+1522845308 simv.daidir

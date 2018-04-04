@@ -1,0 +1,122 @@
+{
+    "MlibObjs": {},
+    "PrevCompiledModules": {},
+    "CurCompileUdps": {},
+    "LVLData": [
+        "SIM"
+    ],
+    "NameTable": {
+        "decode_test_top": [
+            "decode_test_top",
+            "azMJL",
+            "module"
+        ],
+        "std": [
+            "std",
+            "reYIK",
+            "module"
+        ],
+        "decode_test": [
+            "decode_test",
+            "qmckj",
+            "module"
+        ],
+        "PipelineReg": [
+            "PipelineReg",
+            "pcq8y",
+            "module"
+        ],
+        "BIS": [
+            "BIS",
+            "GsD89",
+            "module"
+        ],
+        "...MASTER...": [
+            "SIM",
+            "amcQw",
+            "module"
+        ]
+    },
+    "CompileStrategy": "fullobj",
+    "Misc": {
+        "daidir_abs": "/home/vardas/rv32ic/decode_test/simv.daidir",
+        "cwd": "/home/vardas/rv32ic/decode_test",
+        "csrc": "csrc",
+        "default_output_dir": "csrc",
+        "daidir": "simv.daidir",
+        "csrc_abs": "/home/vardas/rv32ic/decode_test/csrc",
+        "archive_dir": "archive.0"
+    },
+    "stat": {
+        "peak_mem_kb": 217076,
+        "nQuads": 883,
+        "ru_self_cgstart": {
+            "ru_maxrss_kb": 59216,
+            "ru_utime_sec": 0.069922999999999999,
+            "ru_nivcsw": 4,
+            "ru_stime_sec": 0.040877999999999998,
+            "ru_minflt": 15008,
+            "ru_majflt": 0,
+            "ru_nvcsw": 51
+        },
+        "ru_childs_cgstart": {
+            "ru_maxrss_kb": 15184,
+            "ru_utime_sec": 0.0010200000000000001,
+            "ru_nivcsw": 8,
+            "ru_stime_sec": 0.011949,
+            "ru_minflt": 2078,
+            "ru_majflt": 0,
+            "ru_nvcsw": 4
+        },
+        "Frontend(%)": 71.091748342754897,
+        "nMops": 2126,
+        "totalObjSize": 204437,
+        "ru_self_end": {
+            "ru_maxrss_kb": 68832,
+            "ru_utime_sec": 0.098355999999999999,
+            "ru_nivcsw": 7,
+            "ru_stime_sec": 0.058167000000000003,
+            "ru_minflt": 17948,
+            "ru_majflt": 0,
+            "ru_nvcsw": 55
+        },
+        "mop/quad": 2.4077010192525483,
+        "ru_childs_end": {
+            "ru_maxrss_kb": 15184,
+            "ru_utime_sec": 0.0010200000000000001,
+            "ru_nivcsw": 8,
+            "ru_stime_sec": 0.011949,
+            "ru_minflt": 2078,
+            "ru_majflt": 0,
+            "ru_nvcsw": 4
+        },
+        "mopSpeed": 74772.271656174169,
+        "quadSpeed": 31055.46372173179,
+        "outputSizePerQuad": 231.0,
+        "CodeGen(%)": 28.90825165724511
+    },
+    "SIMBData": {
+        "out": "amcQwB.o",
+        "bytes": 93892,
+        "archive": "archive.0/_8374_archive_1.a"
+    },
+    "CompileStatus": "Successful",
+    "CurCompileModules": [
+        "...MASTER...",
+        "...MASTER...",
+        "std",
+        "std",
+        "PipelineReg",
+        "PipelineReg",
+        "decode_test_top",
+        "decode_test_top",
+        "BIS",
+        "BIS",
+        "decode_test",
+        "decode_test"
+    ],
+    "PEModules": [],
+    "CompileProcesses": [
+        "cgproc.8374.json"
+    ]
+}
