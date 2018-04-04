@@ -5,12 +5,12 @@ program Imem_test(
     output logic we,
     output logic [31:0] dout
     );
+
 	logic [31:0] addr = 32'b0;
-	integer i;
-	begin
-		for(i=0; i<10; i++) begin
+	initial begin
+		for(int i=0; i<10; i++) begin
 			checkReadOP(addr);
-			addr = addr +1;
+			addr = addr + 1;
 		end
 	end
 /******************************************************

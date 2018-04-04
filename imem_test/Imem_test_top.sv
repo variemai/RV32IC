@@ -7,7 +7,7 @@ module Imem_test_top;
 
 	sram dut(
 		.clk(clk),
-		.address(address),
+		.addr(address),
 		.din(data_to_mem),
 		.dout(data_from_mem),
 		.we(we)
