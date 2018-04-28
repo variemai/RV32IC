@@ -13,16 +13,17 @@ program decode_test(
 			@(posedge clk) begin
 				issue_instruction(pc,32'b00000000000100010000000000110011);
 				pc <= pc + 4;
+				//issue_instruction(pc,
 			end
 		end
 	end
 
 
 	task issue_instruction(bit [31:0] _pc,bit [31:0] instruction);
-		//@(posedge clk) begin
+		@(posedge clk) begin
 			id_state.instruction = instruction;
 			id_state.pc = _pc;
-		//end
+		end
 		@(posedge clk) begin
 			assert(ex_state.rd == 5'b0);
 			assert(ex_state.rs1 == 5'b10);
