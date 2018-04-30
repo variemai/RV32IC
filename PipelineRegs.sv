@@ -26,13 +26,15 @@ package PipelineReg;
         logic [31:0] rs2_data;
         logic [31:0] immediate; 
 		logic [4:0] rd;
-		logic ALUsrc [1:0]; //sources are regfile, immediate or pc
+		logic [1:0] ALUsrc ; //sources are regfile, immediate or pc
 		logic Mem2Reg; //Load instructions write back to reg file
 		logic RegWrite; //Instructions that need to write to reg file
         /*More signals for forwarding and hazard detection*/
 		logic branch; //is one bit enough?
         logic [4:0] rs1;
         logic [4:0] rs2;
+		logic MemRead;
+		logic MemWrite;
     }EX_STATE;
 
 endpackage
