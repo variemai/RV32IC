@@ -37,7 +37,7 @@ module decoder(
 
 			`ADDI, `SLTI, `SLTIU, `XORI, `ORI:
 			begin
-				ex_state.immediate <= { {16{id_state.instruction[31]}} ,id_state.instruction[31:20] };
+				ex_state.immediate <= { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 				ex_state.ALUOp <= 3'b011;
 				ex_state.ALUsrc <= 2'b01;
 				ex_state.MemRead <= 0;
@@ -75,11 +75,13 @@ module decoder(
 
 			`LB, `LH, `LW, `LBU,`LHU:
 			begin
+				ex_state.immediate <= { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 				ex_state.ALUOp <= 3'b0;
 				ex_state.MemRead <= 1;
 				ex_state.Mem2Reg <= 1;
 				ex_state.MemWrite <= 0;
 				ex_state.ALUsrc <= 2'b01;
+				$write("Load Instruction!\n");
 			end
 
 			`SB, `SH, `SW:
@@ -92,13 +94,14 @@ module decoder(
 			end
 
 			`BEQ, `BNE, `BGE, `BLTU, `BGEU:
-				ex_state.immediate <= { {16{id_state.instruction[31]}} ,id_state.instruction[31:20] };
+			begin
+				ex_state.immediate <= { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 				ex_state.ALUOp <= 3'b001;
-				ex_state.MemWrite <= 1;
+				ex_state.MemWrite <= 0;
 				ex_state.MemRead <= 0;
 				ex_state.Mem2Reg <= 0;
 				ex_state.ALUsrc <= 2'b00;
-
+			end
 			default: begin
 				$write("Unknown Instruction Format!\n");
 			end
