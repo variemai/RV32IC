@@ -109,28 +109,28 @@ begin
         end
       end
       4: begin // blt
-        if(i_A < i_B)
+        if($signed(i_A) < $signed(i_B))
         begin
            o_branch = 1'b1;
         end
       end
       5: begin // bge
-        if(i_A >= i_B)
+        if($signed(i_A) >= $signed(i_B))
         begin
            o_branch = 1'b1;
         end
       end
       6: begin // bltu
-       /* if((unsigned)i_A < (unsigned)i_B)
+        if(i_A < i_B)
         begin
            o_branch = 1'b1;
-        end */
+        end 
       end
       7: begin // bgeu
-        /*if((unsigned)i_A >= (unsigned)i_B)
+        if(i_A >= i_B)
         begin
            o_branch = 1'b1;
-        end */
+        end
       end
       default: begin
           o_branch = 1'bx; // should never go here
@@ -158,7 +158,7 @@ begin
         o_ALUOutput = (i_A<<i_B); // shifted left by i_B
       end
       2: begin // SLT
-        if(i_A < i_B)
+        if($signed(i_A) < $signed(i_B))
           begin
             o_ALUOutput = 32'b1;
           end
@@ -168,18 +168,18 @@ begin
           end
         end
       3: begin // SLTU
-        /*if((unsigned)i_A < (unsigned)i_B)
+          if(i_A < i_B)
           begin
             o_ALUOutput = 32'b1;
           end
           else
           begin
             o_ALUOutput = 32'b0;
-          end*/
+          end
         end
       4: begin // XOR
         begin
-          o_ALUOutput = ~i_B;
+          o_ALUOutput = i_A ^ i_B;
         end
       end
       5: begin // SRL/SRA
@@ -214,7 +214,7 @@ begin
         o_ALUOutput = i_A << i_Imm_SignExt;
       end
       2: begin // SLTI
-        if(i_A < i_Imm_SignExt)
+        if($signed(i_A) < $signed(i_Imm_SignExt))
           begin
             o_ALUOutput = 32'b1;
           end
@@ -224,18 +224,18 @@ begin
           end
         end
       3: begin // SLTIU
-        /*if((unsigned)i_A < (unsigned)i_Imm_SignExt)
+        if(i_A < i_Imm_SignExt)
           begin
             o_ALUOutput = 32'b1;
           end
           else
           begin
             o_ALUOutput = 32'b0;
-          end*/
+          end
         end
       4: begin // XORI
         begin
-          o_ALUOutput = ~i_Imm_SignExt;
+          o_ALUOutput = i_A ^ i_Imm_SignExt;
         end
       end
       5: begin // SRLI, SRAI TODO

@@ -328,7 +328,7 @@ task alu_logic_ops_test();
   ALUmode_p   = XOR;
   set_params();
   @(posedge clk);
-  expect(@(posedge clk) ALUOutput_p == (~B_p)) else $display ("\tLogic. of ALU: XOR failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, ~B_p);
+  expect(@(posedge clk) ALUOutput_p == (A_p^B_p)) else $display ("\tLogic. of ALU: XOR failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, A_p^B_p);
   
 	/******* ANDI *******/
 	@(posedge clk);
@@ -349,7 +349,7 @@ task alu_logic_ops_test();
   ALUmode_p 	= XORI;
   set_params();
   @(posedge clk);
-  expect(@(posedge clk) ALUOutput_p == (~Imm_SignExt_p)) else $display ("\tLogic. of ALU: XORI failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, ~Imm_SignExt_p);
+  expect(@(posedge clk) ALUOutput_p == (A_p^Imm_SignExt_p)) else $display ("\tLogic. of ALU: XORI failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, A_p^Imm_SignExt_p);
 
   /******* SLL *******/
 	@(posedge clk);
@@ -385,7 +385,7 @@ task alu_logic_ops_test();
   ALUmode_p 	= SLT;
   set_params();
   @(posedge clk);
-	if(A_p<B_p)
+	if($signed(A_p)<$signed(B_p))
 	begin
 		tmp_res		=  32'b1;
 	end
@@ -396,18 +396,26 @@ task alu_logic_ops_test();
   expect(@(posedge clk) ALUOutput_p === (tmp_res)) else $display ("\tLogic. of ALU: SLT failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res);
 
   /******* SLTU *******/ // TODO
-  // @(posedge clk) 
-  // ALUmode_p   <= SLL;
-  // set_params();
-  // @(posedge clk);
-  // expect(@(posedge clk) ALUOutput_p == (A_p-B_p)) else $display ("\tArithm. of ALU: SLTU failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, A_p-B_p);
+  @(posedge clk);
+  ALUmode_p   = SLTU;
+  set_params();
+  @(posedge clk);
+  if(A_p<B_p)
+  begin
+    tmp_res   =  32'b1;
+  end
+  else
+  begin
+    tmp_res   = 32'b0;
+  end
+  expect(@(posedge clk) ALUOutput_p === (tmp_res)) else $display ("\tLogic. of ALU: SLTU failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res);
 
 	/******* SLTI *******/
 	@(posedge clk);
   ALUmode_p 	= SLTI;
   set_params();
   @(posedge clk);
-	if(A_p<Imm_SignExt_p)
+	if($signed(A_p)<$signed(Imm_SignExt_p))
 	begin
 		tmp_res		=  32'b1;
 	end
@@ -418,19 +426,19 @@ task alu_logic_ops_test();
   expect(@(posedge clk) ALUOutput_p === (tmp_res)) else $display ("\tLogic. of ALU: SLTI failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res);
 
   /******* SLTIU *******/ // TODO
-  // @(posedge clk);
-  // ALUmode_p   = SLTI;
-  // set_params();
-  // @(posedge clk);
-  // if(A_p<Imm_SignExt_p)
-  // begin
-  //   tmp_res   =  32'b1;
-  // end
-  // else
-  // begin
-  //   tmp_res   =  32'b0;
-  // end
-  // expect(@(posedge clk) ALUOutput_p === (tmp_res)) else $display ("\tLogic. of ALU: SLTI failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res);
+  @(posedge clk);
+  ALUmode_p   = SLTIU;
+  set_params();
+  @(posedge clk);
+  if(A_p<Imm_SignExt_p)
+  begin
+    tmp_res   =  32'b1;
+  end
+  else
+  begin
+    tmp_res   =  32'b0;
+  end
+  expect(@(posedge clk) ALUOutput_p === (tmp_res)) else $display ("\tLogic. of ALU: SLTIU failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res);
 
 
   /******* SRA *******/
@@ -499,7 +507,7 @@ task alu_control_ops_test();
   ALUmode_p 	= BLT;
   set_params();
   @(posedge clk);
-	if(A_p<B_p)
+	if($signed(A_p)<$signed(B_p))
 	begin
 		tmp_branch	=  1'b1;
 	end
@@ -515,7 +523,7 @@ task alu_control_ops_test();
   ALUmode_p 	= BGE;
   set_params();
   @(posedge clk);
-	if(A_p>=B_p)
+	if($signed(A_p)>=$signed(B_p))
 	begin
 		tmp_branch	=  1'b1;
 	end
@@ -526,8 +534,40 @@ task alu_control_ops_test();
 	tmp_res = NPC_p + (2<<Imm_SignExt_p);
   expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BGE failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
 
-  /******* BLTU *******/ // TODO
-  /******* BGEU *******/ // TODO
+  /******* BLTU *******/
+  @(posedge clk);
+  ALUmode_p   = BLTU;
+  set_params();
+  @(posedge clk);
+  if(A_p<B_p)
+  begin
+    tmp_branch  =  1'b1;
+  end
+  else
+  begin
+    tmp_branch  =  1'b0;
+  end
+  tmp_res = NPC_p + (2<<Imm_SignExt_p);
+  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BLTU failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+
+
+  /******* BGEU *******/
+  @(posedge clk);
+  ALUmode_p   = BGEU;
+  set_params();
+  @(posedge clk);
+  if(A_p>=B_p)
+  begin
+    tmp_branch  =  1'b1;
+  end
+  else
+  begin
+    tmp_branch  =  1'b0;
+  end
+  tmp_res = NPC_p + (2<<Imm_SignExt_p);
+  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BGEU failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+
+
 
   /******* LUI *******/
   @(posedge clk);
