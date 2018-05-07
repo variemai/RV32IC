@@ -20,8 +20,13 @@ parameter RAM_SIZE = 32
 		$readmemb("regfile.data", RAM, 0, 10);
 	end
 	always @(posedge clk) begin
-		if(we)
+		if(we) begin
 			RAM[write_addr] <= din;
+			if(read_addr == write_addr) begin 
+				dout <= din;
+			end
+			else dout <= RAM[read_addr];
+		end
 		else
 			dout <= RAM[read_addr];
 	end
