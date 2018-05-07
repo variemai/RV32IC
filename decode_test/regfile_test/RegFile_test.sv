@@ -9,17 +9,10 @@ program RegisterFile_test(
 	input logic [31:0] dout1
 );
 	logic [4:0] ra1 = 5'b0;
-	logic [4:0] ra2 = 5'b00011;
+	logic [4:0] ra2 = 5'b1;
 	integer i;
 	initial begin
-		for(i=0; i<8; i++) begin
-			write_all();
-			ra1 = ra1 + 1;
-			ra2 = ra2 + 1;
-		end
-		ra1 = 5'b0;
-		ra2 = 5'b1;
-		for(i=0; i<8; i++) begin
+		for(i=0; i<31; i++) begin
 			read_all();
 			ra1 = ra1 + 1;
 			ra2 = ra2 + 1;
@@ -37,8 +30,8 @@ program RegisterFile_test(
 			read_addr1 <= ra2;
 		end
 		@(posedge clk) begin
-			$write("DOUT0: %b\n",dout0);
-			$write("DOUT1: %b\n",dout1);
+			$write("DOUT0: %x\n",dout0);
+			$write("DOUT1: %x\n",dout1);
 		end
 	endtask
 
@@ -64,8 +57,8 @@ program RegisterFile_test(
 		end
 		@(posedge clk) begin
 			we <= 0;
-			$write("DOUT0: %b\n",dout0);
-			$write("DOUT1: %b\n",dout1);
+			$write("DOUT0: %x\n",dout0);
+			$write("DOUT1: %x\n",dout1);
 		end
 	endtask
 

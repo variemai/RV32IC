@@ -17,7 +17,7 @@ parameter RAM_SIZE = 32
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	logic [DATA_WIDTH-1:0] dout;
 	initial begin
-		$readmemb("regfile.data", RAM, 0, 10);
+		$readmemh("test.data", RAM, 0, 32);
 	end
 	always @(posedge clk) begin
 		if(we) begin

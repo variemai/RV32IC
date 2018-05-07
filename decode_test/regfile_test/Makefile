@@ -1,7 +1,7 @@
 all: clean comp run
 
 clean:
-	\rm -rf simv csrc simv* comp.log sim.log
+	\rm -rf simv csrc simv* comp.log sim.log a.out
 
 comp:
 	vcs -sverilog regfile.sv RegFile.sv RegFile_test.sv RegFile_test_top.sv -debug_all  -l comp.log
