@@ -11,15 +11,26 @@ module decoder(
     input clk,
     input reset,
     input PipelineReg::ID_STATE id_state,
-    output PipelineReg::EX_STATE ex_state
+	//input PipeLineReg::WB_STATE wb_state,
+    output PipelineReg::EX_STATE ex_state,
+	output logic [4:0] rs1,
+	output logic [4:0] rs2,
+	output logic [4:0] rd,
+	output logic [31:0] write_data
     );
+	
+	always_comb begin
+		rs1 <= id_state.instruction[19:15];
+		rd <= id_state.instruction[11:7];
+		rs2 <= id_state.instruction[24:20];
+	end	
 	
 	always @(posedge clk) begin
 		//Important send rs, rt to read from regfile
 		ex_state.pc <= id_state.pc;
-		ex_state.rs1 <= id_state.instruction[19:15];
 		ex_state.func3 <= id_state.instruction[14:12];
 		ex_state.func7 <= id_state.instruction[31:25];
+		ex_state.rs1 <= id_state.instruction[19:15];
 		ex_state.rd <= id_state.instruction[11:7];
 		ex_state.rs2 <= id_state.instruction[24:20];
 

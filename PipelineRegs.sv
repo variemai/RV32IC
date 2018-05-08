@@ -21,9 +21,9 @@ package PipelineReg;
         logic [31:0] pc;
         logic [2:0] func3; 
 		logic [6:0] func7;
-		logic [2:0] ALUOp; //described in book page 253 
-        logic [31:0] rs1_data;
-        logic [31:0] rs2_data;
+		logic [2:0] ALUOp;
+        //logic [31:0] rs1_data; we will not need these sync reg file
+        //logic [31:0] rs2_data;
         logic [31:0] immediate; 
 		logic [4:0] rd;
 		logic [1:0] ALUsrc ; //sources are regfile, immediate or pc
@@ -36,6 +36,7 @@ package PipelineReg;
 		logic MemRead;
 		logic MemWrite;
     }EX_STATE;
+
 
 endpackage
 `endif

@@ -4,20 +4,24 @@
 program decode_test(
 	input clk,
 	input PipelineReg::EX_STATE ex_state,
-	output PipelineReg::ID_STATE id_state
+	output PipelineReg::ID_STATE id_state,
+	input [31:0] data0,
+	input [31:0] data1
 );
 	logic [31:0] pc = 32'b0;
-	logic [31:0] Rinstr = 32'b00000000001000100000000000110011;
+	logic [31:0] Rinstr0 = 32'b00000000001000100000000010110011; //rs2=2, rs1=4, rd=1
+	logic [31:0] Rinstr1 = 32'b00000000001100101000000010110011; //rs2=3, rs1=5, rd=1
+	logic [31:0] Rinstr2 = 32'b00000001010011000000000010110011; //rs2=20, rs1=24, rd=1
 	logic [31:0] Iinstr = 32'b10000000000000000000000000010011;
 	logic [31:0] Linstr = 32'b10000000000000000000000000000011;
  	integer i;	
 	initial begin
 			//@(posedge clk) begin
-				issue_Rinstruction(pc, Rinstr);
+				issue_Rinstruction(pc, Rinstr0);
 				pc = pc + 4;
-				issue_Linstruction(pc, Linstr);
-				pc = pc + 4;
-				issue_Iinstruction(pc, Iinstr);
+				//issue_Linstruction(pc, Linstr);
+				//pc = pc + 4;
+				//issue_Iinstruction(pc, Iinstr);
 				//pc = pc + 4;
 			//end
 	end
@@ -29,12 +33,14 @@ program decode_test(
 			id_state.pc = _pc;
 		end
 		@(posedge clk) begin
-			assert(ex_state.rd == 5'b00000);
+			assert(ex_state.rd == instruction[]);
 			assert(ex_state.rs1 == 5'b00100);
 			assert(ex_state.rs2 == 5'b00010);
 			assert(ex_state.pc == _pc);
 			assert(ex_state.func3 == 3'b0);
 			assert(ex_state.func7 == 7'b0);
+			$write("DOUT0: %x\n",data0);
+			$write("DOUT1: %x\n",data1);
 		end
 	endtask
 

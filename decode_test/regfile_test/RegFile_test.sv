@@ -10,21 +10,34 @@ program RegisterFile_test(
 );
 	logic [4:0] ra1 = 5'b0;
 	logic [4:0] ra2 = 5'b1;
+	logic [31:0] write_data = 8'h0000ffff;
 	integer i;
 	initial begin
-		for(i=0; i<31; i++) begin
-			read_all();
+		for(i=0; i<30; i++) begin
+			read();
 			ra1 = ra1 + 1;
 			ra2 = ra2 + 1;
 		end
 		ra1 = 5'b0;
 		ra2 = 5'b1;
-		readwrite();
+		for(i=0; i<30; i++) begin
+			$write("ReadWrite\n");
+			readwrite();
+			ra1 = ra1 + 1;
+			ra2 = ra2 + 1;
+			write_data = write_data + 1;
+		end
+		ra1 = 5'b0;
+		ra2 = 5'b1;
+		for(i=0; i<30; i++) begin
+			read();
+			ra1 = ra1 + 1;
+			ra2 = ra2 + 1;
+		end
 	end
 
-	task read_all();
+	task read();
 		$write("READ ADDR: %d %d\n",ra1,ra2);
-		
 		@(posedge clk) begin
 			read_addr0 <= ra1;
 			read_addr1 <= ra2;
@@ -35,7 +48,7 @@ program RegisterFile_test(
 		end
 	endtask
 
-	task write_all();
+	task write();
 		$write("WRITE ADDR: %d\n",ra1);
 		@(posedge clk) begin
 			write_addr <= ra1;
@@ -51,14 +64,15 @@ program RegisterFile_test(
 		@(posedge clk) begin
 			write_addr <= ra1;
 			we <= 1;
-			din <= 32'b0;
+			din <= write_data;
 			read_addr0 <= ra1;
 			read_addr1 <= ra2;
 		end
 		@(posedge clk) begin
 			we <= 0;
+			assert(dout0 == write_data) else 
 			$write("DOUT0: %x\n",dout0);
-			$write("DOUT1: %x\n",dout1);
+			//$write("DOUT1: %x\n",dout1);
 		end
 	endtask
 
