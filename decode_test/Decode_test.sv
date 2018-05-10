@@ -16,32 +16,40 @@ program decode_test(
 	logic [31:0] Linstr = 32'b10000000000000000000000000000011;
  	integer i;	
 	initial begin
-			//@(posedge clk) begin
+			@(posedge clk) begin
 				issue_Rinstruction(pc, Rinstr0);
-				pc = pc + 4;
-				//issue_Linstruction(pc, Linstr);
-				//pc = pc + 4;
-				//issue_Iinstruction(pc, Iinstr);
-				//pc = pc + 4;
-			//end
+				pc <= pc +4;
+			end
+			@(posedge clk) begin
+				issue_Rinstruction(pc, Rinstr1);
+				check_Rinstruction(pc-4, Rinstr0);
+				pc <= pc +4;
+			end
+			@(posedge clk) begin
+				issue_Rinstruction(pc, Rinstr2);
+				check_Rinstruction(pc-4, Rinstr1);
+				pc <= pc + 4;
+			end
+			@(posedge clk) begin
+				check_Rinstruction(pc-4, Rinstr2);
+			end
 	end
 
 
 	task issue_Rinstruction(bit [31:0] _pc,bit [31:0] instruction);
-		@(posedge clk) begin
 			id_state.instruction = instruction;
 			id_state.pc = _pc;
-		end
-		@(posedge clk) begin
-			assert(ex_state.rd == instruction[]);
-			assert(ex_state.rs1 == 5'b00100);
-			assert(ex_state.rs2 == 5'b00010);
+	endtask
+
+	task check_Rinstruction(bit [31:0] _pc, bit [31:0] instruction);
+			assert(ex_state.rd == instruction[11:7]);
+			assert(ex_state.rs1 == instruction[19:15]);
+			assert(ex_state.rs2 == instruction[24:20]);
 			assert(ex_state.pc == _pc);
-			assert(ex_state.func3 == 3'b0);
-			assert(ex_state.func7 == 7'b0);
+			assert(ex_state.func3 == instruction[14:12]);
+			assert(ex_state.func7 == instruction[31:25]);
 			$write("DOUT0: %x\n",data0);
 			$write("DOUT1: %x\n",data1);
-		end
 	endtask
 
 	task issue_Iinstruction(bit [31:0] _pc,bit [31:0] instruction);

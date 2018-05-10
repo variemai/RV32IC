@@ -1,24 +1,19 @@
 module Imem_test_top;
 	bit clk;
-	logic [8:0] address;
-	logic [31:0] data_to_mem;
+	wire [31:0] pc;
 	logic [31:0] data_from_mem;
-	logic we;
 
-	sram dut(
+	IFetch dut(
 		.clk(clk),
-		.addr(address),
-		.din(data_to_mem),
-		.dout(data_from_mem),
-		.we(we)
+		.pc_in(pc),
+		.pc_out(pc),
+		.instruction(data_from_mem)
 	);
 
 	Imem_test tb(
 		.clk(clk),
-		.address(address),
 		.din(data_from_mem),
-		.dout(data_to_mem),
-		.we(we)
+		.pc(pc)
 	);
 
 	initial begin

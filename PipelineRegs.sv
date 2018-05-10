@@ -13,7 +13,7 @@ package PipelineReg;
     }IF_STATE;
 
     typedef struct packed {
-        logic [31:0] pc;
+        wire [31:0] pc;
         logic [31:0] instruction;
     }ID_STATE;
 

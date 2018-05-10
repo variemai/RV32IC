@@ -1,16 +1,12 @@
 program Imem_test(
     input clk,
     input logic [31:0] din,
-    output logic [8:0] address,
-    output logic we,
-    output logic [31:0] dout
+	input [31:0] pc
     );
-
-	logic [31:0] addr = 32'b0;
+	
 	initial begin
 		for(int i=0; i<10; i++) begin
-			checkReadOP(addr);
-			addr = addr + 1;
+			checkReadOP(pc);
 		end
 	end
 /******************************************************
@@ -19,12 +15,8 @@ program Imem_test(
 	endtask
 *******************************************************/
 
-	task checkReadOP(bit [8:0] addr);
-	@(posedge clk) begin
-		address <= addr;
-		we <= 0;
-	end
-	@(posedge clk) $write("DATA: %b, ADDR: %b",din,addr);
+	task checkReadOP(bit [31:0] addr);
+		@(posedge clk) $write("DATA: %b, ADDR: %b\n",din,addr);
 	endtask
 
 endprogram
