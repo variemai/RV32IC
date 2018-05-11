@@ -19,9 +19,15 @@ module decoder(
     );
 	
 	always_comb begin
-		rs1 <= id_state.instruction[19:15];
-		rd <= id_state.instruction[11:7];
-		rs2 <= id_state.instruction[24:20];
+		//stall cases need to be implemented
+		/*Need to wait for EX,MEM stages*/
+		//if( id_state.instruction[19:15] == ex_state.rd || id_state.instruction[11:7] == ex_state.rd ) begin
+		//end
+		//else if(id_state.instruction[19:15] == mem_state.rd || id_state.instruction[11:7] == mem_state.rd ) begin
+		//end	
+		rs1 = id_state.instruction[19:15];
+		rd = id_state.instruction[11:7];
+		rs2 = id_state.instruction[24:20];
 	end	
 	
 	always @(posedge clk) begin
