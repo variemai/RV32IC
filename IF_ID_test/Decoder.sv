@@ -15,8 +15,7 @@ module decoder(
     output PipelineReg::EX_STATE ex_state,
 	output logic [4:0] rs1,
 	output logic [4:0] rs2,
-	output logic [4:0] rd,
-	output logic [31:0] write_data
+	output logic [4:0] rd
     );
 	
 	always_comb begin
