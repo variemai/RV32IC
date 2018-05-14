@@ -1,8 +1,9 @@
 /*****************************************************************************
  * Pipeline Registers used by the modules                                    *
  * Authors: Vardas Ioannis                                                   *
+ *          Antonios Psistakis (psistakis@csd.uoc.gr)                        *
  * created for the purposes of CS-523 RISC-V 32 bit implementation project   *
- * Computer Science Department University of Crete 27/03/2018                *
+ * Computer Science Department University of Crete 14/05/2018                *
  *****************************************************************************/
  `ifndef _pipelineregs
  `define _pipelineregs
@@ -36,6 +37,12 @@ package PipelineReg;
 		logic MemRead;
 		logic MemWrite;
     }EX_STATE;
+
+    typedef struct packed {
+        logic [31:0] pc;
+        logic [31:0] ALUOutput; 
+        logic branch;
+    }MEM_STATE;
 
 
 endpackage
