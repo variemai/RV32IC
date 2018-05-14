@@ -7,7 +7,7 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         April 20th, 2018                                   *
+ *  Date:         May 14th, 2018                                     *
  *  Description:  Test for the Arithmetic Logic Unit (ALU)           *
  *                for a 32-bit RISC-V                                *
  *                                                                   *
@@ -17,17 +17,18 @@ program alu_test(
 
     input 				clk,
     output reg 			reset_p,
+
     output reg	[31:0] 	A_p,
     output reg 	[31:0]	B_p,
-    output reg  [6:0]	ALUmode_p,
     output reg 	[31:0]	Imm_SignExt_p,
     output reg 	[31:0]	NPC_p,
     output reg  [2:0]   ALUop_p,
   	output reg  [2:0]   func3_p,
   	output reg          func7_p, // 1 bit
+
     input  		[31:0]  ALUOutput_p,
-    input 				branch_p,
-    input  		[31:0]  retaddr_p);
+    input 				branch_p);
+   // input  		[31:0]  retaddr_p);
 
 
 
@@ -38,7 +39,8 @@ program alu_test(
 
 
 reg 	[31:0]	tmp_res;
-reg 		tmp_branch;
+reg 	tmp_branch;
+reg   [6:0]  ALUmode_p;
 
 
 task set_params();

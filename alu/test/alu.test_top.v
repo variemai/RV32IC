@@ -7,12 +7,13 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         April 20th, 2018                                   *
+ *  Date:         May 14th, 2018                                     *
  *  Description:  Top test for the Arithmetic Logic Unit (ALU)       *
  *                for a 32-bit RISC-V                                *
  *                                                                   *
  *********************************************************************/
 
+`include "../../PipelineRegs.sv"
 
 module alu_test_top;
 
@@ -80,17 +81,9 @@ typedef enum bit [6:0] {
   
   bit                         i_clk;
   wire                        i_reset;
-  wire      [31:0]            i_A;
-  wire      [31:0]            i_B;
-  wire      [5:0]             i_ALUmode;
-  
 
-  wire      [31:0]            i_Imm_SignExt;
-  wire      [31:0]            i_NPC;
-
-  wire	    [2:0]   	      i_ALUop;
-  wire      [2:0]   	      i_func3;
-  wire          	      i_func7; // 1 bit
+  PipelineReg::EX_STATE ex_state;
+  PipelineReg::MEM_STATE mem_state;
 
   wire      [31:0]            o_ALUOutput;
   wire                        o_branch;
@@ -100,33 +93,35 @@ typedef enum bit [6:0] {
   alu dut(
     .i_clk          ( i_clk ),
     .i_reset        ( i_reset ),
-    .i_A            ( i_A ),
-    .i_B            ( i_B ),
-    .i_ALUmode      ( i_ALUmode ),
-    .i_Imm_SignExt  ( i_Imm_SignExt ),
-    .i_NPC          ( i_NPC ),
-    .i_ALUop        ( i_ALUop ),
-    .i_func3        ( i_func3 ),
-    .i_func7        ( i_func7 ), // 1 bit
-    .o_ALUOutput    ( o_ALUOutput ),
-    .o_branch       ( o_branch ),
-    .o_retaddr	    ( o_retaddr )
+    .i_A            ( ex_state.rs1 ),
+    .i_B            ( ex_state.rs2 ),
+
+    .i_Imm_SignExt  ( ex_state.immediate ),
+    .i_NPC          ( ex_state.pc ),
+    .i_ALUop        ( ex_state.ALUOp ),
+    .i_func3        ( ex_state.func3 ),
+    .i_func7        ( ex_state.func7 ), // 1 bit
+
+    .o_ALUOutput    ( mem_state.ALUOutput ),
+    .o_branch       ( mem_state.branch )
+    //.o_retaddr	    ( o_retaddr )
   );
 
   alu_test testbench( 
     .clk            ( i_clk ),
     .reset_p        ( i_reset ),
-    .A_p            ( i_A ),
-    .B_p            ( i_B ),
-    .ALUmode_p      ( i_ALUmode ),
-    .Imm_SignExt_p  ( i_Imm_SignExt ),
-    .NPC_p          ( i_NPC ),
-    .ALUop_p        ( i_ALUop ),
-    .func3_p        ( i_func3 ),
-    .func7_p        ( i_func7 ), // 1 bit
-    .ALUOutput_p    ( o_ALUOutput ),
-    .branch_p       ( o_branch ),
-    .retaddr_p 	    ( o_retaddr )
+
+    .A_p            ( ex_state.rs1 ),
+    .B_p            ( ex_state.rs2 ),
+    .Imm_SignExt_p  ( ex_state.immediate ),
+    .NPC_p          ( ex_state.pc ),
+    .ALUop_p        ( ex_state.ALUOp ),
+    .func3_p        ( ex_state.func3 ),
+    .func7_p        ( ex_state.func7 ), // 1 bit
+
+    .ALUOutput_p    ( mem_state.ALUOutput ),
+    .branch_p       ( mem_state.branch )
+    //.retaddr_p 	    ( o_retaddr )
   );
 
   initial begin

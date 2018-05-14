@@ -7,7 +7,7 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         April 20th, 2018                                   *
+ *  Date:         May 14th, 2018                                     *
  *  Description:  Arithmetic Logic Unit (ALU) for a 32-bit RISC-V    *
  *                                                                   *
  *********************************************************************/
@@ -66,12 +66,11 @@ typedef enum bit [6:0]{
 } ALUmode_t;
 
 
-module alu (i_clk, i_reset, i_ALUmode, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_func7, o_ALUOutput, o_branch, o_retaddr);
+module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_func7, o_ALUOutput, o_branch);// o_retaddr);
 
   
   input  [31:0]           i_A;
   input  [31:0]           i_B;
-  input  [6:0]            i_ALUmode;
   input  [31:0]           i_Imm_SignExt;
   input  [31:0]           i_NPC;
   input  [2:0]            i_ALUop;
@@ -79,7 +78,7 @@ module alu (i_clk, i_reset, i_ALUmode, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, 
   input                   i_func7; // 1 bit
   output reg [31:0]       o_ALUOutput;
   output reg              o_branch;
-  output reg [31:0]       o_retaddr;
+  //output reg [31:0]       retaddr_p;
   input                   i_reset;
   input                   i_clk;
 
