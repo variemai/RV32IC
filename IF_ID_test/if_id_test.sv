@@ -10,7 +10,7 @@ program if_id_tb(
 	logic [31:0] pc_out;
 	initial begin
 		pc_out = 32'b0;
-		for(int i=0; i<4; i++) begin
+		for(int i=0; i<5; i++) begin
 			issue_and_check_Instr();		
 		//@(posedge clk)$write("RS1: %b\nRS2: %b\nRD: %b\nDATA: %b\n",rs1,rs2,rd,write_data);
 		end	

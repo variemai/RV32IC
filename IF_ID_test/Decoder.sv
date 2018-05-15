@@ -15,24 +15,39 @@ module decoder(
     output PipelineReg::EX_STATE ex_state,
 	output logic [4:0] rs1,
 	output logic [4:0] rs2,
-	output logic [4:0] rd
+	output logic [4:0] rd,
+	output logic enable_pc
     );
-	
+	logic stall;
+
 	always_comb begin
 		//stall cases need to be implemented
 		/*Need to wait for EX,MEM stages*/
-		//if( id_state.instruction[19:15] == ex_state.rd || id_state.instruction[11:7] == ex_state.rd ) begin
-		//end
+		if( (id_state.instruction[24:20] == ex_state.rd) && (ex_state.rd != 5'b0) ) begin
+			rs1 = 5'b0;
+			rd = 5'b0;
+			rs2 = 5'b0;
+			stall = 1;
+			$write("PREV RD: %b\n",ex_state.rd);
+			$write("CURR RS2: %b\n",id_state.instruction[24:20]);
+			enable_pc = 0;
+			$write("STALL\n");
+		end
+		else begin
 		//else if(id_state.instruction[19:15] == mem_state.rd || id_state.instruction[11:7] == mem_state.rd ) begin
 		//end	
-		rs1 = id_state.instruction[19:15];
-		rd = id_state.instruction[11:7];
-		rs2 = id_state.instruction[24:20];
+			rs1 = id_state.instruction[19:15];
+			rd = id_state.instruction[11:7];
+			rs2 = id_state.instruction[24:20];
+			stall = 0;
+			enable_pc = 1;
+		end
 	end	
 	
 	always @(posedge clk) begin
 		//Important send rs, rt to read from regfile
-		ex_state.pc <= id_state.pc;
+		if(!stall)
+			ex_state.pc <= id_state.pc;
 		ex_state.func3 <= id_state.instruction[14:12];
 		ex_state.func7 <= id_state.instruction[31:25];
 		ex_state.rs1 <= id_state.instruction[19:15];

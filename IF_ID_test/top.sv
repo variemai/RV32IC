@@ -3,6 +3,7 @@
 module top;
 	bit clk;
 	bit reset;
+	logic pc_enable;
 	logic [31:0] pc;
 	logic [4:0] src1;
 	logic [4:0] src2;
@@ -15,6 +16,7 @@ module top;
 
 	IFetch fetch(
 		.clk(clk),
+		.enable(pc_enable),
 		.pc_in(id_reg.pc),
 		.pc_out(id_reg.pc),
 		.instruction(id_reg.instruction)
@@ -27,7 +29,8 @@ module top;
 		.ex_state(ex_reg),
 		.rs1(src1),
 		.rs2(src2),
-		.rd(dst)
+		.rd(dst),
+		.enable_pc(pc_enable)
 	);
 	
 	RegFile regF(
