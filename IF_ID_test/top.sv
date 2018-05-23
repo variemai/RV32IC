@@ -2,55 +2,61 @@
 `include "../ISA.sv"
 module top;
 	bit clk;
-	bit reset;
+	logic reset;
 	logic pc_enable;
 	logic [31:0] pc;
-	logic [4:0] src1;
-	logic [4:0] src2;
-	logic [4:0] dst;
 	logic [31:0] data_out0;
 	logic [31:0] data_out1;
 	logic [31:0] data_in;
 	PipelineReg::ID_STATE id_reg;
+	PipelineReg::EX_STATE id_ex_reg;
 	PipelineReg::EX_STATE ex_reg;
+
 
 	IFetch fetch(
 		.clk(clk),
 		.enable(pc_enable),
 		.pc_in(id_reg.pc),
 		.pc_out(id_reg.pc),
+		//.stall_pc(pc),
+		.reset(reset),
+		//.pc_out(id_reg.pc),
 		.instruction(id_reg.instruction)
 	);
 	
 	decoder decode(
 		.clk(clk),
-		.reset(reset),
 		.id_state(id_reg),
-		.ex_state(ex_reg),
-		.rs1(src1),
-		.rs2(src2),
-		.rd(dst),
+		.reset(reset),
+		//.stall_pc(pc),
+		.ex_state(id_ex_reg),
 		.enable_pc(pc_enable)
 	);
 	
 	RegFile regF(
 		.clk(clk),
 		.we(we),
-		.read_addr0(src1),
-		.read_addr1(src2),
-		.write_addr(dst),
+		.read_addr0(id_ex_reg.rs1),
+		.read_addr1(id_ex_reg.rs2),
+		.write_addr(id_ex_reg.rd),
 		.din(data_in),
 		.dout0(data_out0),
 		.dout1(data_out1)
 	);
 
+	id_ex_reg idexreg(
+		.clk(clk),
+		.in(id_ex_reg),
+		.out(ex_reg)
+	);
+
 	
 	if_id_tb tb(
 		.clk(clk),
-		.pc(pc),
 		.ex_state(ex_reg),
 		.data0(data_out0),
-		.data1(data_out1)
+		.data1(data_out1),
+		.reset(reset)
 	);
 
 
