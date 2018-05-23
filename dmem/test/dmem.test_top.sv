@@ -7,12 +7,12 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         May 22th, 2018                                     *
+ *  Date:         May 23th, 2018                                     *
  *  Description:  Top module for data mem. test for a 32-bit RISC-V  *  
  *                                                                   *
  *********************************************************************/
 
-module Dmem_test_top;
+module dmem_test_top;
 
 	parameter clock_cycle = 100;
 
@@ -22,15 +22,15 @@ module Dmem_test_top;
 	logic 		we;
 	logic [31:0] 	data_to_mem;
 
-	DFetch dut(
-		.i_clk(clk),
-		.i_addr(addr),
-		.i_we(we),
-		.i_data_to_mem(data_to_mem),
-		.o_data_from_mem(data_from_mem)
-	);
+	dmem dut(
+                .i_clk(clk),
+                .i_we(we),
+                .i_addr(addr),
+                .i_wdata(data_to_mem),
+                .o_rdata(data_from_mem)
+        );
 
-	Dmem_test tb(
+	dmem_test tb(
 		.i_clk(clk),
 		.i_rdata(data_from_mem),
 		.o_addr(addr),

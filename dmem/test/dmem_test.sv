@@ -7,13 +7,13 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         May 22th, 2018                                     *
+ *  Date:         May 23th, 2018                                     *
  *  Description:  Data memory test for a 32-bit RISC-V               *  
  *                                                                   *
  *********************************************************************/
 
 
-program Dmem_test(
+program dmem_test(
 	input 			i_clk,
     	input logic [31:0] 	i_rdata,
     	output logic [31:0] 	o_addr,
