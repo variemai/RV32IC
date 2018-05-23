@@ -2,10 +2,12 @@
  * Pipeline Registers used by the modules                                    *
  * Authors: Vardas Ioannis                                                   *
  *          Antonios Psistakis (psistakis@csd.uoc.gr)                        *
+ *	    (updated on May 24th, 2018)					     *
  * created for the purposes of CS-523 RISC-V 32 bit implementation project   *
  * Computer Science Department University of Crete 14/05/2018                *
  *****************************************************************************/
- `ifndef _pipelineregs
+ 
+`ifndef _pipelineregs
  `define _pipelineregs
 package PipelineReg;
 
@@ -21,7 +23,7 @@ package PipelineReg;
     typedef struct packed {
         logic [31:0] pc;
         logic [2:0] func3; 
-		logic [6:0] func7;
+		logic func7;
 		logic [2:0] ALUOp;
         //logic [31:0] rs1_data; we will not need these sync reg file
         //logic [31:0] rs2_data;
@@ -32,17 +34,53 @@ package PipelineReg;
 		logic RegWrite; //Instructions that need to write to reg file
         /*More signals for forwarding and hazard detection*/
 		logic branch; //is one bit enough?
-        logic [4:0] rs1;
-        logic [4:0] rs2;
-		logic MemRead;
-		logic MemWrite;
+		logic [4:0] rs1;
+        	logic [4:0] rs2;
+        	logic [31:0] rd1;
+        	logic [31:0] rd2;
+		//logic MemRead;
+		//logic MemWrite;
+
+
+		logic [31:0] write_reg;
     }EX_STATE;
 
     typedef struct packed {
         logic [31:0] pc;
-        logic [31:0] ALUOutput; 
-        logic branch;
+
+	// Memory Stage
+	// control signals
+	logic BranchSrc0;
+        logic MemRead;
+        logic MemWrite;
+	// output signals
+	logic [31:0] AddSum;
+	logic branch; // or "Zero" or "BranchSrc1"
+	logic [31:0] ALUOutput;
+	logic [31:0] rd2;
+	logic [31:0] write_reg;
+	
+	// Write back stage
+        logic MemToReg;
+        logic RegWrite;
+
+
     }MEM_STATE;
+
+   
+    typedef struct packed {
+        logic [31:0] pc;
+
+        // output signals
+        logic [31:0] ALUOutput;
+        logic [31:0] rdata;
+        logic [31:0] write_reg;
+
+	// Write back stage
+        logic MemToReg;
+        logic RegWrite;
+
+    }WBACK_STATE;
 
 
 endpackage

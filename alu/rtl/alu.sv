@@ -7,12 +7,14 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         May 14th, 2018                                     *
+ *  Date:         May 24th, 2018                                     *
  *  Description:  Arithmetic Logic Unit (ALU) for a 32-bit RISC-V    *
  *                                                                   *
  *********************************************************************/
 
 //`define PC_bits 32
+
+`include "../../PipelineRegs.sv"
 
 typedef enum bit [6:0]{
 
@@ -84,16 +86,27 @@ module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_
 
 
 reg [31:0] tmp_PC;
+PipelineReg::EX_STATE ex_state;
+PipelineReg::MEM_STATE mem_state;
 
-always_comb
+
+//always_comb
+always @(posedge i_clk)
 begin
   tmp_PC = i_NPC + (2<<i_Imm_SignExt);
 end
 
+always @(posedge i_clk)
+begin
+	mem_state.AddSum = tmp_PC;
+	mem_state.branch = o_branch;
+	mem_state.ALUOutput = o_ALUOutput;
+	mem_state.rd2 = ex_state.rd2;
+	mem_state.write_reg = ex_state.write_reg;
+end
 
-
-//always @(posedge i_clk) 
-always_comb
+always @(posedge i_clk) 
+//always_comb
 begin
   o_ALUOutput = 32'b0;
 //	$display ("\ti_ALUop is: %d\n", i_ALUop);

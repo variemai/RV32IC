@@ -93,8 +93,8 @@ typedef enum bit [6:0] {
   alu dut(
     .i_clk          ( i_clk ),
     .i_reset        ( i_reset ),
-    .i_A            ( ex_state.rs1 ),
-    .i_B            ( ex_state.rs2 ),
+    .i_A            ( ex_state.rd1 ),
+    .i_B            ( ex_state.rd2 ),
 
     .i_Imm_SignExt  ( ex_state.immediate ),
     .i_NPC          ( ex_state.pc ),
@@ -111,8 +111,8 @@ typedef enum bit [6:0] {
     .clk            ( i_clk ),
     .reset_p        ( i_reset ),
 
-    .A_p            ( ex_state.rs1 ),
-    .B_p            ( ex_state.rs2 ),
+    .A_p            ( ex_state.rd1 ),
+    .B_p            ( ex_state.rd2 ),
     .Imm_SignExt_p  ( ex_state.immediate ),
     .NPC_p          ( ex_state.pc ),
     .ALUop_p        ( ex_state.ALUOp ),
