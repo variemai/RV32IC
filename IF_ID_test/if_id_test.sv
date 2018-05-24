@@ -8,12 +8,12 @@ program if_id_tb(
 	);
 	
 	initial begin
-		reset <= 1;
-		@ (posedge clk);
-		reset <= 0;
+		reset = 1;
+		@(posedge clk)
+		reset = 0;
 		for(int i=0; i<5; i++) begin
 			issue_and_check_Instr();		
-		end	
+		end
 	end
 
 	task issue_and_check_Instr();

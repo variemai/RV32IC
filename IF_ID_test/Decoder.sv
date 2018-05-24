@@ -11,11 +11,11 @@ module decoder(
     input clk,
     input PipelineReg::ID_STATE id_state,
     output PipelineReg::EX_STATE ex_state,
-	output logic enable_pc,
-	//output logic [31:0] stall_pc,
+	input PipelineReg::EX_STATE next_state,
+	output logic stall,
 	input reset
-    );
-	logic stall;
+);
+
 	always_comb begin
 		//$write("PC IN ID STAGE: %d\n",id_state.pc);
 		//stall cases need to be implemented
@@ -23,29 +23,28 @@ module decoder(
 		//if(reset) begin
 		//	enable_pc = 0;
 		//end
-		if( (id_state.instruction[24:20] == ex_state.rd) && (ex_state.rd != 5'b0) ) begin
-			$write("PREV RD: %b\n",ex_state.rd);
-			$write("CURR RS2: %b\n",id_state.instruction[24:20]);
+		if( (id_state.instruction[24:20] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+			//$write("PREV RD: %b\n",ex_state.rd);
+			//$write("CURR RS2: %b\n",id_state.instruction[24:20]);
 			$write("STALL\n");
 			ex_state.rs1 = 5'b0;
 			ex_state.rd = 5'b0;
 			ex_state.rs2 = 5'b0;
 			stall = 1;
-			enable_pc = 0;
+			ex_state.pc = id_state.pc;
 			//ex_state.pc = id_state.pc - 4;
-			//stall_pc = ex_state.pc;
 		end
 		else begin
 			ex_state.rs1 = id_state.instruction[19:15];
 			ex_state.rd = id_state.instruction[11:7];
 			ex_state.rs2 = id_state.instruction[24:20];
 			stall = 0;
-			enable_pc = 1;
 			ex_state.pc = id_state.pc;
 			ex_state.func3 = id_state.instruction[14:12];
 			ex_state.func7 = id_state.instruction[31:25];
 
 			casez(id_state.instruction)
+
 
 			`ADD, `SUB, `SLL, `SLT, `SLTU, `XOR, `SRL, `SRA, `OR, `AND: 
 			begin

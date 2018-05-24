@@ -5,6 +5,7 @@ module top;
 	logic reset;
 	logic pc_enable;
 	logic [31:0] pc;
+	logic [31:0] pc_stall;
 	logic [31:0] data_out0;
 	logic [31:0] data_out1;
 	logic [31:0] data_in;
@@ -15,22 +16,19 @@ module top;
 
 	IFetch fetch(
 		.clk(clk),
-		.enable(pc_enable),
-		.pc_in(id_reg.pc),
+		.stall(pc_enable),
 		.pc_out(id_reg.pc),
-		//.stall_pc(pc),
 		.reset(reset),
-		//.pc_out(id_reg.pc),
 		.instruction(id_reg.instruction)
 	);
-	
+
 	decoder decode(
 		.clk(clk),
 		.id_state(id_reg),
 		.reset(reset),
-		//.stall_pc(pc),
 		.ex_state(id_ex_reg),
-		.enable_pc(pc_enable)
+		.next_state(ex_reg),
+		.stall(pc_enable)
 	);
 	
 	RegFile regF(
@@ -44,7 +42,7 @@ module top;
 		.dout1(data_out1)
 	);
 
-	id_ex_reg idexreg(
+	id_ex_reg ID_EX(
 		.clk(clk),
 		.in(id_ex_reg),
 		.out(ex_reg)

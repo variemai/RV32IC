@@ -8,7 +8,7 @@ module id_ex_reg(
 	//input enable
 );
 
-always @(posedge clk) begin
+always_ff @(posedge clk) begin
 	//if(enable)
 		out <= in;
 end
