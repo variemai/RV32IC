@@ -12,6 +12,9 @@
  *                                                                   *
  *********************************************************************/
 
+
+`include "../../PipelineRegs.sv"
+
 module dmem
 #(
 //------------------------------------------------
@@ -27,6 +30,7 @@ parameter RAM_SIZE = 512
 	output logic [DATA_WIDTH-1:0] o_rdata
 	);
 
+
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
 		$readmemh("../test/data.data", RAM, 0, 100);
@@ -40,5 +44,17 @@ parameter RAM_SIZE = 512
 		else
 			o_rdata <= RAM[i_addr];
 	end
+
+	PipelineReg::EX_STATE ex_state;
+	PipelineReg::MEM_STATE mem_state;
+	PipelineReg::WBACK_STATE wback_state;
+	always @(posedge i_clk) begin
+	        wback_state.RegWrite = mem_state.RegWrite;
+        	wback_state.MemToReg = mem_state.MemToReg;
+		wback_state.rdata = o_rdata;
+		wback_state.ALUOutput = mem_state.ALUOutput;
+        	wback_state.write_reg = mem_state.write_reg;
+	end
+
 	
 endmodule
