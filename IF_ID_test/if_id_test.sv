@@ -11,7 +11,7 @@ program if_id_tb(
 		reset = 1;
 		@(posedge clk)
 		reset = 0;
-		for(int i=0; i<5; i++) begin
+		for(int i=0; i<15; i++) begin
 			issue_and_check_Instr();		
 		end
 	end

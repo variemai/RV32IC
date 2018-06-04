@@ -21,7 +21,7 @@ module IFetch(
 	end
 	always_ff @(posedge clk) begin 
 		$write("STALL SIGNAL: %d\n",stall);
-		$write("PC_IN: %d\nPC_OUT: %d\n",pc_in,pc_out);
+		//$write("PC_IN: %d\nPC_OUT: %d\n",pc_in,pc_out);
 		if(reset) begin 
 			pc_out <= 32'b0;
 		end
