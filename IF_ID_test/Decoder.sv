@@ -23,7 +23,7 @@ module decoder(
 		//if(reset) begin
 		//	enable_pc = 0;
 		//end
-		if( (id_state.instruction[24:20] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+		if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
 			//$write("PREV RD: %b\n",ex_state.rd);
 			//$write("CURR RS2: %b\n",id_state.instruction[24:20]);
 			//$write("STALL\n");
