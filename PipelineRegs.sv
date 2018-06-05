@@ -35,13 +35,11 @@ package PipelineReg;
         /*More signals for forwarding and hazard detection*/
 		logic branch; //is one bit enough?
 		logic [4:0] rs1;
-        	logic [4:0] rs2;
-        	logic [31:0] rd1;
-        	logic [31:0] rd2;
-		//logic MemRead;
-		//logic MemWrite;
-
-
+        logic [4:0] rs2;
+        logic [31:0] rd1;
+        logic [31:0] rd2;
+		logic MemRead;
+		logic MemWrite;
 		logic [31:0] write_reg;
     }EX_STATE;
 
