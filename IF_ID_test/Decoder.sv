@@ -41,7 +41,7 @@ module decoder(
 				ex_state.ALUOp = 3'b010;
 				ex_state.ALUsrc = 2'b00;
 				ex_state.MemRead = 0;
-				ex_state.Mem2Reg = 0;
+				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
 				stall = 0; 
 				//$write("R-Format Instruction\n");
@@ -53,7 +53,7 @@ module decoder(
 				ex_state.ALUOp = 3'b011;
 				ex_state.ALUsrc = 2'b01;
 				ex_state.MemRead = 0;
-				ex_state.Mem2Reg = 0;
+				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
 				stall = 0;
 				//$write("I-Format Instruction\n");
@@ -71,7 +71,7 @@ module decoder(
 				ex_state.ALUOp = 3'b100;
 				ex_state.ALUsrc = 2'b01;
 				ex_state.MemRead = 0;
-				ex_state.Mem2Reg = 0;
+				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
 				stall = 0;
 			end
@@ -83,7 +83,7 @@ module decoder(
 				ex_state.ALUOp = 3'b101;
 				ex_state.ALUsrc = 2'b10;
 				ex_state.MemRead = 0;
-				ex_state.Mem2Reg = 0;
+				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
 				stall = 0;
 			end
@@ -93,7 +93,7 @@ module decoder(
 				ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 				ex_state.ALUOp = 3'b0;
 				ex_state.MemRead = 1;
-				ex_state.Mem2Reg = 1;
+				ex_state.MemToReg = 1;
 				ex_state.MemWrite = 0;
 				ex_state.ALUsrc = 2'b01;
 				stall = 0;
@@ -106,7 +106,7 @@ module decoder(
 				ex_state.ALUOp = 3'b0;
 				ex_state.MemWrite = 1;
 				ex_state.MemRead = 0;
-				ex_state.Mem2Reg = 0;
+				ex_state.MemToReg = 0;
 				ex_state.ALUsrc = 2'b01;
 				stall = 0;
 			end
@@ -117,7 +117,7 @@ module decoder(
 				ex_state.ALUOp = 3'b001;
 				ex_state.MemWrite = 0;
 				ex_state.MemRead = 0;
-				ex_state.Mem2Reg = 0;
+				ex_state.MemToReg = 0;
 				ex_state.ALUsrc = 2'b00;
 				stall = 1;
 			end
