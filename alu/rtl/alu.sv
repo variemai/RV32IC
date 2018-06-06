@@ -94,7 +94,7 @@ reg [31:0] stalled_PC; // target PC after a branch = stalled_PC
 //always_comb
 always @(posedge i_clk)
 begin
-  tmp_PC = i_NPC + (2<<i_Imm_SignExt);
+  tmp_PC = i_NPC + (i_Imm_SignExt<<2);
 end
 
 initial begin
@@ -174,7 +174,6 @@ begin
             o_branch = 1'bx; // should never go here
         end
       endcase
-      //o_ALUOutput = i_NPC + (2<<i_Imm_SignExt);
       o_ALUOutput = tmp_PC;
     end
     else if(i_ALUop==2) // R-type..
