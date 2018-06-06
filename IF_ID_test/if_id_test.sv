@@ -1,4 +1,4 @@
-`include "../PipelineRegs.sv"
+`include "PipelineRegs.sv"
 program if_id_tb(
 	input clk,
 	input PipelineReg::EX_STATE ex_state,

@@ -13,7 +13,7 @@
  *                                                                   *
  *********************************************************************/
 
-`include "../../PipelineRegs.sv"
+`include "PipelineRegs.sv"
 
 module alu_test_top;
 

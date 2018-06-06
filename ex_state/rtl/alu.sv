@@ -14,7 +14,7 @@
 
 //`define PC_bits 32
 
-`include "../../PipelineRegs.sv"
+`include "PipelineRegs.sv"
 
 typedef enum bit [6:0]{
 

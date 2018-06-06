@@ -1,5 +1,5 @@
-`include "../PipelineRegs.sv"
-`include "../ISA.sv"
+`include "PipelineRegs.sv"
+`include "ISA.sv"
 module top;
 	bit clk;
 	logic reset;

@@ -1,4 +1,4 @@
-`include "../PipelineRegs.sv"
+`include "PipelineRegs.sv"
 
 
 module id_ex_reg(
