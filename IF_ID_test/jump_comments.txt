@@ -1,0 +1,4 @@
+lui x3, 16
+auipc x5, 32
+jalr x4, 2
+addi x4, x4, 16 

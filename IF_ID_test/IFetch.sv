@@ -1,3 +1,10 @@
+/*****************************************************************************
+ * The Instruction Fetch module, reads from instruction memory using a 32bit *
+ * pc depending on the control signals                                       *
+ * Authors: Vardas Ioannis                                                   *
+ * created for the purposes of CS-523 RISC-V 32 bit implementation project   *
+ * Computer Science Department University of Crete 27/03/2018                *
+ *****************************************************************************/
 `include "../PipelineRegs.sv"
 module IFetch(
 	input clk,

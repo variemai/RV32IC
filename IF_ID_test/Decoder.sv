@@ -17,28 +17,18 @@ module decoder(
 );
 
 	always_comb begin
-		//$write("PC IN ID STAGE: %d\n",id_state.pc);
-		//stall cases need to be implemented
-		/*Need to wait for EX,MEM stages*/
-		//if(reset) begin
-		//	enable_pc = 0;
-		//end
 		if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
-			//$write("PREV RD: %b\n",ex_state.rd);
-			//$write("CURR RS2: %b\n",id_state.instruction[24:20]);
-			//$write("STALL\n");
 			ex_state.rs1 = 5'b0;
 			ex_state.rd = 5'b0;
 			ex_state.rs2 = 5'b0;
 			stall = 1;
 			ex_state.pc = id_state.pc;
-			//ex_state.pc = id_state.pc - 4;
 		end
 		else begin
 			ex_state.rs1 = id_state.instruction[19:15];
 			ex_state.rd = id_state.instruction[11:7];
 			ex_state.rs2 = id_state.instruction[24:20];
-			stall = 0;
+			//stall = 0;
 			ex_state.pc = id_state.pc;
 			ex_state.func3 = id_state.instruction[14:12];
 			ex_state.func7 = id_state.instruction[31:25];
@@ -53,6 +43,7 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.Mem2Reg = 0;
 				ex_state.MemWrite = 0;
+				stall = 0; 
 				//$write("R-Format Instruction\n");
 			end
 
@@ -64,6 +55,7 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.Mem2Reg = 0;
 				ex_state.MemWrite = 0;
+				stall = 0;
 				//$write("I-Format Instruction\n");
 			end
 
@@ -81,6 +73,7 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.Mem2Reg = 0;
 				ex_state.MemWrite = 0;
+				stall = 0;
 			end
 
 			`AUIPC:
@@ -92,6 +85,7 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.Mem2Reg = 0;
 				ex_state.MemWrite = 0;
+				stall = 0;
 			end
 
 			`LB, `LH, `LW, `LBU,`LHU:
@@ -102,6 +96,7 @@ module decoder(
 				ex_state.Mem2Reg = 1;
 				ex_state.MemWrite = 0;
 				ex_state.ALUsrc = 2'b01;
+				stall = 0;
 				//$write("Load Instruction!\n");
 			end
 
@@ -113,6 +108,7 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.Mem2Reg = 0;
 				ex_state.ALUsrc = 2'b01;
+				stall = 0;
 			end
 
 			`BEQ, `BNE, `BGE, `BLTU, `BGEU:
@@ -123,8 +119,10 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.Mem2Reg = 0;
 				ex_state.ALUsrc = 2'b00;
+				stall = 1;
 			end
 			default: begin
+				stall = 0;
 				//$write("Unknown Instruction Format!\n");
 			end
 			endcase
