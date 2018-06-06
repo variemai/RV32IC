@@ -1,9 +1,9 @@
-all: clean comp run
+all: clean alu run
 
 clean:
 	\rm -rf simv csrc simv* comp.log sim.log ucli.key
 
-comp:
+alu:
 	vcs -sverilog alu.test_top.sv ../rtl/alu.sv alu_test.sv -debug_all  -l comp.log
 
 run:
