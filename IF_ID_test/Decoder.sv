@@ -5,6 +5,7 @@
  * created for the purposes of CS-523 RISC-V 32 bit implementation project   *
  * Computer Science Department University of Crete 27/03/2018                *
  *****************************************************************************/
+
 `include "PipelineRegs.sv"
 `include "ISA.sv"
 
@@ -18,7 +19,11 @@ module decoder(
 );
 
 	always_comb begin
+
+		ex_state.func7 = id_state.instruction[30];
+		/* Checks for stalls must be inserted in the separate cases. Some instructions do not read registers so they are independed 
 		if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+			 Issue addi x0, x0, 0 this issues add x0,x0,x0
 			ex_state.rs1 = 5'b0;
 			ex_state.rd = 5'b0;
 			ex_state.rs2 = 5'b0;
@@ -29,34 +34,61 @@ module decoder(
 			ex_state.rs1 = id_state.instruction[19:15];
 			ex_state.rd = id_state.instruction[11:7];
 			ex_state.rs2 = id_state.instruction[24:20];
-			//stall = 0;
 			ex_state.pc = id_state.pc;
-			ex_state.func3 = id_state.instruction[14:12];
-			ex_state.func7 = id_state.instruction[31:25];
-
+			*/
 			casez(id_state.instruction)
-
 
 			`ADD, `SUB, `SLL, `SLT, `SLTU, `XOR, `SRL, `SRA, `OR, `AND: 
 			begin
-				ex_state.ALUOp = 3'b010;
-				ex_state.ALUsrc = 2'b00;
+				if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+					ex_state.rs1 = 5'b0;
+					ex_state.rd = 5'b0;
+					ex_state.ALUOp = 3'b011;
+					ex_state.ALUsrc = 2'b01;
+					ex_state.immediate = 32'b0;
+					ex_state.RegWrite = 0;
+					ex_state.func3 = 3'b0;
+					stall = 1;
+				end 
+				else begin
+					ex_state.rs1 = id_state.instruction[19:15];
+					ex_state.rd = id_state.instruction[11:7];
+					ex_state.rs2 = id_state.instruction[24:20];
+					ex_state.ALUOp = 3'b010;
+					ex_state.ALUsrc = 2'b00;
+					ex_state.RegWrite = 1;
+					stall = 0; 
+				end
+				//$write("R-Format Instruction\n");
+				ex_state.pc = id_state.pc;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
-				stall = 0; 
-				//$write("R-Format Instruction\n");
 			end
 
 			`ADDI, `SLTI, `SLTIU, `XORI, `ORI:
 			begin
-				ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
+				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+					ex_state.rs1 = 5'b0;
+					ex_state.rd = 5'b0;
+					ex_state.immediate = 32'b0;
+					ex_state.RegWrite = 0;
+					ex_state.func3 = 3'b0;
+					stall = 1;
+				end 
+				else begin
+					ex_state.rs1 = id_state.instruction[19:15];
+					ex_state.rd = id_state.instruction[11:7];
+					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
+					ex_state.RegWrite = 1;
+					ex_state.func3 = id_state.instruction[14:12];
+					stall = 0;
+				end
 				ex_state.ALUOp = 3'b011;
 				ex_state.ALUsrc = 2'b01;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
-				stall = 0;
 				//$write("I-Format Instruction\n");
 			end
 
@@ -91,13 +123,28 @@ module decoder(
 
 			`LB, `LH, `LW, `LBU,`LHU:
 			begin
-				ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
-				ex_state.ALUOp = 3'b0;
-				ex_state.MemRead = 1;
-				ex_state.MemToReg = 1;
+				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+					ex_state.rs1 = 5'b0;
+					ex_state.rd = 5'b0;
+					ex_state.immediate = 32'b0;
+					ex_state.RegWrite = 0;
+					ex_state.MemRead = 0;
+					ex_state.MemToReg = 0;
+					ex_state.func3 = 3'b0;
+					ex_state.ALUOp = 3'b011;
+					stall = 1;
+				end
+				else begin
+					ex_state.rs1 = id_state.instruction[19:15];
+					ex_state.rd = id_state.instruction[11:7];
+					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
+					ex_state.ALUOp = 3'b0;
+					ex_state.MemRead = 1;
+					ex_state.MemToReg = 1;
+					stall = 0;
+				end
 				ex_state.MemWrite = 0;
 				ex_state.ALUsrc = 2'b01;
-				stall = 0;
 				//$write("Load Instruction!\n");
 			end
 
