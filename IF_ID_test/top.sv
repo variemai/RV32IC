@@ -6,6 +6,7 @@ module top;
 	logic pc_enable;
 	logic [31:0] pc;
 	logic [31:0] pc_stall;
+	logic [31:0] pc_jump;
 	logic [31:0] data_out0;
 	logic [31:0] data_out1;
 	logic [31:0] data_in;
@@ -28,6 +29,7 @@ module top;
 		.reset(reset),
 		.ex_state(id_ex_reg),
 		.next_state(ex_reg),
+		.jmp_pc(pc_jump),
 		.stall(pc_enable)
 	);
 	
@@ -52,6 +54,7 @@ module top;
 	if_id_tb tb(
 		.clk(clk),
 		.ex_state(ex_reg),
+		.jmp_pc(pc_jump),
 		.data0(data_out0),
 		.data1(data_out1),
 		.reset(reset)

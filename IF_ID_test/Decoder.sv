@@ -15,31 +15,20 @@ module decoder(
     output PipelineReg::EX_STATE ex_state,
 	input PipelineReg::EX_STATE next_state,
 	output logic stall,
+	output logic jmp,
+	output logic [31:0] jmp_pc,
 	input reset
 );
 
-	always_comb begin
-
+ 	always_comb begin
 		ex_state.func7 = id_state.instruction[30];
-		/* Checks for stalls must be inserted in the separate cases. Some instructions do not read registers so they are independed 
-		if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
-			 Issue addi x0, x0, 0 this issues add x0,x0,x0
-			ex_state.rs1 = 5'b0;
-			ex_state.rd = 5'b0;
-			ex_state.rs2 = 5'b0;
-			stall = 1;
-			ex_state.pc = id_state.pc;
-		end
-		else begin
-			ex_state.rs1 = id_state.instruction[19:15];
-			ex_state.rd = id_state.instruction[11:7];
-			ex_state.rs2 = id_state.instruction[24:20];
-			ex_state.pc = id_state.pc;
-			*/
-			casez(id_state.instruction)
+		ex_state.pc = id_state.pc;
+		//$write("INSTRUCTION :%b\n",id_state.instruction);
+		casez (id_state.instruction) 
 
 			`ADD, `SUB, `SLL, `SLT, `SLTU, `XOR, `SRL, `SRA, `OR, `AND: 
 			begin
+				jmp = 0;
 				if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
 					ex_state.rs1 = 5'b0;
 					ex_state.rd = 5'b0;
@@ -60,7 +49,6 @@ module decoder(
 					stall = 0; 
 				end
 				//$write("R-Format Instruction\n");
-				ex_state.pc = id_state.pc;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
@@ -68,6 +56,7 @@ module decoder(
 
 			`ADDI, `SLTI, `SLTIU, `XORI, `ORI:
 			begin
+				jmp = 0;
 				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
 					ex_state.rs1 = 5'b0;
 					ex_state.rd = 5'b0;
@@ -92,13 +81,9 @@ module decoder(
 				//$write("I-Format Instruction\n");
 			end
 
-			`SLLI, `SRLI, `SRAI:
-			begin
-				//TODO implementation of these instructions might need separate cases
-			end
-
 			`LUI:
 			begin
+				jmp = 0;
 				ex_state.immediate[31:12] = id_state.instruction[31:12];
 				ex_state.immediate[11:0] = 12'b0;
 				ex_state.ALUOp = 3'b100;
@@ -107,10 +92,12 @@ module decoder(
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
 				stall = 0;
+				//$write("LUI\n");
 			end
 
 			`AUIPC:
 			begin
+				jmp = 0;
 				ex_state.immediate[31:12] = id_state.instruction[31:12];
 				ex_state.immediate[11:0] = 12'b0;
 				ex_state.ALUOp = 3'b101;
@@ -119,10 +106,12 @@ module decoder(
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
 				stall = 0;
+				//$write("AUIPC\n");
 			end
 
 			`LB, `LH, `LW, `LBU,`LHU:
 			begin
+				jmp = 0;
 				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
 					ex_state.rs1 = 5'b0;
 					ex_state.rd = 5'b0;
@@ -148,33 +137,92 @@ module decoder(
 				//$write("Load Instruction!\n");
 			end
 
-			`SB, `SH, `SW:
+			`JAL:
 			begin
-				ex_state.immediate = {{21{id_state.instruction[31]}},id_state.instruction[30:25],id_state.instruction[11:7]};
-				ex_state.ALUOp = 3'b0;
-				ex_state.MemWrite = 1;
+				$write("JAL Instruction!\n");
+				jmp = 1;
+				ex_state.immediate = {{12{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21],1'b0};
+				jmp_pc = ex_state.immediate + id_state.pc -4 ;
+				ex_state.rd = id_state.instruction[11:7];
+				ex_state.RegWrite = 0;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
+				ex_state.MemWrite = 0;
+				ex_state.ALUOp = 110;
+				stall = 0;	
+			end
+
+			`JALR:
+			begin
+				$write("JALR Instruction!\n");
+				jmp = 1;
+				ex_state.immediate = {{13{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21]} << 1;
+				jmp_pc = ex_state.immediate + id_state.pc -4 ;
+				ex_state.rd = id_state.instruction[11:7];
+				ex_state.RegWrite = 0;
+				ex_state.MemRead = 0;
+				ex_state.MemToReg = 0;
+				ex_state.MemWrite = 0;
+				ex_state.ALUOp = 111;
+				stall = 0;	
+			end
+
+			`SB, `SH, `SW:
+			begin
+				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+					ex_state.rs1 = 5'b0;
+					ex_state.rd = 5'b0;
+					ex_state.immediate = 32'b0;
+					ex_state.RegWrite = 0;
+					ex_state.MemRead = 0;
+					ex_state.MemToReg = 0;
+					ex_state.func3 = 3'b0;
+					ex_state.ALUOp = 3'b011;
+					stall = 1;
+					ex_state.MemWrite = 0;
+				end
+				else begin 
+					ex_state.immediate = {{21{id_state.instruction[31]}},id_state.instruction[30:25],id_state.instruction[11:7]};
+					ex_state.ALUOp = 3'b0;
+					ex_state.MemWrite = 1;
+					ex_state.MemRead = 0;
+					ex_state.MemToReg = 0;
+					stall = 0;
+				end
+				//$write("STORE Instruction!\n");
 				ex_state.ALUsrc = 2'b01;
-				stall = 0;
 			end
 
 			`BEQ, `BNE, `BGE, `BLTU, `BGEU:
 			begin
-				ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
-				ex_state.ALUOp = 3'b001;
+				if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
+					ex_state.rs1 = 5'b0;
+					ex_state.rd = 5'b0;
+					ex_state.ALUOp = 3'b011;
+					ex_state.ALUsrc = 2'b01;
+					ex_state.immediate = 32'b0;
+					ex_state.func3 = 3'b0;
+					stall = 1;
+				end 
+				else begin
+					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
+					ex_state.ALUOp = 3'b001;
+					ex_state.ALUsrc = 2'b00;
+					stall = 1;
+				end
 				ex_state.MemWrite = 0;
+				ex_state.RegWrite = 0;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
-				ex_state.ALUsrc = 2'b00;
-				stall = 1;
+				//$write("LOAD Instruction!\n");
 			end
-			default: begin
+			
+			default: 
+			begin
 				stall = 0;
-				//$write("Unknown Instruction Format!\n");
+				$write("Unknown Instruction Format!\n");
 			end
-			endcase
-		end
+		endcase
 	end
 
 endmodule
