@@ -9,10 +9,10 @@ program if_id_tb(
 	);
 	
 	initial begin
-		reset = 1;
-		@(posedge clk)
-		reset = 0;
-		for(int i=0; i<9; i++) begin
+		reset <= 1;
+		repeat (2) @(posedge clk);
+		reset <= 0;
+		for(int i=0; i<2048; i++) begin
 			issue_and_check_Instr();		
 		end
 	end

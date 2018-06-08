@@ -11,6 +11,8 @@ module IFetch(
 	input clk,
 	input logic reset,
 	input logic stall,
+	input logic jmp,
+	input logic [31:0] jmp_pc,
 	output logic [31:0] pc_out,
 	output logic [31:0] instruction
 	);
@@ -19,6 +21,7 @@ module IFetch(
 	logic [31:0] pc_4;
 	logic [31:0] instruction_r;
 	logic [31:0] instruction_m;
+	
 	logic stall_r;
 
 	always_ff @ (posedge clk) begin
@@ -28,24 +31,35 @@ module IFetch(
 		end
 	end
 	always_ff @(posedge clk) begin 
-		//$write("STALL SIGNAL: %d\n",stall);
+		$write("STALL SIGNAL: %d\n",stall);
 		//$write("PC_IN: %d\nPC_OUT: %d\n",pc_in,pc_out);
 		if(reset) begin 
-			pc_out <= 32'b0;
+			pc_out <= 'h100;
 		end
 		else begin
 			pc_out <= pc_in;
 		end
 	end
 
-	assign	pc_4 = pc_out + 4;
-	assign	pc_in = stall ? pc_out: pc_4;
+	//assign	pc_4 = pc_out + 4;
+	//assign	pc_in = stall ? pc_out: pc_4;
+	always_comb begin
+	 assign	pc_4 = pc_out + 4;
+		if(jmp) begin 
+			pc_in = jmp_pc;
+		end else if(stall) begin
+			pc_in = pc_out;
+		end else begin
+			pc_in = pc_4;
+		end
+	end
+
 	imem InstructionMem(
 		.clk(clk),
 		.addr(pc_out[10:2]),
 		.dout(instruction_m)
 	);
-
+	
 	assign instruction = stall_r ? instruction_r : instruction_m;
 	always_ff @(posedge clk) begin
 		if(reset) instruction_r <= 32'b0;

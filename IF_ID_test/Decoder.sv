@@ -24,9 +24,10 @@ module decoder(
 		ex_state.func7 = id_state.instruction[30];
 		ex_state.pc = id_state.pc;
 		//$write("INSTRUCTION :%b\n",id_state.instruction);
-		casez (id_state.instruction) 
+		case (id_state.instruction[6:0]) inside
 
-			`ADD, `SUB, `SLL, `SLT, `SLTU, `XOR, `SRL, `SRA, `OR, `AND: 
+			//`ADD, `SUB, `SLL, `SLT, `SLTU, `XOR, `SRL, `SRA, `OR, `AND: 
+			7'b0110011:
 			begin
 				jmp = 0;
 				if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
@@ -46,6 +47,7 @@ module decoder(
 					ex_state.ALUOp = 3'b010;
 					ex_state.ALUsrc = 2'b00;
 					ex_state.RegWrite = 1;
+					ex_state.func3 = id_state.instruction[14:12];
 					stall = 0; 
 				end
 				//$write("R-Format Instruction\n");
@@ -54,7 +56,7 @@ module decoder(
 				ex_state.MemWrite = 0;
 			end
 
-			`ADDI, `SLTI, `SLTIU, `XORI, `ORI:
+			7'b0010011:
 			begin
 				jmp = 0;
 				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
@@ -81,7 +83,7 @@ module decoder(
 				//$write("I-Format Instruction\n");
 			end
 
-			`LUI:
+			7'b0110111:
 			begin
 				jmp = 0;
 				ex_state.immediate[31:12] = id_state.instruction[31:12];
@@ -95,7 +97,7 @@ module decoder(
 				//$write("LUI\n");
 			end
 
-			`AUIPC:
+			7'b0010111:
 			begin
 				jmp = 0;
 				ex_state.immediate[31:12] = id_state.instruction[31:12];
@@ -109,7 +111,8 @@ module decoder(
 				//$write("AUIPC\n");
 			end
 
-			`LB, `LH, `LW, `LBU,`LHU:
+			//`LB, `LH, `LW, `LBU,`LHU:
+			7'b0000011:
 			begin
 				jmp = 0;
 				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
@@ -137,12 +140,13 @@ module decoder(
 				//$write("Load Instruction!\n");
 			end
 
-			`JAL:
+			//`JAL:
+			7'b1101111:
 			begin
 				$write("JAL Instruction!\n");
 				jmp = 1;
 				ex_state.immediate = {{12{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21],1'b0};
-				jmp_pc = ex_state.immediate + id_state.pc -4 ;
+				jmp_pc = ex_state.immediate + id_state.pc ;
 				ex_state.rd = id_state.instruction[11:7];
 				ex_state.RegWrite = 0;
 				ex_state.MemRead = 0;
@@ -152,8 +156,10 @@ module decoder(
 				stall = 0;	
 			end
 
-			`JALR:
+			//`JALR:
+			7'b1100111:
 			begin
+				/*Not correct implementation JALR needs 3 stages*/
 				$write("JALR Instruction!\n");
 				jmp = 1;
 				ex_state.immediate = {{13{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21]} << 1;
@@ -167,7 +173,8 @@ module decoder(
 				stall = 0;	
 			end
 
-			`SB, `SH, `SW:
+			//`SB, `SH, `SW:
+			7'b0100011:
 			begin
 				if( (id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
 					ex_state.rs1 = 5'b0;
@@ -193,7 +200,8 @@ module decoder(
 				ex_state.ALUsrc = 2'b01;
 			end
 
-			`BEQ, `BNE, `BGE, `BLTU, `BGEU:
+			//`BEQ, `BNE, `BGE, `BLTU, `BGEU:
+			7'b1100011:
 			begin
 				if( (id_state.instruction[24:20] == next_state.rd || id_state.instruction[19:15] == next_state.rd) && (next_state.rd != 5'b0) ) begin
 					ex_state.rs1 = 5'b0;

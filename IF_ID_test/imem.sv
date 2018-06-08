@@ -1,9 +1,9 @@
 module imem
 #(
 //------------------------------------------------
-parameter ADDR_WIDTH = 9,
+parameter ADDR_WIDTH = 11,
 parameter DATA_WIDTH = 32,
-parameter RAM_SIZE = 512
+parameter RAM_SIZE = 2048
 //------------------------------------------------
 )   (
 	input clk,
@@ -13,7 +13,7 @@ parameter RAM_SIZE = 512
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
-		$readmemb("instructions.data", RAM, 0, 8);
+		$readmemh("codemem.hex", RAM, 0, 2048);
 	end
 	always_ff @(posedge clk) begin
 		dout <= RAM[addr];

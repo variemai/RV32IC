@@ -4,6 +4,7 @@ module top;
 	bit clk;
 	logic reset;
 	logic pc_enable;
+	logic jmp;
 	logic [31:0] pc;
 	logic [31:0] pc_stall;
 	logic [31:0] pc_jump;
@@ -19,6 +20,8 @@ module top;
 		.clk(clk),
 		.stall(pc_enable),
 		.pc_out(id_reg.pc),
+		.jmp(jmp),
+		.jmp_pc(pc_jump),
 		.reset(reset),
 		.instruction(id_reg.instruction)
 	);
@@ -29,6 +32,7 @@ module top;
 		.reset(reset),
 		.ex_state(id_ex_reg),
 		.next_state(ex_reg),
+		.jmp(jmp),
 		.jmp_pc(pc_jump),
 		.stall(pc_enable)
 	);
