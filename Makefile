@@ -1,7 +1,7 @@
 all: clean all_states run
 
 clean:
-	\rm -rf simv csrc simv* comp.log sim.log ucli.key
+	\rm -rf simv csrc simv* comp.log sim.log ucli.key inter.vpd
 
 all_states:
 	vcs -sverilog \

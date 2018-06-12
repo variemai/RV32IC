@@ -1,17 +1,14 @@
 `include "PipelineRegs.sv"
 `include "ISA.sv"
 
-
-
-
 module top;
 	bit clk;
 	logic reset;
 	logic pc_enable;
 	logic [31:0] pc;
 	logic [31:0] pc_stall;
-	logic [31:0] data_out0;
-	logic [31:0] data_out1;
+	logic [31:0] reg_dataA;
+	logic [31:0] reg_dataB;
 	logic [31:0] data_in;
 	PipelineReg::ID_STATE id_reg;
 	PipelineReg::EX_STATE id_ex_reg;
@@ -43,8 +40,8 @@ module top;
 		.read_addr1(id_ex_reg.rs2),
 		.write_addr(id_ex_reg.rd),
 		.din(data_in),
-		.dout0(data_out0),
-		.dout1(data_out1)
+		.dout0(reg_dataA),
+		.dout1(reg_dataB)
 	);
 
 	id_ex_reg ID_EX(
@@ -57,8 +54,8 @@ module top;
         alu EX_MEM(
     		.i_clk          ( clk ),
     		.i_reset        ( reset ),
-    		.i_A            ( ex_reg.rd1 ),
-    		.i_B            ( ex_reg.rd2 ),
+    		.i_A            ( reg_dataA ),
+    		.i_B            ( reg_dataB ),
 
     		.i_Imm_SignExt  ( ex_reg.immediate ),
     		.i_NPC          ( ex_reg.pc ),
