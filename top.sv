@@ -10,6 +10,10 @@ module top;
 	logic [31:0] reg_dataA;
 	logic [31:0] reg_dataB;
 	logic [31:0] data_in;
+	logic valid;
+
+	logic [31:0] rdata;
+
 	PipelineReg::ID_STATE id_reg;
 	PipelineReg::EX_STATE id_ex_reg;
 	PipelineReg::EX_STATE ex_reg;
@@ -17,22 +21,26 @@ module top;
 	PipelineReg::WBACK_STATE wb_state;	
 
 	IFetch fetch(
-		.clk(clk),
-		.stall(pc_enable),
-		.pc_out(id_reg.pc),
-		.reset(reset),
-		.instruction(id_reg.instruction)
-	);
+                .clk(clk),
+                .stall(pc_enable),
+                .pc_out(id_reg.pc),
+                .jmp(jmp),
+                .jmp_pc(pc_jump),
+                .reset(reset),
+                .valid(valid),
+                .instruction(id_reg.instruction)
+        );
 
-	decoder decode(
-		.clk(clk),
-		.id_state(id_reg),
-		.reset(reset),
-		.ex_state(id_ex_reg),
-		.next_state(ex_reg),
-		.stall(pc_enable)
-	);
-	
+        decoder decode(
+                .clk(clk),
+                .id_state(id_reg),
+                .reset(reset),
+                .ex_state(id_ex_reg),
+                .next_state(ex_reg),
+                .stall(pc_enable),
+                .valid(valid)
+        );
+
 	RegFile regF(
 		.clk(clk),
 		.we(we),
@@ -73,8 +81,21 @@ module top;
 
                 .i_addr(mem_state.ALUOutput),
                 .i_wdata(mem_state.write_reg),
-                .o_rdata(wb_state.rdata)
+          	.i_mem_state(mem_state),
+		.o_rdata(rdata),
+		.o_wback_state(wb_state)
+	);
+
+
+	 top_tb tb(
+                .clk(clk),
+                .ex_state(ex_reg),
+                .jmp_pc(pc_jump),
+                .data0(data_out0),
+                .data1(data_out1),
+                .reset(reset)
         );
+
 
 	initial begin
 		clk = 0;

@@ -61,7 +61,7 @@ package PipelineReg;
 	// Write back stage
         logic MemToReg;
         logic RegWrite;
-
+	logic [4:0] rd;
 
     }MEM_STATE;
 
@@ -77,6 +77,7 @@ package PipelineReg;
 	// Write back stage
         logic MemToReg;
         logic RegWrite;
+	logic [4:0] rd;
 
     }WBACK_STATE;
 

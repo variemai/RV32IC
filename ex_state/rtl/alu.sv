@@ -118,7 +118,8 @@ begin
 	mem_state.ALUOutput = o_ALUOutput;
 	mem_state.rd2 = ex_state.rd2;
 	mem_state.write_reg = ex_state.write_reg;
-
+	
+	mem_state.rd = ex_state.rd;
 
 	mem_state.MemToReg = ex_state.MemToReg;
 	mem_state.RegWrite = ex_state.RegWrite;

@@ -11,8 +11,12 @@
  *  Description:  Top module for data mem. test for a 32-bit RISC-V  *  
  *                                                                   *
  *********************************************************************/
+`include "PipelineRegs.sv"
 
 module dmem_test_top;
+
+	PipelineReg::MEM_STATE mem_state;
+        PipelineReg::WBACK_STATE wback_state;
 
 	parameter clock_cycle = 100;
 
@@ -27,7 +31,9 @@ module dmem_test_top;
                 .i_we(we),
                 .i_addr(addr),
                 .i_wdata(data_to_mem),
-                .o_rdata(data_from_mem)
+		.i_mem_state(mem_state),
+                .o_rdata(data_from_mem),
+		.o_wback_state(wback_state)
         );
 
 	dmem_test tb(

@@ -13,7 +13,7 @@ parameter RAM_SIZE = 2048
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
-		$readmemb("instr_dependencies.data", RAM, 0, 2048);
+		$readmemb("instr_dependencies.data", RAM, 0, 4);
 	end
 	always_ff @(posedge clk) begin
 		dout <= RAM[addr];
