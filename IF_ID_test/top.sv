@@ -11,6 +11,7 @@ module top;
 	logic [31:0] data_out0;
 	logic [31:0] data_out1;
 	logic [31:0] data_in;
+	logic valid;
 	PipelineReg::ID_STATE id_reg;
 	PipelineReg::EX_STATE id_ex_reg;
 	PipelineReg::EX_STATE ex_reg;
@@ -23,6 +24,7 @@ module top;
 		.jmp(jmp),
 		.jmp_pc(pc_jump),
 		.reset(reset),
+		.valid(valid),
 		.instruction(id_reg.instruction)
 	);
 
@@ -32,9 +34,8 @@ module top;
 		.reset(reset),
 		.ex_state(id_ex_reg),
 		.next_state(ex_reg),
-		.jmp(jmp),
-		.jmp_pc(pc_jump),
-		.stall(pc_enable)
+		.stall(pc_enable),
+		.valid(valid)
 	);
 	
 	RegFile regF(

@@ -12,14 +12,14 @@ program if_id_tb(
 		reset <= 1;
 		repeat (2) @(posedge clk);
 		reset <= 0;
-		for(int i=0; i<2048; i++) begin
+		for(int i=0; i<12; i++) begin
 			issue_and_check_Instr();		
 		end
 	end
 
 	task issue_and_check_Instr();
 		@(posedge clk) begin
-			$write("PC: %d\nRD: %b\nJMP_PC: %d\nIMMEDIATE: %d\n",ex_state.pc,ex_state.rd,jmp_pc,ex_state.immediate);
+			$write("PC: %d\nRD: %b\n",ex_state.pc,ex_state.rd);
 		end
 	endtask
 
