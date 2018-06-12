@@ -146,7 +146,7 @@ module decoder(
 				$write("JAL Instruction!\n");
 				jmp = 1;
 				ex_state.immediate = {{12{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21],1'b0};
-				jmp_pc = ex_state.immediate + id_state.pc ;
+				//jmp_pc = ex_state.immediate + id_state.pc ;
 				ex_state.rd = id_state.instruction[11:7];
 				ex_state.RegWrite = 0;
 				ex_state.MemRead = 0;
