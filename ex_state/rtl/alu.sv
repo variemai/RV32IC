@@ -90,11 +90,12 @@ PipelineReg::EX_STATE ex_state;
 PipelineReg::MEM_STATE mem_state;
 reg [31:0] stalled_PC; // target PC after a branch = stalled_PC
 
+reg [31:0] tmp_value;
 
 //always_comb
 always @(posedge i_clk)
 begin
-  tmp_PC = i_NPC + (i_Imm_SignExt<<2);
+  tmp_PC = i_NPC + (i_Imm_SignExt<<1);
 end
 
 initial begin
@@ -312,7 +313,8 @@ begin
     end
     else if(i_ALUop==7) // I-type.., JALR
     begin
-      o_ALUOutput = i_A + i_Imm_SignExt;
+      tmp_value = i_A + i_Imm_SignExt;
+      o_ALUOutput = {tmp_value[31:1], 1'b0};
     end
   end
   else // there is a need for stall in execution state
