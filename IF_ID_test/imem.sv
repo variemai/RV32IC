@@ -13,7 +13,7 @@ parameter RAM_SIZE = 2048
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
-		$readmemb("/home/vardas/rv32ic/IF_ID_test/addi.data", RAM, 0, 8);
+		$readmemb("addi.data", RAM, 0, 8);
 	end
 	always_ff @(posedge clk) begin
 		dout <= RAM[addr];
