@@ -4,14 +4,17 @@
 module top;
 	bit clk;
 	logic reset;
-	logic valid;
 	logic pc_enable;
+	logic valid;
 	logic [31:0] pc;
 	logic [31:0] pc_stall;
 	logic [31:0] reg_dataA;
 	logic [31:0] reg_dataB;
 	logic [31:0] data_in;
+	logic valid;
+
 	logic [31:0] rdata;
+
 	PipelineReg::ID_STATE id_reg;
 	PipelineReg::EX_STATE id_ex_reg;
 	PipelineReg::EX_STATE ex_reg;
@@ -39,6 +42,18 @@ module top;
                 .valid(valid)
         );
 
+<<<<<<< HEAD
+	decoder decode(
+		.clk(clk),
+		.id_state(id_reg),
+		.ex_state(id_ex_reg),
+		.next_state(ex_reg),
+		.stall(pc_enable),
+		.valid(valid)
+	);
+	
+=======
+>>>>>>> e5699792302e33f79e5565112813a799aa79d59c
 	RegFile regF(
 		.clk(clk),
 		.we(we),
@@ -76,7 +91,6 @@ module top;
 	testbench tb(
 		.clk(clk),
 		.mem_state(mem_state),
-		.ex_state(ex_state),
 		.reset(reset)
 	);
 
@@ -91,7 +105,7 @@ module top;
 		.o_wback_state(wb_state)
 	);
 
-/*
+
 	 top_tb tb(
                 .clk(clk),
                 .ex_state(ex_reg),
@@ -101,7 +115,7 @@ module top;
                 .reset(reset)
         );
 
-*/
+
 	initial begin
 		clk = 0;
 		forever begin
