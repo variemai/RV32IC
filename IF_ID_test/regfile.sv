@@ -15,12 +15,8 @@ parameter RAM_SIZE = 32
 	);
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
-<<<<<<< HEAD
 	logic [DATA_WIDTH-1:0] dout;
 	
-=======
-	/*
->>>>>>> 3a8ed1b5314df1f7209f56a8fc2e0853352c9e7a
 	initial begin
 		$readmemh("regfile.data", RAM, 0, 32);
 	end
