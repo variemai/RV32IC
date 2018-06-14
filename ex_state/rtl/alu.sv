@@ -113,15 +113,15 @@ end
 
 always @(posedge i_clk)
 begin
-	mem_state.AddSum = tmp_PC;
-	mem_state.branch = o_branch;
-	mem_state.ALUOutput = o_ALUOutput;
-	mem_state.rd2 = ex_state.rd2;
-	mem_state.write_reg = ex_state.write_reg;
+	mem_state.AddSum <= tmp_PC;
+	mem_state.branch <= o_branch;
+	mem_state.ALUOutput <= o_ALUOutput;
+	mem_state.rd2 <= ex_state.rd2;
+	mem_state.write_reg <= ex_state.write_reg;
 
 
-	mem_state.MemToReg = ex_state.MemToReg;
-	mem_state.RegWrite = ex_state.RegWrite;
+	mem_state.MemToReg <= ex_state.MemToReg;
+	mem_state.RegWrite <= ex_state.RegWrite;
 end
 
 always @(posedge i_clk) 

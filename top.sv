@@ -5,6 +5,7 @@ module top;
 	bit clk;
 	logic reset;
 	logic pc_enable;
+	logic valid;
 	logic [31:0] pc;
 	logic [31:0] pc_stall;
 	logic [31:0] reg_dataA;
@@ -27,10 +28,10 @@ module top;
 	decoder decode(
 		.clk(clk),
 		.id_state(id_reg),
-		.reset(reset),
 		.ex_state(id_ex_reg),
 		.next_state(ex_reg),
-		.stall(pc_enable)
+		.stall(pc_enable),
+		.valid(valid)
 	);
 	
 	RegFile regF(
@@ -53,7 +54,7 @@ module top;
 	
         alu EX_MEM(
     		.i_clk          ( clk ),
-    		.i_reset        ( reset ),
+    		.i_reset        ( valid ),
     		.i_A            ( reg_dataA ),
     		.i_B            ( reg_dataB ),
 
@@ -66,6 +67,12 @@ module top;
     		.o_ALUOutput    ( mem_state.ALUOutput ),
     		.o_branch       ( mem_state.branch )
   	);
+
+	testbench tb(
+		.clk(clk),
+		.mem_state(mem_state),
+		.reset(reset)
+	);
 
 	dmem MEM_WB(
                 .i_clk(clk),

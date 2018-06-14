@@ -16,7 +16,7 @@ module decoder(
 	input PipelineReg::EX_STATE next_state,
 	input logic valid,
 	output logic stall,
-	input reset
+	input logic reset
 );
 
  	always_comb begin
