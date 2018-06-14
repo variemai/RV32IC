@@ -27,13 +27,15 @@ parameter RAM_SIZE = 512
 	input i_we,
 	input [ADDR_WIDTH-1:0] i_addr,
 	input [DATA_WIDTH-1:0] i_wdata,
-	output logic [DATA_WIDTH-1:0] o_rdata
+	output logic [DATA_WIDTH-1:0] o_rdata,
+	input PipelineReg::MEM_STATE i_mem_state,
+	output PipelineReg::WBACK_STATE o_wback_state
 	);
 
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
-		$readmemh("../test/data.data", RAM, 0, 100);
+		$readmemh("data.data", RAM, 0, 100);
 	end
 
 	always @(posedge i_clk) begin
@@ -45,15 +47,13 @@ parameter RAM_SIZE = 512
 			o_rdata <= RAM[i_addr];
 	end
 
-	PipelineReg::EX_STATE ex_state;
-	PipelineReg::MEM_STATE mem_state;
-	PipelineReg::WBACK_STATE wback_state;
 	always @(posedge i_clk) begin
-	        wback_state.RegWrite = mem_state.RegWrite;
-        	wback_state.MemToReg = mem_state.MemToReg;
-		wback_state.rdata = o_rdata;
-		wback_state.ALUOutput = mem_state.ALUOutput;
-        	wback_state.write_reg = mem_state.write_reg;
+	        o_wback_state.RegWrite = i_mem_state.RegWrite;
+        	o_wback_state.MemToReg = i_mem_state.MemToReg;
+		o_wback_state.rdata = o_rdata;
+		o_wback_state.ALUOutput = i_mem_state.ALUOutput;
+        	o_wback_state.write_reg = i_mem_state.write_reg;
+		o_wback_state.rd = i_mem_state.rd;
 	end
 
 	
