@@ -18,6 +18,10 @@ module top;
 	PipelineReg::MEM_STATE mem_state;
 	PipelineReg::WBACK_STATE wb_state;	
 
+
+	wire [31:0]  ALUOutput;
+  	wire         branch;
+
 	IFetch fetch(
                 .clk(clk),
                 .stall(pc_enable),
@@ -69,8 +73,12 @@ module top;
     		.i_func3        ( ex_reg.func3 ),
     		.i_func7        ( ex_reg.func7 ), // 1 bit
 
-    		.o_ALUOutput    ( mem_state.ALUOutput ),
-    		.o_branch       ( mem_state.branch )
+    		.o_ALUOutput    ( ALUOutput ),
+    		.o_branch       ( branch ),
+
+		.i_ex_state     ( ex_reg ),
+    		.o_mem_state    ( mem_state )
+
   	);
 
 	testbench tb(

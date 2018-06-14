@@ -68,7 +68,7 @@ typedef enum bit [6:0]{
 } ALUmode_t;
 
 
-module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_func7, o_ALUOutput, o_branch);// o_retaddr);
+module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_func7, o_ALUOutput, o_branch, i_ex_state, o_mem_state);// o_retaddr);
 
   
   input  [31:0]           i_A;
@@ -83,11 +83,11 @@ module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_
   //output reg [31:0]       retaddr_p;
   input                   i_reset;
   input                   i_clk;
+  input  PipelineReg::EX_STATE i_ex_state;
+  output PipelineReg::MEM_STATE o_mem_state;
 
 
 reg [31:0] tmp_PC;
-PipelineReg::EX_STATE ex_state;
-PipelineReg::MEM_STATE mem_state;
 reg [31:0] stalled_PC; // target PC after a branch = stalled_PC
 
 reg [31:0] tmp_value;
@@ -113,15 +113,16 @@ end
 
 always @(posedge i_clk)
 begin
-	mem_state.AddSum <= tmp_PC;
-	mem_state.branch <= o_branch;
-	mem_state.ALUOutput <= o_ALUOutput;
-	mem_state.rd2 <= ex_state.rd2;
-	mem_state.write_reg <= ex_state.write_reg;
+	o_mem_state.AddSum <= tmp_PC;
+	o_mem_state.branch <= o_branch;
+
+	o_mem_state.ALUOutput <= o_ALUOutput;
+	o_mem_state.rd2 <= i_ex_state.rd2;
+	o_mem_state.write_reg <= i_ex_state.write_reg;
 
 
-	mem_state.MemToReg <= ex_state.MemToReg;
-	mem_state.RegWrite <= ex_state.RegWrite;
+	o_mem_state.MemToReg <= i_ex_state.MemToReg;
+	o_mem_state.RegWrite <= i_ex_state.RegWrite;
 end
 
 always @(posedge i_clk) 

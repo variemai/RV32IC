@@ -102,8 +102,13 @@ typedef enum bit [6:0] {
     .i_func3        ( ex_state.func3 ),
     .i_func7        ( ex_state.func7 ), // 1 bit
 
-    .o_ALUOutput    ( mem_state.ALUOutput ),
-    .o_branch       ( mem_state.branch )
+    .o_ALUOutput    ( o_ALUOutput ),
+    .o_branch       ( o_branch ),
+
+    .i_ex_state     ( ex_state ),
+    .o_mem_state    ( mem_state )
+
+
     //.o_retaddr	    ( o_retaddr )
   );
 
