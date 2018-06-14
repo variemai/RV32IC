@@ -79,6 +79,8 @@ package PipelineReg;
         logic RegWrite;
 	logic [4:0] rd;
 
+	logic [31:0] final_out;
+
     }WBACK_STATE;
 
 

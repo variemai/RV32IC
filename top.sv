@@ -45,11 +45,11 @@ module top;
 
 	RegFile regF(
 		.clk(clk),
-		.we(we),
+		.we(wb_state.RegWrite),
 		.read_addr0(id_ex_reg.rs1),
 		.read_addr1(id_ex_reg.rs2),
-		.write_addr(id_ex_reg.rd),
-		.din(data_in),
+		.write_addr(wb_state.rd),
+		.din(wb_state.final_out),
 		.dout0(reg_dataA),
 		.dout1(reg_dataB)
 	);

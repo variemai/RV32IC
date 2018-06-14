@@ -116,14 +116,22 @@ begin
 	o_mem_state.AddSum <= tmp_PC;
 	o_mem_state.branch <= o_branch;
 
-	o_mem_state.ALUOutput <= o_ALUOutput;
+//	o_mem_state.ALUOutput <= o_ALUOutput;
 	o_mem_state.rd2 <= i_ex_state.rd2;
 	o_mem_state.write_reg <= i_ex_state.write_reg;
 
 
 	o_mem_state.MemToReg <= i_ex_state.MemToReg;
+
 	o_mem_state.RegWrite <= i_ex_state.RegWrite;
+	o_mem_state.rd <= i_ex_state.rd;
 end
+
+always_comb
+begin
+	o_mem_state.ALUOutput <= o_ALUOutput;
+end
+
 
 always @(posedge i_clk) 
 //always_comb

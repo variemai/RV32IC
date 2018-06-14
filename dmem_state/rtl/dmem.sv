@@ -56,5 +56,7 @@ parameter RAM_SIZE = 512
 		o_wback_state.rd = i_mem_state.rd;
 	end
 
+	assign o_wback_state.final_out = i_mem_state.MemToReg ? o_rdata : i_mem_state.ALUOutput;
+
 	
 endmodule
