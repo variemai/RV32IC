@@ -6,6 +6,7 @@ module top;
 	logic reset;
 	logic valid;
 	logic pc_enable;
+	logic nop;
 	logic [31:0] pc;
 	logic [31:0] pc_stall;
 	logic [31:0] reg_dataA;
@@ -23,25 +24,26 @@ module top;
   	wire         branch;
 
 	IFetch fetch(
-                .clk(clk),
-                .stall(pc_enable),
-                .pc_out(id_reg.pc),
-                .jmp(jmp),
-                .jmp_pc(pc_jump),
-                .reset(reset),
-                .valid(valid),
-                .instruction(id_reg.instruction)
-        );
+		.clk(clk),
+        .stall(pc_enable),
+        .pc_out(id_reg.pc),
+        .issue_nop(nop),
+        .jmp_pc(pc_jump),
+        .reset(reset),
+        .valid(valid),
+        .instruction(id_reg.instruction)
+   );
 
-        decoder decode(
-                .clk(clk),
-                .id_state(id_reg),
-                .reset(reset),
-                .ex_state(id_ex_reg),
-                .next_state(ex_reg),
-                .stall(pc_enable),
-                .valid(valid)
-        );
+   decoder decode(
+	   .clk(clk),
+       .id_state(id_reg),
+       .reset(reset),
+	   .issue_nop(nop),
+       .ex_state(id_ex_reg),
+       .next_state(ex_reg),
+       .stall(pc_enable),
+       .valid(valid)
+   );
 
 	RegFile regF(
 		.clk(clk),
@@ -83,18 +85,17 @@ module top;
 
 	testbench tb(
 		.clk(clk),
-		.mem_state(mem_state),
-		.ex_state(ex_state),
+		.wb_state(wb_state),
+		.ex_state(ex_reg),
 		.reset(reset)
 	);
 
 	dmem MEM_WB(
-                .i_clk(clk),
-                .i_we(mem_state.MemWrite),
-
-                .i_addr(mem_state.ALUOutput),
-                .i_wdata(mem_state.write_reg),
-          	.i_mem_state(mem_state),
+		.i_clk(clk),
+        .i_we(mem_state.MemWrite),
+        .i_addr(mem_state.ALUOutput),
+        .i_wdata(mem_state.write_reg),
+        .i_mem_state(mem_state),
 		.o_rdata(rdata),
 		.o_wback_state(wb_state)
 	);

@@ -11,7 +11,7 @@ module IFetch(
 	input clk,
 	input logic reset,
 	input logic stall,
-	input logic jmp,
+	input logic issue_nop,
 	input logic [31:0] jmp_pc,
 	output logic [31:0] pc_out,
 	output logic [31:0] instruction,
@@ -22,6 +22,7 @@ module IFetch(
 	logic [31:0] pc_4;
 	logic [31:0] instruction_r;
 	logic [31:0] instruction_m;
+	logic [31:0] nop;
 	
 	logic stall_r;
 
@@ -48,9 +49,7 @@ module IFetch(
 	//assign	pc_in = stall ? pc_out: pc_4;
 	assign pc_4 = pc_out + 4;
 	always_comb begin
-		if(jmp) begin 
-			pc_in = jmp_pc;
-		end else if(stall) begin
+		if(stall) begin
 			pc_in = pc_out;
 		end else begin
 			pc_in = pc_4;
@@ -62,8 +61,16 @@ module IFetch(
 		.addr(pc_out[10:2]),
 		.dout(instruction_m)
 	);
-	
-	assign instruction = stall_r ? instruction_r : instruction_m;
+	always_comb begin
+		if(issue_nop) begin 
+			instruction = nop;
+		end else if (stall_r) begin
+			instruction = instruction_r;
+		end else begin
+			instruction = instruction_m;
+		end
+	end
+	//assign instruction = stall_r ? instruction_r : instruction_m;
 	always_ff @(posedge clk) begin
 		if(reset) instruction_r <= 32'b0;
 		else begin

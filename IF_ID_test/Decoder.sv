@@ -16,6 +16,7 @@ module decoder(
 	input PipelineReg::EX_STATE next_state,
 	input logic valid,
 	output logic stall,
+	output logic issue_nop,
 	input logic reset
 );
 

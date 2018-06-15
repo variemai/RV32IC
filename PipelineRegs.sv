@@ -25,8 +25,6 @@ package PipelineReg;
         logic [2:0] func3; 
 		logic func7;
 		logic [2:0] ALUOp;
-        //logic [31:0] rs1_data; we will not need these sync reg file
-        //logic [31:0] rs2_data;
         logic [31:0] immediate; 
 		logic [4:0] rd;
 		logic [1:0] ALUsrc ; //sources are regfile, immediate or pc

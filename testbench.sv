@@ -2,7 +2,7 @@
 
 program testbench(
 	input clk,
-	input PipelineReg::MEM_STATE mem_state,
+	input PipelineReg::WBACK_STATE wb_state,
 	input PipelineReg::EX_STATE ex_state,
 	output logic reset
 	);
@@ -12,16 +12,16 @@ program testbench(
 		reset <= 1;
 		repeat (2) @(posedge clk); 
 		reset <= 0;
-		for(int i=0; i<100; i++) begin
+		for(int i=0; i<32; i++) begin
 			@(posedge clk)
-			//read_mem_state();
-			read_ex_state();
+			read_wb_state();
+			//read_ex_state();
 		end
 	end
 
-	task read_mem_state();
-		$write("PC: %d\nALUout: %d\n",mem_state.pc,mem_state.ALUOutput);
-		$write("RD: %d\nRegWrite: %d\n",mem_state.rd2,mem_state.RegWrite);
+	task read_wb_state();
+		$write("PC: %d\nALUout: %d\n",wb_state.pc,wb_state.final_out);
+		$write("RD: %d\nRegWrite: %d\n",wb_state.rd,wb_state.RegWrite);
 	endtask
 
 	task read_ex_state();
