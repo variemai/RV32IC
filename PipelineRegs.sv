@@ -36,6 +36,7 @@ package PipelineReg;
         logic [4:0] rs2;
         logic [31:0] rd1;
         logic [31:0] rd2;
+		logic jmp;
 		logic MemRead;
 		logic MemWrite;
 		logic [31:0] write_reg;

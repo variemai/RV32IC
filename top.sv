@@ -7,12 +7,14 @@ module top;
 	logic valid;
 	logic pc_enable;
 	logic nop;
+	logic jmp;
 	logic [31:0] pc;
 	logic [31:0] pc_stall;
 	logic [31:0] reg_dataA;
 	logic [31:0] reg_dataB;
 	logic [31:0] data_in;
 	logic [31:0] rdata;
+	logic [31:0] jmp_pc;
 	PipelineReg::ID_STATE id_reg;
 	PipelineReg::EX_STATE id_ex_reg;
 	PipelineReg::EX_STATE ex_reg;
@@ -78,8 +80,10 @@ module top;
     		.o_ALUOutput    ( ALUOutput ),
     		.o_branch       ( branch ),
 
-		.i_ex_state     ( ex_reg ),
-    		.o_mem_state    ( mem_state )
+			.i_ex_state     ( ex_reg ),
+    		.o_mem_state    ( mem_state ),
+			.o_jmp	( jmp ),
+			.o_jmp_pc ( jmp_pc)
 
   	);
 

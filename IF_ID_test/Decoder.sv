@@ -24,6 +24,7 @@ module decoder(
 		if(valid) begin
 		ex_state.func7 = id_state.instruction[30];
 		ex_state.pc = id_state.pc;
+		ex_state.jmp = 0;
 		//$write("INSTRUCTION :%b\n",id_state.instruction);
 		case (id_state.instruction[6:0]) inside
 
@@ -145,7 +146,7 @@ module decoder(
 			7'b1101111:
 			begin
 				$write("JAL Instruction!\n");
-				//jmp = 1;
+				ex_state.jmp = 1;
 				ex_state.immediate = {{12{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21],1'b0};
 				//jmp_pc = ex_state.immediate + id_state.pc ;
 				ex_state.rd = id_state.instruction[11:7];
@@ -162,7 +163,7 @@ module decoder(
 			begin
 				/*Not correct implementation JALR needs 3 stages*/
 				$write("JALR Instruction!\n");
-				//jmp = 1;
+				ex_state.jmp = 1;
 				ex_state.immediate = {{13{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21]} << 1;
 				//jmp_pc = ex_state.immediate + id_state.pc -4 ;
 				ex_state.rd = id_state.instruction[11:7];

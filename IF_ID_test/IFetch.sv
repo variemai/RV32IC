@@ -12,6 +12,7 @@ module IFetch(
 	input logic reset,
 	input logic stall,
 	input logic issue_nop,
+	input logic jmp,
 	input logic [31:0] jmp_pc,
 	output logic [31:0] pc_out,
 	output logic [31:0] instruction,
@@ -49,7 +50,9 @@ module IFetch(
 	//assign	pc_in = stall ? pc_out: pc_4;
 	assign pc_4 = pc_out + 4;
 	always_comb begin
-		if(stall) begin
+		if(jmp) begin 
+			pc_in = jmp_pc;
+		end else if(stall) begin
 			pc_in = pc_out;
 		end else begin
 			pc_in = pc_4;
