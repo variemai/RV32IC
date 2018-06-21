@@ -25,6 +25,7 @@ module decoder(
 		ex_state.func7 = id_state.instruction[30];
 		ex_state.pc = id_state.pc;
 		ex_state.jmp = 0;
+		ex_state.func3 = id_state.instruction[14:12];
 		//$write("INSTRUCTION :%b\n",id_state.instruction);
 		case (id_state.instruction[6:0]) inside
 
@@ -84,7 +85,7 @@ module decoder(
 				ex_state.MemWrite = 0;
 				//$write("I-Format Instruction\n");
 			end
-
+			//LUI
 			7'b0110111:
 			begin
 				//jmp = 0;
@@ -95,10 +96,11 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
+				ex_state.RegWrite = 1;
 				stall = 0;
 				//$write("LUI\n");
 			end
-
+			//AUIPC
 			7'b0010111:
 			begin
 				//jmp = 0;
@@ -109,6 +111,7 @@ module decoder(
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
+				ex_state.RegWrite = 1;
 				stall = 0;
 				//$write("AUIPC\n");
 			end
@@ -136,6 +139,7 @@ module decoder(
 					ex_state.MemRead = 1;
 					ex_state.MemToReg = 1;
 					stall = 0;
+					ex_state.RegWrite = 1;
 				end
 				ex_state.MemWrite = 0;
 				ex_state.ALUsrc = 2'b01;
@@ -196,6 +200,9 @@ module decoder(
 					ex_state.MemWrite = 1;
 					ex_state.MemRead = 0;
 					ex_state.MemToReg = 0;
+					ex_state.rs2 = id_state.instruction[24:20];
+					ex_state.rs1 = id_state.instruction[19:15];
+					ex_state.RegWrite = 0;
 					stall = 0;
 				end
 				//$write("STORE Instruction!\n");
