@@ -88,10 +88,14 @@ module top;
   	);
 
 	testbench tb(
-		.clk(clk),
-		.wb_state(wb_state),
-		.ex_state(ex_reg),
-		.reset(reset)
+		.clk		( clk ),
+		.id_state	( id_state ),
+		.ex_state	( ex_reg ),
+		.mem_state	( mem_state ),
+		.wb_state	( wb_state ),
+		.i_A		( reg_dataA ),
+		.i_B		( reg_dataB ),
+		.reset		( reset )
 	);
 
 	dmem MEM_WB(

@@ -68,6 +68,9 @@ package PipelineReg;
     typedef struct packed {
         logic [31:0] pc;
 
+	logic MemRead;
+        logic MemWrite;
+
         // output signals
         logic [31:0] ALUOutput;
         logic [31:0] rdata;

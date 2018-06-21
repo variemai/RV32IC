@@ -48,14 +48,27 @@ parameter RAM_SIZE = 512
 	end
 
 	always @(posedge i_clk) begin
-		o_wback_state.RegWrite = i_mem_state.RegWrite;
-        //o_wback_state.MemToReg = i_mem_state.MemToReg;
-		//o_wback_state.rdata = o_rdata;
-		//o_wback_state.ALUOutput = i_mem_state.ALUOutput;
-        //o_wback_state.write_reg = i_mem_state.write_reg;
-		o_wback_state.rd = i_mem_state.rd;
-		if(i_mem_state.MemToReg) o_wback_state.final_out = o_rdata;
-		else o_wback_state.final_out = i_mem_state.ALUOutput;
+
+		o_wback_state.pc <= i_mem_state.pc;
+
+
+		o_wback_state.RegWrite <= i_mem_state.RegWrite;
+        		//o_wback_state.MemToReg <= i_mem_state.MemToReg;
+			//o_wback_state.rdata <= o_rdata;
+			//o_wback_state.ALUOutput <= i_mem_state.ALUOutput;
+       			//o_wback_state.write_reg <= i_mem_state.write_reg;
+		
+		o_wback_state.rd <= i_mem_state.rd;
+
+		o_wback_state.MemRead <= i_mem_state.MemRead;
+		o_wback_state.MemWrite <= i_mem_state.MemWrite;
+		o_wback_state.MemToReg <= i_mem_state.MemToReg;
+
+
+
+
+		if(i_mem_state.MemToReg) o_wback_state.final_out <= o_rdata;
+		else o_wback_state.final_out <= i_mem_state.ALUOutput;
 	end
 	//assign o_wback_state.final_out = i_mem_state.MemToReg ? o_rdata : i_mem_state.ALUOutput;
 

@@ -116,6 +116,8 @@ end
 
 always @(posedge i_clk)
 begin
+	o_mem_state.pc <= i_ex_state.pc;
+
 	o_mem_state.AddSum <= tmp_PC;
 	o_mem_state.branch <= o_branch;
 
@@ -128,6 +130,9 @@ begin
 
 	o_mem_state.RegWrite <= i_ex_state.RegWrite;
 	o_mem_state.rd <= i_ex_state.rd;
+
+	o_mem_state.MemRead <= i_ex_state.MemRead;
+	o_mem_state.MemWrite <= i_ex_state.MemWrite;
 end
 
 always_comb
