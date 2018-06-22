@@ -30,7 +30,8 @@ module top;
         .stall(pc_enable),
         .pc_out(id_reg.pc),
         .issue_nop(nop),
-        .jmp_pc(pc_jump),
+        .jmp_pc(jmp_pc),
+		.jmp(jmp),
         .reset(reset),
         .valid(valid),
         .instruction(id_reg.instruction)

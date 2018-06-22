@@ -85,7 +85,7 @@ module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_
   input                   i_clk;
   input  PipelineReg::EX_STATE i_ex_state;
   output PipelineReg::MEM_STATE o_mem_state;
-  output logic o_jmp_pc;
+  output logic [31:0] o_jmp_pc;
   output logic o_jmp;
 	
 reg [31:0] tmp_PC;
@@ -96,11 +96,11 @@ reg [31:0] tmp_value;
 logic [3:0] mem_type; // type of memory access (byte, half word, word..)
 
 //always_comb
-always @(posedge i_clk)
+always_ff @(posedge i_clk)
 begin
-  tmp_PC = i_NPC + (i_Imm_SignExt<<1);
-  o_jmp_pc = i_NPC + (i_Imm_SignExt<<1);
-  o_jmp = i_ex_state.jmp;
+  tmp_PC <= i_NPC + (i_Imm_SignExt<<1);
+  o_jmp_pc <= i_NPC - 4 + i_Imm_SignExt;
+  o_jmp <= i_ex_state.jmp;
 end
 
 initial begin
