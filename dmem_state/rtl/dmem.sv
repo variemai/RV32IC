@@ -7,7 +7,7 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         May 22th, 2018                                     *
+ *  Date:         June 21th, 2018                                    *
  *  Description:  Data memory for a 32-bit RISC-V                    *  
  *                                                                   *
  *********************************************************************/
@@ -15,62 +15,82 @@
 
 `include "PipelineRegs.sv"
 
+
 module dmem
 #(
 //------------------------------------------------
-parameter ADDR_WIDTH = 9,
-parameter DATA_WIDTH = 32,
-parameter RAM_SIZE = 512
+  parameter DEPTH       = 2048,
+  parameter ADDR_WIDTH  = $clog2(DEPTH),
+  parameter DATA_WIDTH  = 32,
+  parameter DATA_BYTES  = DATA_WIDTH/8,
+  parameter INIT_ZERO   = 0,
+  parameter INIT_FILE   = "codemem.hex",
+  parameter INIT_START  = 0,
+  parameter INIT_END    = DEPTH-1
 //------------------------------------------------
-)   (
-	input i_clk,
-	input i_we,
-	input [ADDR_WIDTH-1:0] i_addr,
-	input [DATA_WIDTH-1:0] i_wdata,
-	output logic [DATA_WIDTH-1:0] o_rdata,
-	input PipelineReg::MEM_STATE i_mem_state,
-	output PipelineReg::WBACK_STATE o_wback_state
-	);
+) (
+  input                        		i_clk,
+
+  input      [ADDR_WIDTH-1:0]   	i_addr,
+  input      [DATA_WIDTH-1:0]   	i_wdata,
+  input        				i_we,
+  input	     [DATA_BYTES-1:0]   	i_mem_type,	
+  output bit [DATA_WIDTH-1:0]   	o_rdata,
+  input PipelineReg::MEM_STATE 		i_mem_state,
+  output PipelineReg::WBACK_STATE 	o_wback_state
+
+);
+
+bit [DATA_WIDTH-1:0] mem [0 : DEPTH-1];
+bit [DATA_WIDTH-1:0] tmp_rdata;
 
 
-	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
-	initial begin
-		$readmemh("data.data", RAM, 0, 100);
+// WRITE_FIRST MODE
+always @(posedge i_clk) begin
+  if ( i_we ) begin
+  	for (int i=0 ; i<DATA_BYTES; i++) begin
+    		if ( i_mem_type[i] ) begin
+      			mem[i_addr][8*i +: 8] = i_wdata[8*i +: 8];
+    		end
+  	end
+  end
+
+  for (int i=0 ; i<DATA_BYTES; i++) begin
+        if ( i_mem_type[i] ) begin
+        	tmp_rdata[8*i +: 8] = mem[i_addr][8*i +: 8];
+        end
+	else begin
+		tmp_rdata[8*i +: 8] = 8'b0;
 	end
+  end  
 
-	always @(posedge i_clk) begin
-		if(i_we) begin
-			RAM[i_addr] <= i_wdata;
-			o_rdata <= RAM[i_addr];
-		end
-		else
-			o_rdata <= RAM[i_addr];
-	end
+  o_rdata = tmp_rdata;
+end
 
-	always @(posedge i_clk) begin
-
-		o_wback_state.pc <= i_mem_state.pc;
+// initialize memory from file
+initial begin
+  if ( !INIT_ZERO ) begin
+    $readmemh(INIT_FILE, mem, INIT_START, INIT_END);
+  end
+end
 
 
-		o_wback_state.RegWrite <= i_mem_state.RegWrite;
-        		//o_wback_state.MemToReg <= i_mem_state.MemToReg;
-			//o_wback_state.rdata <= o_rdata;
-			//o_wback_state.ALUOutput <= i_mem_state.ALUOutput;
-       			//o_wback_state.write_reg <= i_mem_state.write_reg;
-		
-		o_wback_state.rd <= i_mem_state.rd;
+always @(posedge i_clk) begin
 
-		o_wback_state.MemRead <= i_mem_state.MemRead;
-		o_wback_state.MemWrite <= i_mem_state.MemWrite;
-		o_wback_state.MemToReg <= i_mem_state.MemToReg;
-
-
-
-
-		if(i_mem_state.MemToReg) o_wback_state.final_out <= o_rdata;
-		else o_wback_state.final_out <= i_mem_state.ALUOutput;
-	end
-	//assign o_wback_state.final_out = i_mem_state.MemToReg ? o_rdata : i_mem_state.ALUOutput;
-
+	o_wback_state.pc <= i_mem_state.pc;
+	o_wback_state.RegWrite <= i_mem_state.RegWrite;
 	
+	o_wback_state.rd <= i_mem_state.rd;
+
+	o_wback_state.MemRead <= i_mem_state.MemRead;
+	o_wback_state.MemWrite <= i_mem_state.MemWrite;
+	o_wback_state.mem_type <= i_mem_state.mem_type;
+	o_wback_state.MemToReg <= i_mem_state.MemToReg;
+
+	if(i_mem_state.MemToReg) o_wback_state.final_out <= o_rdata;
+	else o_wback_state.final_out <= i_mem_state.ALUOutput;
+
+end
+
+
 endmodule

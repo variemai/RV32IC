@@ -7,7 +7,7 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         May 24th, 2018                                     *
+ *  Date:         June 21th, 2018                                    *
  *  Description:  Arithmetic Logic Unit (ALU) for a 32-bit RISC-V    *
  *                                                                   *
  *********************************************************************/
@@ -93,6 +93,8 @@ reg [31:0] stalled_PC; // target PC after a branch = stalled_PC
 
 reg [31:0] tmp_value;
 
+logic [3:0] mem_type; // type of memory access (byte, half word, word..)
+
 //always_comb
 always @(posedge i_clk)
 begin
@@ -133,6 +135,7 @@ begin
 
 	o_mem_state.MemRead <= i_ex_state.MemRead;
 	o_mem_state.MemWrite <= i_ex_state.MemWrite;
+//	o_mem_state.mem_type <= mem_type;
 end
 
 always_comb
@@ -150,6 +153,27 @@ begin
     //	$display ("\ti_ALUop is: %d\n", i_ALUop);
     if(i_ALUop==0) // LD-type, ST-type
     begin
+	case(i_func3)
+        0: begin // byte
+		o_mem_state.mem_type <= 4'b0001; 
+	end
+	1: begin // half word
+		o_mem_state.mem_type <= 4'b0011;
+	end
+	2: begin // word
+		o_mem_state.mem_type <= 4'b1111;
+	end
+	4: begin // byte upper
+		o_mem_state.mem_type <= 4'b1000;
+	end
+	5: begin // half word upper
+		o_mem_state.mem_type <= 4'b1100;
+	end
+	default: begin
+            	o_mem_state.mem_type <= 4'bx; // should never go here
+        end
+      endcase
+
       o_ALUOutput = i_A + i_Imm_SignExt;
     end
     else if(i_ALUop==1) // Branch..

@@ -237,6 +237,9 @@ module decoder(
 			default: 
 			begin
 				stall = 0;
+				ex_state.MemToReg = 0;
+				ex_state.MemWrite = 0;
+				ex_state.RegWrite = 0;
 				$write("Unknown Instruction Format!\n");
 			end
 		endcase
