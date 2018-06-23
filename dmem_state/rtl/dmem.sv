@@ -30,7 +30,7 @@ module dmem
 //------------------------------------------------
 ) (
   input                        		i_clk,
-
+  input					i_reset,
   input      [ADDR_WIDTH-1:0]   	i_addr,
   input      [DATA_WIDTH-1:0]   	i_wdata,
   input        				i_we,
@@ -77,19 +77,26 @@ end
 
 always @(posedge i_clk) begin
 
-	o_wback_state.pc <= i_mem_state.pc;
-	o_wback_state.RegWrite <= i_mem_state.RegWrite;
+	if(i_reset)
+	begin
+		o_wback_state <= 0;
+	end
+	else
+	begin
+
+		o_wback_state.pc <= i_mem_state.pc;
+		o_wback_state.RegWrite <= i_mem_state.RegWrite;
 	
-	o_wback_state.rd <= i_mem_state.rd;
+		o_wback_state.rd <= i_mem_state.rd;
 
-	o_wback_state.MemRead <= i_mem_state.MemRead;
-	o_wback_state.MemWrite <= i_mem_state.MemWrite;
-	o_wback_state.mem_type <= i_mem_state.mem_type;
-	o_wback_state.MemToReg <= i_mem_state.MemToReg;
+		o_wback_state.MemRead <= i_mem_state.MemRead;
+		o_wback_state.MemWrite <= i_mem_state.MemWrite;
+		o_wback_state.mem_type <= i_mem_state.mem_type;
+		o_wback_state.MemToReg <= i_mem_state.MemToReg;
 
-	if(i_mem_state.MemToReg) o_wback_state.final_out <= o_rdata;
-	else o_wback_state.final_out <= i_mem_state.ALUOutput;
-
+		if(i_mem_state.MemToReg) o_wback_state.final_out <= o_rdata;
+		else o_wback_state.final_out <= i_mem_state.ALUOutput;
+	end
 end
 
 
