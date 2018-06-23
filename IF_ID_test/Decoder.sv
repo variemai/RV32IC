@@ -171,7 +171,7 @@ module decoder(
 				/*Not correct implementation JALR needs 3 stages*/
 				$write("JALR Instruction!\n");
 				ex_state.jmp = 1;
-				ex_state.immediate = {{13{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21]} << 1;
+				ex_state.immediate = {{20{id_state.instruction[31]}} ,id_state.instruction[30:20],1'b0};
 				//jmp_pc = ex_state.immediate + id_state.pc -4 ;
 				ex_state.rd = id_state.instruction[11:7];
 				ex_state.RegWrite = 0;
@@ -223,13 +223,16 @@ module decoder(
 					ex_state.ALUsrc = 2'b01;
 					ex_state.immediate = 32'b0;
 					ex_state.func3 = 3'b0;
+					ex_state.MemToReg = 0;
+					ex_state.MemWrite = 0;
+					ex_state.RegWrite = 0;
 					stall = 1;
 				end 
 				else begin
 					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 					ex_state.ALUOp = 3'b001;
 					ex_state.ALUsrc = 2'b00;
-					stall = 1;
+					stall = 0;
 				end
 				ex_state.MemWrite = 0;
 				ex_state.RegWrite = 0;

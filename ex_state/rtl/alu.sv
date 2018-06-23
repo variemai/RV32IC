@@ -99,9 +99,8 @@ reg [31:0] tmp_value;
 always_ff @(posedge i_clk)
 begin
   tmp_PC <= i_NPC + (i_Imm_SignExt<<1);
-  o_jmp_pc <= i_NPC - 4 + i_Imm_SignExt;
-  o_jmp <= i_ex_state.jmp;
-end
+  end
+
 
 initial begin
   stalled_PC = 32'b0;
@@ -168,6 +167,8 @@ end
 always_comb
 begin
 	if(~i_reset) o_mem_state.ALUOutput <= o_ALUOutput;
+	o_jmp_pc = i_NPC - 4 + i_Imm_SignExt;
+  	o_jmp = i_ex_state.jmp;
 end
 
 
