@@ -34,12 +34,9 @@ package PipelineReg;
 		logic branch; //is one bit enough?
 		logic [4:0] rs1;
         logic [4:0] rs2;
-        logic [31:0] rd1;
-        logic [31:0] rd2;
 		logic jmp;
 		logic MemRead;
 		logic MemWrite;
-		logic [31:0] write_reg;
     }EX_STATE;
 
     typedef struct packed {
@@ -48,8 +45,8 @@ package PipelineReg;
 	// Memory Stage
 	// control signals
 	logic BranchSrc0;
-        logic MemRead;
-        logic MemWrite;
+    logic MemRead;
+    logic MemWrite;
 	logic [3:0] mem_type;
 	// output signals
 	logic [31:0] AddSum;

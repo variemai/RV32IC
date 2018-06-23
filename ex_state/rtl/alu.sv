@@ -130,6 +130,9 @@ begin
                 o_mem_state.write_reg <= 0;
 
 
+//	o_mem_state.ALUOutput <= o_ALUOutput;
+	//o_mem_state.rd2 <= i_ex_state.rd2;
+	o_mem_state.write_reg <= i_B;
                 o_mem_state.MemToReg <= 0;
 
                 o_mem_state.RegWrite <= 0;
