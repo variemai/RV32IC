@@ -118,29 +118,53 @@ end
 
 always @(posedge i_clk)
 begin
-	o_mem_state.pc <= i_ex_state.pc;
+	if(i_reset)
+	begin
+	
+		o_mem_state.pc <= 0;
 
-	o_mem_state.AddSum <= tmp_PC;
-	o_mem_state.branch <= o_branch;
+                o_mem_state.AddSum <= 0;
+                o_mem_state.branch <= 0;
 
-//	o_mem_state.ALUOutput <= o_ALUOutput;
-	o_mem_state.rd2 <= i_ex_state.rd2;
-	o_mem_state.write_reg <= i_B;
+                o_mem_state.rd2 <= 0;
+                o_mem_state.write_reg <= 0;
 
 
-	o_mem_state.MemToReg <= i_ex_state.MemToReg;
+                o_mem_state.MemToReg <= 0;
 
-	o_mem_state.RegWrite <= i_ex_state.RegWrite;
-	o_mem_state.rd <= i_ex_state.rd;
+                o_mem_state.RegWrite <= 0;
+                o_mem_state.rd <= 0;
 
-	o_mem_state.MemRead <= i_ex_state.MemRead;
-	o_mem_state.MemWrite <= i_ex_state.MemWrite;
-//	o_mem_state.mem_type <= mem_type;
+                o_mem_state.MemRead <= 0;
+                o_mem_state.MemWrite <= 0;
+	end
+	else
+	begin
+
+
+		o_mem_state.pc <= i_ex_state.pc;
+
+		o_mem_state.AddSum <= tmp_PC;
+		o_mem_state.branch <= o_branch;
+
+		o_mem_state.rd2 <= i_ex_state.rd2;
+		o_mem_state.write_reg <= i_B;
+
+
+		o_mem_state.MemToReg <= i_ex_state.MemToReg;
+
+		o_mem_state.RegWrite <= i_ex_state.RegWrite;
+		o_mem_state.rd <= i_ex_state.rd;
+
+		o_mem_state.MemRead <= i_ex_state.MemRead;
+		o_mem_state.MemWrite <= i_ex_state.MemWrite;
+	//	o_mem_state.mem_type <= mem_type;
+	end
 end
 
 always_comb
 begin
-	o_mem_state.ALUOutput <= o_ALUOutput;
+	if(~i_reset) o_mem_state.ALUOutput <= o_ALUOutput;
 end
 
 
