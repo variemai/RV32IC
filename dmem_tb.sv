@@ -16,7 +16,7 @@ program testbench(
 		reset <= 1;
 		repeat (2) @(posedge clk); 
 		reset <= 0;
-		for(int i=0; i<16; i++) begin
+		for(int i=0; i<32; i++) begin
 			@(posedge clk)
 			read_all_states();
 			//read_wb_state();
@@ -29,13 +29,13 @@ program testbench(
 		
 		$write("PC\n id: %d, ex: %d, mem: %d, wb:%d \n", id_state.pc, ex_state.pc, mem_state.pc, wb_state.pc);
 
-		$write("MemRead\n ex: %d, mem: %d, wb: %d \n", ex_state.MemRead, mem_state.MemRead, wb_state.MemRead);
-		$write("MemWrite\n ex: %d, mem: %d, wb: %d \n", ex_state.MemWrite, mem_state.MemWrite, wb_state.MemWrite);
+		$write("MemRead\n ex: %d, mem: %d\n", ex_state.MemRead, mem_state.MemRead);
+		$write("MemWrite\n ex: %d, mem: %d\n", ex_state.MemWrite, mem_state.MemWrite);
 		
 
-		$write("MemToReg\n ex: %d, mem: %d, wb: %d \n", ex_state.MemToReg, mem_state.MemToReg, wb_state.MemToReg);
+		$write("MemToReg\n ex: %d, mem: %d", ex_state.MemToReg, mem_state.MemToReg);
 
-		$write("RegWrite\n ex: %d, mem: %d, wb: %d \n", ex_state.RegWrite, mem_state.RegWrite, wb_state.RegWrite);
+		$write("RegWrite\n ex: %d, mem: %d", ex_state.RegWrite, mem_state.RegWrite);
 
 
 		$write("rd\n ex: %d, mem: %d, wb:%d \n", ex_state.rd, mem_state.rd, wb_state.rd);
@@ -44,7 +44,7 @@ program testbench(
 		$write("ALU_A\n ex: %d\n", i_A);
 		$write("ALU_B\n ex: %d\n", i_B);
 		$write("Immediate\n ex: %d\n", ex_state.immediate);	
-		$write("ALUOutput\n mem: %d, wb:%d \n", mem_state.ALUOutput, wb_state.ALUOutput);
+		$write("ALUOutput\n mem: %d\n", mem_state.ALUOutput);
 		$write("Final Output\n mem: %d\n", wb_state.final_out);
 		$write("------------------------\n");
 

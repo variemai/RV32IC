@@ -64,24 +64,14 @@ package PipelineReg;
 
    
     typedef struct packed {
-        logic [31:0] pc;
-
-	logic MemRead;
-        logic MemWrite;
-	logic [3:0] mem_type;
-
-        // output signals
-        logic [31:0] ALUOutput;
-        logic [31:0] rdata;
-        logic [31:0] write_reg;
-
-	// Write back stage
-        logic MemToReg;
+		logic [31:0] pc; //for debug purposes only
+        //logic [31:0] ALUOutput;
+        //logic [31:0] rdata;
+        //logic [31:0] write_reg;
+        //logic MemToReg;
         logic RegWrite;
-	logic [4:0] rd;
-
-	logic [31:0] final_out;
-
+		logic [4:0] rd;
+		logic [31:0] final_out;
     }WBACK_STATE;
 
 

@@ -1,7 +1,7 @@
 all: clean all_states run
 
 clean:
-	\rm -rf simv csrc simv* comp.log sim.log ucli.key inter.vpd
+	\rm -rf simv csrc simv* comp.log sim.log ucli.key inter.vpd DVEfiles .restartSimSession.tcl.old .synopsys_dve_rebuild.tcl
 
 all_states:
 	vcs -sverilog \

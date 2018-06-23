@@ -254,6 +254,10 @@ module decoder(
 		ex_state.ALUsrc = 2'b01;
 		ex_state.immediate = 32'b0;
 		ex_state.func3 = 3'b0;
+		ex_state.jmp = 0; 
+		ex_state.MemToReg = 0;
+		ex_state.MemWrite = 0;
+		ex_state.RegWrite = 0;
 	end
 	end
 

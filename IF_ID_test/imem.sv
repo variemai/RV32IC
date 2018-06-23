@@ -7,6 +7,7 @@ parameter RAM_SIZE = 2048
 //------------------------------------------------
 )   (
 	input clk,
+	input reset,
 	input [ADDR_WIDTH-1:0] addr,
 	output logic [DATA_WIDTH-1:0] dout
 	);
@@ -16,6 +17,7 @@ parameter RAM_SIZE = 2048
 		$readmemh("codemem.hex", RAM, 0, 2048);
 	end
 	always_ff @(posedge clk) begin
+		if(reset) dout <= 0;
 		dout <= RAM[addr];
 	end
 	
