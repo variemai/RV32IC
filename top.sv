@@ -40,7 +40,6 @@ module top;
    decoder decode(
 	   .clk(clk),
        .id_state(id_reg),
-       .reset(reset),
 	   .issue_nop(nop),
        .ex_state(id_ex_reg),
        .next_state(ex_reg),
@@ -62,7 +61,8 @@ module top;
 	id_ex_reg ID_EX(
 		.clk(clk),
 		.in(id_ex_reg),
-		.out(ex_reg)
+		.out(ex_reg),
+		.reset(reset)
 	);
 
 	

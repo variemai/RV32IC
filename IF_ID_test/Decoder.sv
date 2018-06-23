@@ -16,8 +16,7 @@ module decoder(
 	input PipelineReg::EX_STATE next_state,
 	input logic valid,
 	output logic stall,
-	output logic issue_nop,
-	input logic reset
+	output logic issue_nop
 );
 
  	always_comb begin
@@ -248,6 +247,13 @@ module decoder(
 				$write("Unknown Instruction Format!\n");
 			end
 		endcase
+	end else begin 
+		ex_state.rs1 = 5'b0;
+		ex_state.rd = 5'b0;
+		ex_state.ALUOp = 3'b011;
+		ex_state.ALUsrc = 2'b01;
+		ex_state.immediate = 32'b0;
+		ex_state.func3 = 3'b0;
 	end
 	end
 

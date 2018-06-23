@@ -45,7 +45,7 @@ module IFetch(
 		end
 	end
 
-	assign valid = valid_int & ~jmp ;
+	assign valid = (valid_int & ~jmp) | (reset) ;
 
 	//assign	pc_4 = pc_out + 4;
 	//assign	pc_in = stall ? pc_out: pc_4;
