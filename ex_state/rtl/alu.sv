@@ -93,7 +93,7 @@ reg [31:0] stalled_PC; // target PC after a branch = stalled_PC
 
 reg [31:0] tmp_value;
 
-logic [3:0] mem_type; // type of memory access (byte, half word, word..)
+//logic [3:0] mem_type; // type of memory access (byte, half word, word..)
 
 //always_comb
 always_ff @(posedge i_clk)
@@ -123,23 +123,24 @@ begin
 	
 		o_mem_state.pc <= 0;
 
-                o_mem_state.AddSum <= 0;
-                o_mem_state.branch <= 0;
+        o_mem_state.AddSum <= 0;
+        o_mem_state.branch <= 0;
 
-                o_mem_state.rd2 <= 0;
-                o_mem_state.write_reg <= 0;
+        o_mem_state.write_reg <= 0;
 
 
 //	o_mem_state.ALUOutput <= o_ALUOutput;
-	//o_mem_state.rd2 <= i_ex_state.rd2;
-	o_mem_state.write_reg <= i_B;
-                o_mem_state.MemToReg <= 0;
+		o_mem_state.write_reg <= 0;
+        o_mem_state.MemToReg <= 0;
 
-                o_mem_state.RegWrite <= 0;
-                o_mem_state.rd <= 0;
+        o_mem_state.RegWrite <= 0;
+        o_mem_state.rd <= 0;
 
-                o_mem_state.MemRead <= 0;
-                o_mem_state.MemWrite <= 0;
+        o_mem_state.MemRead <= 0;
+        o_mem_state.MemWrite <= 0;
+				
+		o_mem_state.mem_type <=0;
+
 	end
 	else
 	begin
@@ -150,7 +151,6 @@ begin
 		o_mem_state.AddSum <= tmp_PC;
 		o_mem_state.branch <= o_branch;
 
-		o_mem_state.rd2 <= i_ex_state.rd2;
 		o_mem_state.write_reg <= i_B;
 
 
@@ -197,7 +197,7 @@ begin
 		o_mem_state.mem_type <= 4'b1100;
 	end
 	default: begin
-            	o_mem_state.mem_type <= 4'bx; // should never go here
+            	o_mem_state.mem_type <= 4'b0000; // should never go here
         end
       endcase
 
