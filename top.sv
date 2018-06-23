@@ -68,7 +68,7 @@ module top;
 	
         alu EX_MEM(
     		.i_clk          ( clk ),
-    		.i_reset        ( valid ),
+    		.i_reset        ( reset ),
     		.i_A            ( reg_dataA ),
     		.i_B            ( reg_dataB ),
 
