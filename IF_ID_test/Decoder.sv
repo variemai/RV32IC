@@ -232,7 +232,7 @@ module decoder(
 					stall = 1;
 				end 
 				else begin
-					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
+					ex_state.immediate = { {20{id_state.instruction[31]}},id_state.instruction[7],id_state.instruction[30:25],id_state.instruction[11:8],1'b0};
 					ex_state.ALUOp = 3'b001;
 				//	ex_state.ALUsrc = 2'b00;
 					stall = 0;

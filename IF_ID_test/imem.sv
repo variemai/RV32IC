@@ -14,7 +14,7 @@ parameter RAM_SIZE = 2048
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
-		$readmemh("code_lui_auipc.hex", RAM, 0, 2048);
+		$readmemb("branch_code.bin", RAM, 0, 9);
 	end
 	always_ff @(posedge clk) begin
 		if(reset) dout <= 0;

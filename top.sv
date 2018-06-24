@@ -20,10 +20,7 @@ module top;
 	PipelineReg::EX_STATE ex_reg;
 	PipelineReg::MEM_STATE mem_state;
 	PipelineReg::WBACK_STATE wb_state;	
-
-
 	wire [31:0]  ALUOutput;
-  	wire         branch;
 
 	IFetch fetch(
 		.clk(clk),
@@ -71,16 +68,12 @@ module top;
     		.i_reset        ( reset ),
     		.i_A            ( reg_dataA ),
     		.i_B            ( reg_dataB ),
-
     		.i_Imm_SignExt  ( ex_reg.immediate ),
     		.i_NPC          ( ex_reg.pc ),
     		.i_ALUop        ( ex_reg.ALUOp ),
     		.i_func3        ( ex_reg.func3 ),
     		.i_func7        ( ex_reg.func7 ), // 1 bit
-
     		.o_ALUOutput    ( ALUOutput ),
-    		.o_branch       ( branch ),
-
 			.i_ex_state     ( ex_reg ),
     		.o_mem_state    ( mem_state ),
 			.o_jmp	( jmp ),

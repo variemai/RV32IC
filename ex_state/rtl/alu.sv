@@ -68,7 +68,7 @@ typedef enum bit [6:0]{
 } ALUmode_t;
 
 
-module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_func7, o_ALUOutput, o_branch, i_ex_state, o_mem_state, o_jmp_pc, o_jmp);// o_retaddr);
+module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_func7, o_ALUOutput, i_ex_state, o_mem_state, o_jmp_pc, o_jmp);// o_retaddr);
 
   
   input  [31:0]           i_A;
@@ -79,7 +79,6 @@ module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_
   input  [2:0]            i_func3;
   input                   i_func7; // 1 bit
   output reg [31:0]       o_ALUOutput;
-  output reg              o_branch;
   //output reg [31:0]       retaddr_p;
   input                   i_reset;
   input                   i_clk;
@@ -92,6 +91,8 @@ reg [31:0] tmp_PC;
 reg [31:0] stalled_PC; // target PC after a branch = stalled_PC
 
 reg [31:0] tmp_value;
+
+reg o_branch;
 
 //logic [3:0] mem_type; // type of memory access (byte, half word, word..)
 
@@ -164,15 +165,68 @@ begin
 	end
 end
 
-always_comb
-begin
+always_comb begin
+	if(i_reset) o_jmp = 0;
 	if(~i_reset) o_mem_state.ALUOutput <= o_ALUOutput;
-	//o_jmp_pc = i_NPC - 4 + i_Imm_SignExt;
-	//tmp_value = i_A + i_Imm_SignExt;
-  	o_jmp = i_ex_state.jmp;
+	if(i_ALUop == 3'b111) begin 
+		o_jmp_pc = i_A + i_Imm_SignExt;
+		o_jmp = 1;	
+	end 
+	else if(i_ALUop == 3'b001) begin
+	o_jmp = 1'b0;
+      case(i_func3)
+        0: begin // beq
+          if(i_A == i_B)
+          begin
+             o_jmp = 1'b1;
+          end
+        end
+        1: begin // bne
+          if(i_A != i_B)
+          begin
+             o_jmp = 1'b1;
+          end
+        end
+        4: begin // blt
+          if($signed(i_A) < $signed(i_B))
+          begin
+             o_jmp = 1'b1;
+          end
+        end
+        5: begin // bge
+          if($signed(i_A) >= $signed(i_B))
+          begin
+             o_jmp = 1'b1;
+          end
+        end
+        6: begin // bltu
+          if(i_A < i_B)
+          begin
+             o_jmp = 1'b1;
+          end 
+        end
+        7: begin // bgeu
+          if(i_A >= i_B)
+          begin
+             o_jmp = 1'b1;
+          end
+        end
+        default: begin
+            o_jmp = 1'b0; // should never go here
+        end
+      endcase
+		o_jmp_pc = i_NPC + i_Imm_SignExt;
+	end	
+	else if(i_ALUop == 3'b110) begin
+		o_jmp = 1;
+		o_jmp_pc = i_NPC - 4 + i_Imm_SignExt;
+	end
+	else begin 
+		o_jmp = 0;
+	end
 end
 
-assign o_jmp_pc = (i_ALUop == 3'b111) ? i_A + i_Imm_SignExt : i_NPC - 4 + i_Imm_SignExt;
+//assign o_jmp_pc = (i_ALUop == 3'b111) ? i_A + i_Imm_SignExt : i_NPC - 4 + i_Imm_SignExt;
 always @(posedge i_clk) 
 //always_comb
 begin
@@ -205,7 +259,7 @@ begin
 
       o_ALUOutput = i_A + i_Imm_SignExt;
     end
-    else if(i_ALUop==1) // Branch..
+    /*else if(i_ALUop==1) // Branch..
     begin
       o_branch = 1'b0;
       case(i_func3)
@@ -251,6 +305,7 @@ begin
       endcase
       o_ALUOutput = tmp_PC;
     end
+	*/
     else if(i_ALUop==2) // R-type..
     begin
       case(i_func3)

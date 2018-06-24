@@ -35,8 +35,8 @@ module IFetch(
 	always_ff @(posedge clk) begin 
 		//$write("STALL SIGNAL: %d\n",stall);
 		if(reset) begin 
-			pc_out <= 'h100;
-			//pc_out <= 32'b0;
+			//pc_out <= 'h100;
+			pc_out <= 32'b0;
 			valid_int <= 0;
 		end
 		else begin
@@ -45,7 +45,7 @@ module IFetch(
 		end
 	end
 
-	assign valid = (valid_int & ~jmp) ;
+	assign valid = valid_int & ~jmp ;
 
 	//assign	pc_4 = pc_out + 4;
 	//assign	pc_in = stall ? pc_out: pc_4;
