@@ -167,11 +167,12 @@ end
 always_comb
 begin
 	if(~i_reset) o_mem_state.ALUOutput <= o_ALUOutput;
-	o_jmp_pc = i_NPC - 4 + i_Imm_SignExt;
+	//o_jmp_pc = i_NPC - 4 + i_Imm_SignExt;
+	//tmp_value = i_A + i_Imm_SignExt;
   	o_jmp = i_ex_state.jmp;
 end
 
-
+assign o_jmp_pc = (i_ALUop == 3'b111) ? i_A + i_Imm_SignExt : i_NPC - 4 + i_Imm_SignExt;
 always @(posedge i_clk) 
 //always_comb
 begin
@@ -376,14 +377,17 @@ begin
     begin
       o_ALUOutput = i_Imm_SignExt;
     end
-    else if(i_ALUop==5 || i_ALUop==6) // I-type.., AUIPC, JAL
+    else if(i_ALUop==5) // I-type.., AUIPC
     begin
-      o_ALUOutput = tmp_PC;
+		o_ALUOutput = i_NPC - 4 + i_Imm_SignExt;
     end
-    else if(i_ALUop==7) // I-type.., JALR
+	//else if( i_ALUop  == 6 ) begin 
+	//	o_ALUOutput = i_NPC;
+	//end
+    else if(i_ALUop > 5 ) // I-type.., JALR - JAL
     begin
-      tmp_value = i_A + i_Imm_SignExt;
-      o_ALUOutput = {tmp_value[31:1], 1'b0};
+      //tmp_value = i_A + i_Imm_SignExt;
+	  o_ALUOutput = i_NPC;//{tmp_value[31:1], 1'b0};
     end
   end
   else // there is a need for stall in execution state

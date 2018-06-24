@@ -24,6 +24,9 @@ module decoder(
 		ex_state.func7 = id_state.instruction[30];
 		ex_state.pc = id_state.pc;
 		ex_state.func3 = id_state.instruction[14:12];
+		ex_state.rs1 = id_state.instruction[19:15];
+		ex_state.rd = id_state.instruction[11:7];
+		ex_state.rs2 = id_state.instruction[24:20];
 		//$write("INSTRUCTION :%b\n",id_state.instruction);
 		case (id_state.instruction[6:0]) inside
 
@@ -35,18 +38,18 @@ module decoder(
 					ex_state.rs1 = 5'b0;
 					ex_state.rd = 5'b0;
 					ex_state.ALUOp = 3'b011;
-					ex_state.ALUsrc = 2'b01;
+					//ex_state.ALUsrc = 2'b01;
 					ex_state.immediate = 32'b0;
 					ex_state.RegWrite = 0;
 					ex_state.func3 = 3'b0;
 					stall = 1;
 				end 
 				else begin
-					ex_state.rs1 = id_state.instruction[19:15];
-					ex_state.rd = id_state.instruction[11:7];
-					ex_state.rs2 = id_state.instruction[24:20];
+					//ex_state.rs1 = id_state.instruction[19:15];
+					//ex_state.rd = id_state.instruction[11:7];
+					//ex_state.rs2 = id_state.instruction[24:20];
 					ex_state.ALUOp = 3'b010;
-					ex_state.ALUsrc = 2'b00;
+					//ex_state.ALUsrc = 2'b00;
 					ex_state.RegWrite = 1;
 					ex_state.func3 = id_state.instruction[14:12];
 					stall = 0; 
@@ -70,15 +73,15 @@ module decoder(
 					stall = 1;
 				end 
 				else begin
-					ex_state.rs1 = id_state.instruction[19:15];
-					ex_state.rd = id_state.instruction[11:7];
+					//ex_state.rs1 = id_state.instruction[19:15];
+					//ex_state.rd = id_state.instruction[11:7];
 					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 					ex_state.RegWrite = 1;
 					ex_state.func3 = id_state.instruction[14:12];
 					stall = 0;
 				end
 				ex_state.ALUOp = 3'b011;
-				ex_state.ALUsrc = 2'b01;
+				//ex_state.ALUsrc = 2'b01;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
@@ -92,7 +95,7 @@ module decoder(
 				ex_state.immediate[31:12] = id_state.instruction[31:12];
 				ex_state.immediate[11:0] = 12'b0;
 				ex_state.ALUOp = 3'b100;
-				ex_state.ALUsrc = 2'b01;
+				//ex_state.ALUsrc = 2'b01;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
@@ -108,7 +111,7 @@ module decoder(
 				ex_state.immediate[31:12] = id_state.instruction[31:12];
 				ex_state.immediate[11:0] = 12'b0;
 				ex_state.ALUOp = 3'b101;
-				ex_state.ALUsrc = 2'b10;
+				//ex_state.ALUsrc = 2'b10;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
@@ -134,8 +137,8 @@ module decoder(
 					stall = 1;
 				end
 				else begin
-					ex_state.rs1 = id_state.instruction[19:15];
-					ex_state.rd = id_state.instruction[11:7];
+					//ex_state.rs1 = id_state.instruction[19:15];
+					//ex_state.rd = id_state.instruction[11:7];
 					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 					ex_state.ALUOp = 3'b0;
 					ex_state.MemRead = 1;
@@ -144,7 +147,7 @@ module decoder(
 					ex_state.RegWrite = 1;
 				end
 				ex_state.MemWrite = 0;
-				ex_state.ALUsrc = 2'b01;
+				//ex_state.ALUsrc = 2'b01;
 				ex_state.jmp = 0;
 				//$write("Load Instruction!\n");
 			end
@@ -152,12 +155,12 @@ module decoder(
 			//`JAL:
 			7'b1101111:
 			begin
-				$write("JAL Instruction!\n");
+			//	$write("JAL Instruction!\n");
 				ex_state.jmp = 1;
 				ex_state.immediate = {{12{id_state.instruction[31]}},id_state.instruction[19:12],id_state.instruction[20],id_state.instruction[30:21],1'b0};
 				//jmp_pc = ex_state.immediate + id_state.pc ;
-				ex_state.rd = id_state.instruction[11:7];
-				ex_state.RegWrite = 0;
+				//ex_state.rd = id_state.instruction[11:7];
+				ex_state.RegWrite = 1;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
@@ -169,12 +172,12 @@ module decoder(
 			7'b1100111:
 			begin
 				/*Not correct implementation JALR needs 3 stages*/
-				$write("JALR Instruction!\n");
+			//	$write("JALR Instruction!\n");
 				ex_state.jmp = 1;
 				ex_state.immediate = {{20{id_state.instruction[31]}} ,id_state.instruction[30:20],1'b0};
 				//jmp_pc = ex_state.immediate + id_state.pc -4 ;
 				ex_state.rd = id_state.instruction[11:7];
-				ex_state.RegWrite = 0;
+				ex_state.RegWrite = 1;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
@@ -203,13 +206,13 @@ module decoder(
 					ex_state.MemWrite = 1;
 					ex_state.MemRead = 0;
 					ex_state.MemToReg = 0;
-					ex_state.rs2 = id_state.instruction[24:20];
-					ex_state.rs1 = id_state.instruction[19:15];
+					//ex_state.rs2 = id_state.instruction[24:20];
+					//ex_state.rs1 = id_state.instruction[19:15];
 					ex_state.RegWrite = 0;
 					stall = 0;
 				end
 				//$write("STORE Instruction!\n");
-				ex_state.ALUsrc = 2'b01;
+				//ex_state.ALUsrc = 2'b01;
 				ex_state.jmp = 0;
 			end
 
@@ -220,7 +223,7 @@ module decoder(
 					ex_state.rs1 = 5'b0;
 					ex_state.rd = 5'b0;
 					ex_state.ALUOp = 3'b011;
-					ex_state.ALUsrc = 2'b01;
+					//ex_state.ALUsrc = 2'b01;
 					ex_state.immediate = 32'b0;
 					ex_state.func3 = 3'b0;
 					ex_state.MemToReg = 0;
@@ -231,7 +234,7 @@ module decoder(
 				else begin
 					ex_state.immediate = { {21{id_state.instruction[31]}} ,id_state.instruction[30:20] };
 					ex_state.ALUOp = 3'b001;
-					ex_state.ALUsrc = 2'b00;
+				//	ex_state.ALUsrc = 2'b00;
 					stall = 0;
 				end
 				ex_state.MemWrite = 0;
@@ -254,7 +257,7 @@ module decoder(
 		ex_state.rs1 = 5'b0;
 		ex_state.rd = 5'b0;
 		ex_state.ALUOp = 3'b011;
-		ex_state.ALUsrc = 2'b01;
+		//ex_state.ALUsrc = 2'b01;
 		ex_state.immediate = 32'b0;
 		ex_state.func3 = 3'b0;
 		ex_state.jmp = 0; 

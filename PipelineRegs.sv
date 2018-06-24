@@ -27,7 +27,6 @@ package PipelineReg;
 		logic [2:0] ALUOp;
         logic [31:0] immediate; 
 		logic [4:0] rd;
-		logic [1:0] ALUsrc ; //sources are regfile, immediate or pc
 		logic MemToReg; //Load instructions write back to reg file
 		logic RegWrite; //Instructions that need to write to reg file
         /*More signals for forwarding and hazard detection*/
