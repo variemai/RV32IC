@@ -24,7 +24,7 @@ module dmem
   parameter DATA_WIDTH  = 32,
   parameter DATA_BYTES  = DATA_WIDTH/8,
   parameter INIT_ZERO   = 0,
-  parameter INIT_FILE   = "branch_data.hex",
+  parameter INIT_FILE   = "data_example1.hex",
   parameter INIT_START  = 0,
   parameter INIT_END    = DEPTH-1
 //------------------------------------------------
@@ -87,10 +87,6 @@ always @(posedge i_clk) begin
 		o_wback_state.pc <= i_mem_state.pc;
 		o_wback_state.RegWrite <= i_mem_state.RegWrite;
 		o_wback_state.rd <= i_mem_state.rd;
-		//o_wback_state.MemRead <= i_mem_state.MemRead;
-		//o_wback_state.MemWrite <= i_mem_state.MemWrite;
-		//o_wback_state.mem_type <= i_mem_state.mem_type;
-		//o_wback_state.MemToReg <= i_mem_state.MemToReg;
 		if(i_mem_state.MemToReg) o_wback_state.final_out <= o_rdata;
 		else o_wback_state.final_out <= i_mem_state.ALUOutput;
 	end

@@ -30,7 +30,6 @@ package PipelineReg;
 		logic MemToReg; //Load instructions write back to reg file
 		logic RegWrite; //Instructions that need to write to reg file
         /*More signals for forwarding and hazard detection*/
-		logic branch; //is one bit enough?
 		logic [4:0] rs1;
         logic [4:0] rs2;
 		logic jmp;

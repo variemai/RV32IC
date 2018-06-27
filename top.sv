@@ -26,7 +26,6 @@ module top;
 		.clk(clk),
         .stall(pc_enable),
         .pc_out(id_reg.pc),
-        .issue_nop(nop),
         .jmp_pc(jmp_pc),
 		.jmp(jmp),
         .reset(reset),
@@ -37,10 +36,11 @@ module top;
    decoder decode(
 	   .clk(clk),
        .id_state(id_reg),
-	   .issue_nop(nop),
        .ex_state(id_ex_reg),
        .next_state(ex_reg),
+	   .mem_state(mem_state),
        .stall(pc_enable),
+	   .kill(jmp),
        .valid(valid)
    );
 
@@ -83,7 +83,7 @@ module top;
 
 	testbench tb(
 		.clk		( clk ),
-		.id_state	( id_state ),
+		.id_state	( id_reg ),
 		.ex_state	( ex_reg ),
 		.mem_state	( mem_state ),
 		.wb_state	( wb_state ),

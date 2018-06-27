@@ -112,7 +112,7 @@ always @(posedge i_clk)
 begin
   if(i_ALUop==1) // branch
   begin
-    stalled_PC = tmp_PC;
+  stalled_PC = o_jmp_pc;
   end
 end
 
@@ -168,7 +168,8 @@ end
 always_comb begin
 	if(i_reset) o_jmp = 0;
 	if(~i_reset) o_mem_state.ALUOutput <= o_ALUOutput;
-	if(i_ALUop == 3'b111) begin 
+	//if(stalled_PC == 0) begin
+	if(i_ALUop == 3'b111) begin //JALR
 		o_jmp_pc = i_A + i_Imm_SignExt;
 		o_jmp = 1;	
 	end 
@@ -215,23 +216,21 @@ always_comb begin
             o_jmp = 1'b0; // should never go here
         end
       endcase
-		o_jmp_pc = i_NPC + i_Imm_SignExt;
+		o_jmp_pc = i_NPC  + i_Imm_SignExt;
 	end	
 	else if(i_ALUop == 3'b110) begin
 		o_jmp = 1;
-		o_jmp_pc = i_NPC - 4 + i_Imm_SignExt;
+		o_jmp_pc = i_NPC + i_Imm_SignExt;
 	end
 	else begin 
 		o_jmp = 0;
 	end
 end
 
-//assign o_jmp_pc = (i_ALUop == 3'b111) ? i_A + i_Imm_SignExt : i_NPC - 4 + i_Imm_SignExt;
 always @(posedge i_clk) 
 //always_comb
 begin
-  if(stalled_PC == 32'b0) // no stall; keep going
-  begin
+  //if(stalled_PC == 32'b0) // no stall; keep going
     o_ALUOutput = 32'b0;
     //	$display ("\ti_ALUop is: %d\n", i_ALUop);
     if(i_ALUop==0) // LD-type, ST-type
@@ -259,53 +258,6 @@ begin
 
       o_ALUOutput = i_A + i_Imm_SignExt;
     end
-    /*else if(i_ALUop==1) // Branch..
-    begin
-      o_branch = 1'b0;
-      case(i_func3)
-        0: begin // beq
-          if(i_A == i_B)
-          begin
-             o_branch = 1'b1;
-          end
-        end
-        1: begin // bne
-          if(i_A != i_B)
-          begin
-             o_branch = 1'b1;
-          end
-        end
-        4: begin // blt
-          if($signed(i_A) < $signed(i_B))
-          begin
-             o_branch = 1'b1;
-          end
-        end
-        5: begin // bge
-          if($signed(i_A) >= $signed(i_B))
-          begin
-             o_branch = 1'b1;
-          end
-        end
-        6: begin // bltu
-          if(i_A < i_B)
-          begin
-             o_branch = 1'b1;
-          end 
-        end
-        7: begin // bgeu
-          if(i_A >= i_B)
-          begin
-             o_branch = 1'b1;
-          end
-        end
-        default: begin
-            o_branch = 1'bx; // should never go here
-        end
-      endcase
-      o_ALUOutput = tmp_PC;
-    end
-	*/
     else if(i_ALUop==2) // R-type..
     begin
       case(i_func3)
@@ -434,24 +386,12 @@ begin
     end
     else if(i_ALUop==5) // I-type.., AUIPC
     begin
-		o_ALUOutput = i_NPC - 4 + i_Imm_SignExt;
+		o_ALUOutput = i_NPC + i_Imm_SignExt;
     end
-	//else if( i_ALUop  == 6 ) begin 
-	//	o_ALUOutput = i_NPC;
-	//end
-    else if(i_ALUop > 5 ) // I-type.., JALR - JAL
+    else if(i_ALUop > 5 ) // JALR - JAL
     begin
       //tmp_value = i_A + i_Imm_SignExt;
-	  o_ALUOutput = i_NPC;//{tmp_value[31:1], 1'b0};
+	  o_ALUOutput = i_NPC + 4 ;//{tmp_value[31:1], 1'b0};
     end
   end
-  else // there is a need for stall in execution state
-       // wait until the needed new PC
-  begin
-    if(i_NPC == stalled_PC)
-    begin
-      stalled_PC = 32'b0;
-    end
-  end
-end
 endmodule
