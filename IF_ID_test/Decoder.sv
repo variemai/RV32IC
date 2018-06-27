@@ -175,10 +175,10 @@ module decoder(
 					ex_state.RegWrite = 1;
 					ex_state.MemRead = 0;
 					ex_state.MemToReg = 0;
-					ex_state.MemWrite = 0;
 					ex_state.ALUOp = 111;
 					stall = 0;
 				end	
+				ex_state.MemWrite = 0;
 			end
 
 			//`SB, `SH, `SW:

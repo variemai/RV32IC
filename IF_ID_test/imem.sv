@@ -14,7 +14,7 @@ parameter RAM_SIZE = 2048
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
-		$readmemh("code_example1.hex", RAM, 0, 2048);
+		$readmemh("example2_code.hex", RAM, 0, 2048);
 	end
 	always_ff @(posedge clk) begin
 		if(reset) dout <= 0;

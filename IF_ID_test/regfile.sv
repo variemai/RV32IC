@@ -23,7 +23,9 @@ parameter RAM_SIZE = 32
 	
 	always @(posedge clk) begin
 		if(we) begin
-			RAM[write_addr] <= din;
+			if(write_addr != 0 ) begin
+				RAM[write_addr] <= din;
+			end
 			if(read_addr == write_addr) begin 
 				dout <= din;
 			end

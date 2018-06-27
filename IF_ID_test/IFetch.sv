@@ -21,10 +21,9 @@ module IFetch(
 	logic [31:0] pc;
 	logic [31:0] pc_in;
 	logic [31:0] pc_4;
-	logic [31:0] instruction_r;
-	logic [31:0] instruction_m;
 	logic stall_r;
 	logic valid_int;
+
 	always_ff @ (posedge clk) begin
 		if(reset) stall_r <= 0;
 		else begin
