@@ -1,0 +1,480 @@
+CRTE_SNAPSHOT_START
+
+SECTION_CRTE_VERSION
+3.0
+
+SECTION_PID
+1657
+
+SECTION_POLLING_INTERVAL
+5
+
+SECTION_DATE_TIME
+Thu Jun 28 18:31:58 EEST 2018 (1530199918)
+
+SECTION_OS_VERSION
+osname: Linux
+hostname: socofreta.ics.forth.gr
+arch: x86_64
+release_version: 3.10.0-693.17.1.el7.x86_64
+
+SECTION_IPC_INFO
+
+------ Message Queues --------
+key        msqid      owner      perms      used-bytes   messages    
+
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+0x00000000 14123008   papaef     600        393216     2          dest         
+0x00000000 14024705   papaef     600        4194304    2          dest         
+0x0112173f 22216706   root       600        1000       11                      
+0x00000000 14221315   papaef     600        4194304    2          dest         
+0x00000000 14450692   papaef     600        524288     2          dest         
+
+------ Semaphore Arrays --------
+key        semid      owner      perms      nsems     
+0x00000000 7602176    apache     600        1         
+0x00000000 7634945    apache     600        1         
+0x00000000 4587522    apache     600        1         
+0x00000000 4620291    apache     600        1         
+0x00000000 7667716    apache     600        1         
+0x00000000 7700485  SECTION_ULIMIT
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 192426
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 4096
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8200
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 4096
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+
+SECTION_SYSCONF
+_SC_THREAD_SAFE_FUNCTIONS= 200809
+_SC_CLK_TCK= 100
+_SC_OPEN_MAX= 4096
+_SC_PAGE_SIZE= 4096
+_SC_ARG_MAX= 2099200
+_SC_CHILD_MAX= 4096
+_SC_LINE_MAX= 2048
+
+SECTION_FULL_COMMAND
+/eda/synopsys/syn/M-2016.12/linux64/syn/bin/common_shell_exec -shell dc_shell -r /eda/synopsys/syn/M-2016.12
+
+SECTION_CPUINFO
+total_core: 24
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+model_name:  Common KVM processor
+flags:  fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology pni cx16 x2apic hypervisor lahf_lm
+cpu_family: 15
+core_frequency_mhz: 2599
+core_per_socket: 0
+stepping: 1
+cache_size_kb: 4096
+ht: 0
+
+SECTION_OS_RELEASE_VERSION
+CentOS Linux release 7.4.1708 (Core) 
+
+
+SECTION_QSC_CHECKER
+
+        qscchk.sh Version 1.6.3, 12 November 2014
+        qscchk.dat QSC K Rev: 17, 17 November 2014
+     Copyright (c) 1988-2014 by Synopsys, Inc.
+             All RIGHTS RESERVED
+
+ERROR: This does not appear to be a Synopsys supported Linux variant
+ERROR: Unable to determine Snps_Platform for this operating system.
+ERROR: Unknown Linux variant 'Unknown'
+ 
+No QSC information for the K Synopsys release, on the
+64 bit Unknown platform running the Unknown Operating System 
+could be found in datafile /tmp/sdp_1657_0/qscchk.dat
+ 
+
+Return code from the QSC checker script is 256
+
+SECTION_SYS/VM
+/proc/sys/vm/admin_reserve_kbytes:8192
+/proc/sys/vm/block_dump:0
+/proc/sys/vm/dirty_background_bytes:0
+/proc/sys/vm/dirty_background_ratio:10
+/proc/sys/vm/dirty_bytes:0
+/proc/sys/vm/dirty_expire_centisecs:3000
+/proc/sys/vm/dirty_ratio:30
+/proc/sys/vm/dirty_writeback_centisecs:500
+/proc/sys/vm/drop_caches:0
+/proc/sys/vm/extfrag_threshold:500
+/proc/sys/vm/hugepages_treat_as_movable:0
+/proc/sys/vm/hugetlb_shm_group:0
+/proc/sys/vm/laptop_mode:0
+/proc/sys/vm/legacy_va_layout:0
+/proc/sys/vm/lowmem_reserve_ratio:256	256	32
+/proc/sys/vm/max_map_count:65530
+/proc/sys/vm/memory_failure_early_kill:0
+/proc/sys/vm/memory_failure_recovery:1
+/proc/sys/vm/min_free_kbytes:67584
+/proc/sys/vm/min_slab_ratio:5
+/proc/sys/vm/min_unmapped_ratio:1
+/proc/sys/vm/mmap_min_addr:4096
+/proc/sys/vm/nr_hugepages:0
+/proc/sys/vm/nr_hugepages_mempolicy:0
+/proc/sys/vm/nr_overcommit_hugepages:0
+/proc/sys/vm/nr_pdflush_threads:0
+/proc/sys/vm/numa_zonelist_order:default
+/proc/sys/vm/oom_dump_tasks:1
+/proc/sys/vm/oom_kill_allocating_task:0
+/proc/sys/vm/overcommit_kbytes:0
+/proc/sys/vm/overcommit_memory:0
+/proc/sys/vm/overcommit_ratio:50
+/proc/sys/vm/page-cluster:3
+/proc/sys/vm/panic_on_oom:0
+/proc/sys/vm/percpu_pagelist_fraction:0
+/proc/sys/vm/stat_interval:1
+/proc/sys/vm/swappiness:30
+/proc/sys/vm/user_reserve_kbytes:131072
+/proc/sys/vm/vfs_cache_pressure:100
+/proc/sys/vm/zone_reclaim_mode:0
+
+
+SECTION_SWAP
+swap_partition: /dev/dm-1
+size_gb: 23
+
+CRTE_SNAPSHOT_END
+
+CRTE_PERIODIC_START 1 1530199918084
+
+SECTION_MPSTAT
+total_core: 24
+
+CPU     %user   %kernel %wait   %idle   
+all   0.143810 0.028149 0.000557 99.827492
+0     0.017652 0.015041 0.000377 99.966927
+1     0.448048 0.079574 0.001991 99.470390
+2     0.703291 0.060445 0.000903 99.235359
+3     0.355714 0.038353 0.001445 99.604485
+4     0.066989 0.028698 0.000254 99.904060
+5     0.129294 0.027641 0.001091 99.841972
+6     0.293380 0.021030 0.000271 99.685326
+7     0.376167 0.021841 0.000417 99.601578
+8     0.233125 0.019465 0.000756 99.746651
+9     0.028690 0.023217 0.000091 99.948006
+10     0.038051 0.018687 0.000053 99.943207
+11     0.028535 0.018801 0.001401 99.951263
+12     0.032433 0.021427 0.000556 99.945587
+13     0.024757 0.019618 0.000166 99.955467
+14     0.022977 0.021846 0.000174 99.955002
+15     0.236712 0.021138 0.000471 99.741676
+16     0.026443 0.018216 0.000076 99.955269
+17     0.021607 0.017949 0.000363 99.960083
+18     0.018665 0.015779 0.000180 99.965378
+19     0.018317 0.015609 0.000099 99.965973
+20     0.024001 0.018414 0.001310 99.956276
+21     0.022776 0.018408 0.000080 99.958733
+22     0.182796 0.093805 0.000716 99.722687
+23     0.101385 0.020687 0.000126 99.877800
+
+SECTION_PID_STATUS
+name: common_shell_ex
+state: 1
+vmsize: 1902320
+vmrss: 272716
+vmdata: 1445948
+vmstk: 172
+vmexe: 245484
+vmlib: 113352
+threads: 15
+
+SECTION_PROCESS_CPU_UTIL
+pid: 1657
+cpu_total_time: 23988282840
+cpu_used_time: 7646
+cpu_p: 
+
+SECTION_SYSTEM_CPU_UTIL
+sys_cpu_p: 
+
+SECTION_MEMINFO
+memtotal: 49292776
+memfree: 17243628
+cached: 26966800
+swapcached: 0
+active: 16349748
+swaptotal: 24772604
+swapfree: 24772604
+
+SECTION_SMAPS
+shared_kb: 3428
+private_kb: 270780
+
+SECTION_DF
+Filesystem  Size  Used Avail Use%
+filesystem        63G  4G  59G    7
+
+Filesystem    Inodes   IUsed   IFree   IUse%
+filesystem          33554432  169760 33384672   4294947731
+
+SECTION_CWD
+Filesystem  Size  Used Avail Use%
+filesystem        511G  100G  411G    20
+
+Filesystem    Inodes   IUsed   IFree   IUse%
+filesystem          268435456  202013 268233443   4294962181
+
+SECTION_SWAP_RATE
+blk_read: 4456
+blk_wrtn: 0
+swap_in_rate: 
+swap_out_rate: 
+swap_in_rate: 
+swap_out_rate: 
+
+SECTION_FD_SIZE
+files: 28
+total_size: 1650173
+
+SECTION_NET_INTERFACE
+total_eth_avbl: 3
+
+name net_rx_err net_rx_drp net_tx_err net_tx_drp 
+    lo:         0        0        0        0
+virbr0-nic:               0        0        0        0
+virbr0:               0        0        0        0
+
+SECTION_NFSSTAT
+Error: Could not collect the data.
+
+SECTION_THREAD_CPU_UTIL
+1657 : 1657 (common_shell_ex) R 26866 1657 26866 34821 1657 4202496 291528 49463 1 0 3805 2802 9 61 20 0 15 0 999656918 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 140720942921600 139786165438221 0 1024 2101248 1268477695 0 0 0 17 5 0 0 2 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1714 : 1714 (QFileInfoGather) S 26866 1657 26866 34821 1657 1077944384 78 49463 0 0 0 0 9 61 20 0 15 0 999660854 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785961945392 139786165426501 0 8192 2101248 1268477695 18446744071579856918 0 0 -1 4 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1715 : 1715 (QInotifyFileSys) S 26866 1657 26866 34821 1657 1077944384 0 49463 0 0 0 0 9 61 20 0 15 0 999660855 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785953552256 139786119645091 0 8192 2101248 1268477695 18446744071581040629 0 0 -1 5 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1716 : 1716 (QFileInfoGather) S 26866 1657 26866 34821 1657 1077944384 38 49463 0 0 0 0 9 61 20 0 15 0 999660855 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785945159984 139786165426501 0 8192 2101248 1268477695 18446744071579856918 0 0 -1 4 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1717 : 1717 (QInotifyFileSys) S 26866 1657 26866 34821 1657 1077944384 1 49463 0 0 0 0 9 61 20 0 15 0 999660855 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785936766848 139786119645091 0 8192 2101248 1268477695 18446744071581040629 0 0 -1 5 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1774 : 1774 (QFileInfoGather) S 26866 1657 26866 34821 1657 1077944384 736 49463 0 0 0 0 9 61 20 0 15 0 999680223 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785928374576 139786165426501 0 8192 2101248 1268477695 18446744071579856918 0 0 -1 23 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1775 : 1775 (QInotifyFileSys) S 26866 1657 26866 34821 1657 1077944384 251 49463 0 0 0 0 9 61 20 0 15 0 999680224 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785919981440 139786119645091 0 8192 2101248 1268477695 18446744071581040629 0 0 -1 0 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1776 : 1776 (QFileInfoGather) S 26866 1657 26866 34821 1657 1077944384 307 49463 0 0 0 0 9 61 20 0 15 0 999680224 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785911589168 139786165426501 0 8192 2101248 1268477695 18446744071579856918 0 0 -1 23 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1777 : 1777 (QInotifyFileSys) S 26866 1657 26866 34821 1657 1077944384 252 49463 0 0 0 0 9 61 20 0 15 0 999680224 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785903196032 139786119645091 0 8192 2101248 1268477695 18446744071581040629 0 0 -1 0 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1817 : 1817 (QFileInfoGather) S 26866 1657 26866 34821 1657 1077944384 288 49463 0 0 0 0 9 61 20 0 15 0 999686820 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785894803760 139786165426501 0 8192 2101248 1268477695 18446744071579856918 0 0 -1 23 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1818 : 1818 (QInotifyFileSys) S 26866 1657 26866 34821 1657 1077944384 253 49463 0 0 0 0 9 61 20 0 15 0 999686821 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785886410624 139786119645091 0 8192 2101248 1268477695 18446744071581040629 0 0 -1 0 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1819 : 1819 (QFileInfoGather) S 26866 1657 26866 34821 1657 1077944384 288 49463 0 0 0 0 9 61 20 0 15 0 999686821 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785878018352 139786165426501 0 8192 2101248 1268477695 18446744071579856918 0 0 -1 23 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+1823 : 1823 (QInotifyFileSys) S 26866 1657 26866 34821 1657 1077944384 251 49463 0 0 0 0 9 61 20 0 15 0 999686821 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785869625216 139786119645091 0 8192 2101248 1268477695 18446744071581040629 0 0 -1 0 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+2262 : 2262 (QFileInfoGather) S 26866 1657 26866 34821 1657 1077944384 0 49463 0 0 0 0 9 61 20 0 15 0 999754720 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785852840240 139786165426501 0 8192 2101248 1268477695 18446744071579856918 0 0 -1 23 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+2263 : 2263 (QInotifyFileSys) S 26866 1657 26866 34821 1657 1077944384 0 49463 0 0 0 0 9 61 20 0 15 0 999754720 1947975680 68179 18446744073709551615 4194304 255566137 140720942955280 139785861232512 139786119645091 0 8192 2101248 1268477695 18446744071581040629 0 0 -1 0 0 0 0 0 0 257663296 271286040 1462902784 140720942961927 140720942962036 140720942962036 140720942968762 0
+
+CRTE_PERIODIC_END 1 1530199918084
