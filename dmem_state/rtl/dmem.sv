@@ -24,7 +24,7 @@ module dmem
   parameter DATA_WIDTH  = 32,
   parameter DATA_BYTES  = DATA_WIDTH/8,
   parameter INIT_ZERO   = 0,
-  parameter INIT_FILE   = "data_example1.hex",
+  parameter INIT_FILE   = "fibonacci_data.hex",
   parameter INIT_START  = 0,
   parameter INIT_END    = DEPTH-1
 //------------------------------------------------
