@@ -52,8 +52,6 @@ package PipelineReg;
         logic MemRead;
         logic MemWrite;
 	// output signals
-	logic [31:0] AddSum;
-	logic branch; // or "Zero" or "BranchSrc1"
 	logic [31:0] ALUOutput;
 	logic [31:0] rd2;
 	logic [31:0] write_reg;

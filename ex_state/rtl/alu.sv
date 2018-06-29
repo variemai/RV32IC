@@ -107,7 +107,6 @@ output logic                  o_jmp;
 
 
 reg [31:0]                    tmp_PC;
-reg                           o_branch; // not needed
 
 
 always_ff @(posedge i_clk)
@@ -120,24 +119,20 @@ begin
 	if(i_reset)
 	begin
 		o_mem_state.pc          <= 0;
-    o_mem_state.AddSum      <= 0;
-    o_mem_state.branch      <= 0;
-    o_mem_state.write_reg   <= 0;
-    o_mem_state.write_reg   <= 0;
-    o_mem_state.MemToReg    <= 0;
-    o_mem_state.RegWrite    <= 0;
-    o_mem_state.rd          <= 0;
+    		o_mem_state.write_reg   <= 0;
+    		o_mem_state.write_reg   <= 0;
+    		o_mem_state.MemToReg    <= 0;
+    		o_mem_state.RegWrite    <= 0;
+    		o_mem_state.rd          <= 0;
 
-    o_mem_state.MemRead     <= 0;
-    o_mem_state.MemWrite    <= 0;
+    		o_mem_state.MemRead     <= 0;
+    		o_mem_state.MemWrite    <= 0;
 				
 		o_mem_state.mem_type    <= 0;
 	end
 	else
 	begin
 		o_mem_state.pc          <= i_ex_state.pc;
-		o_mem_state.AddSum      <= tmp_PC;
-		o_mem_state.branch      <= o_branch;
 		o_mem_state.write_reg   <= i_B;
 		o_mem_state.MemToReg    <= i_ex_state.MemToReg;
 		o_mem_state.RegWrite    <= i_ex_state.RegWrite;
