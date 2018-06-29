@@ -25,22 +25,16 @@ package PipelineReg;
         logic [2:0] func3; 
 		logic func7;
 		logic [2:0] ALUOp;
-        //logic [31:0] rs1_data; we will not need these sync reg file
-        //logic [31:0] rs2_data;
         logic [31:0] immediate; 
 		logic [4:0] rd;
-		logic [1:0] ALUsrc ; //sources are regfile, immediate or pc
 		logic MemToReg; //Load instructions write back to reg file
 		logic RegWrite; //Instructions that need to write to reg file
         /*More signals for forwarding and hazard detection*/
-		logic branch; //is one bit enough?
 		logic [4:0] rs1;
         logic [4:0] rs2;
-        logic [31:0] rd1;
-        logic [31:0] rd2;
+		logic jmp;
 		logic MemRead;
 		logic MemWrite;
-		logic [31:0] write_reg;
     }EX_STATE;
 
     typedef struct packed {
@@ -49,8 +43,9 @@ package PipelineReg;
 	// Memory Stage
 	// control signals
 	logic BranchSrc0;
-        logic MemRead;
-        logic MemWrite;
+    logic MemRead;
+    logic MemWrite;
+	logic [3:0] mem_type;
 	// output signals
 	logic [31:0] ALUOutput;
 	logic [31:0] rd2;
@@ -58,25 +53,21 @@ package PipelineReg;
 	
 	// Write back stage
         logic MemToReg;
-        logic RegWrite;
+	logic RegWrite;
 	logic [4:0] rd;
 
     }MEM_STATE;
 
    
     typedef struct packed {
-        logic [31:0] pc;
-
-        // output signals
-        logic [31:0] ALUOutput;
-        logic [31:0] rdata;
-        logic [31:0] write_reg;
-
-	// Write back stage
-        logic MemToReg;
+		logic [31:0] pc; //for debug purposes only
+        //logic [31:0] ALUOutput;
+        //logic [31:0] rdata;
+        //logic [31:0] write_reg;
+        //logic MemToReg;
         logic RegWrite;
-	logic [4:0] rd;
-
+		logic [4:0] rd;
+		logic [31:0] final_out;
     }WBACK_STATE;
 
 

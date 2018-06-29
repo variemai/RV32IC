@@ -23,12 +23,12 @@ program alu_test(
     output reg 	[31:0]	Imm_SignExt_p,
     output reg 	[31:0]	NPC_p,
     output reg  [2:0]   ALUop_p,
-  	output reg  [2:0]   func3_p,
-  	output reg          func7_p, // 1 bit
+    output reg  [2:0]   func3_p,
+    output reg          func7_p, // 1 bit
 
-    input  		[31:0]  ALUOutput_p,
-    input 				branch_p);
-   // input  		[31:0]  retaddr_p);
+    input  	[31:0]  ALUOutput_p,
+    input	[31:0]  jmp_pc_p,
+    input               jmp_p);
 
 
 
@@ -41,6 +41,57 @@ program alu_test(
 reg 	[31:0]	tmp_res;
 reg 	tmp_branch;
 reg   [6:0]  ALUmode_p;
+
+
+typedef enum bit [6:0]{
+  // I-type
+  LUI,
+  AUIPC,
+  JAL,
+  JALR,
+
+  // Control - Branch
+  BEQ,
+  BNE,
+  BLT,
+  BGE,
+  BLTU,
+  BGEU,
+
+  // Data transfers
+  LB,
+  LH,
+  LW,
+  LBU,
+  LHU,
+  SB,
+  SH,
+  SW,
+
+  // I-type (more)
+  ADDI,
+  SLTI,
+  SLTIU,
+  XORI,
+  ORI,
+  ANDI,
+  SLLI,
+  SRLI,
+  SRAI,
+
+  // R-type
+  ADD,
+  SUB,
+  SLL,
+  SLT,
+  SLTU,
+  XOR,
+  SRL,
+  SRA,
+  OR, 
+  AND
+} ALUmode_t;
+
 
 
 task set_params();
@@ -271,21 +322,21 @@ task set_params();
 endtask
 
 
-
+/* ------------------------------------------------------------- ARITHMETICAL OPERATIONS  ------------------------------------------------------------- */
 task alu_arithmetic_ops_test();
 	$write("Task alu_arithmetic_ops_test: Arithmetic Operations of ALU - Verification\n");
 
 	//`define A 32'h1
 	//`define B 32'h1
-	A_p             <= `A;
-  B_p         	<= `B;
+	A_p 		<= `A;
+  	B_p         	<= `B;
 	Imm_SignExt_p	<= `Imm;
 
 	/******* ADD *******/
-  @(posedge clk);
+  	@(posedge clk);
 	ALUmode_p 	= ADD;
 	set_params();
-  @(posedge clk);
+ 	@(posedge clk);
 	expect(@(posedge clk) ALUOutput_p == (A_p+B_p)) else $display ("\tArithm. of ALU: ADD failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, A_p+B_p);
   
   /******* SUB *******/
@@ -302,9 +353,10 @@ task alu_arithmetic_ops_test();
   @(posedge clk);
   expect(@(posedge clk) ALUOutput_p == (A_p+Imm_SignExt_p)) else $display ("\tArithm. of ALU: ADDI failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, A_p+Imm_SignExt_p);
   
-
 endtask
 
+
+/* ------------------------------------------------------------- LOGICAL OPERATIONS  ------------------------------------------------------------- */
 task alu_logic_ops_test();
 	$write("Task alu_logic_ops_test: Logical Operations of ALU - Verification\n");
 	A_p             <= `A;
@@ -464,19 +516,20 @@ task alu_logic_ops_test();
 
 endtask
 
+
+/* ------------------------------------------------------------- BRANCHES ------------------------------------------------------------- */
 task alu_control_ops_test();
 	$write("Task alu_control_ops_test: Control Operations of ALU - Verification\n");
 	
   A_p             <= `A;
   B_p             <= `B;
   Imm_SignExt_p	  <= `Imm;
-  NPC_p		        <= `NPC;
+  NPC_p		  <= `NPC;
 	
 	/******* BEQ *******/
   @(posedge clk); 
   ALUmode_p 	= BEQ;
   set_params();
-  @(posedge clk);
 	if(A_p===B_p)
 	begin
 		tmp_branch	=  1'b1;
@@ -485,8 +538,8 @@ task alu_control_ops_test();
 	begin
 		tmp_branch	=  1'b0;
 	end
-	tmp_res = NPC_p + (2<<Imm_SignExt_p);
-  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BEQ failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+	tmp_res = NPC_p + Imm_SignExt_p;
+  expect(@(posedge clk) (jmp_p===tmp_branch) && (jmp_pc_p===tmp_res)) else $display ("\tLogic. of ALU: BEQ failed! (Jmp_PC: res. was: %d, while expected was: %d, Jmp: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, jmp_p, tmp_branch);
 
 	/******* BNE *******/
 	@(posedge clk);
@@ -501,8 +554,8 @@ task alu_control_ops_test();
 	begin
 		tmp_branch	=  1'b0;
 	end
-	tmp_res = NPC_p + (2<<Imm_SignExt_p);
-  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BNE failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+	tmp_res = NPC_p + Imm_SignExt_p;
+  expect(@(posedge clk) (jmp_p===tmp_branch) && (jmp_pc_p===tmp_res)) else $display ("\tLogic. of ALU: BNE failed! (Jmp_PC: res. was: %d, while expected was: %d, Jmp: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, jmp_p, tmp_branch);
 
 	/******* BLT *******/
 	@(posedge clk);
@@ -517,8 +570,8 @@ task alu_control_ops_test();
 	begin
 		tmp_branch	=  1'b0;
 	end
-	tmp_res = NPC_p + (2<<Imm_SignExt_p);
-  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BLT failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+	tmp_res = NPC_p + Imm_SignExt_p;
+  expect(@(posedge clk) (jmp_p===tmp_branch) && (jmp_pc_p===tmp_res)) else $display ("\tLogic. of ALU: BLT failed! (Jmp_PC: res. was: %d, while expected was: %d, Jmp: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, jmp_p, tmp_branch);
 
 	/******* BGE *******/
 	@(posedge clk);
@@ -533,8 +586,8 @@ task alu_control_ops_test();
 	begin
 		tmp_branch	=  1'b0;
 	end
-	tmp_res = NPC_p + (2<<Imm_SignExt_p);
-  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BGE failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+	tmp_res = NPC_p + Imm_SignExt_p;
+  expect(@(posedge clk) (jmp_p===tmp_branch) && (jmp_pc_p===tmp_res)) else $display ("\tLogic. of ALU: BGE failed! (Jmp_PC: res. was: %d, while expected was: %d, Jmp: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, jmp_p, tmp_branch);
 
   /******* BLTU *******/
   @(posedge clk);
@@ -549,8 +602,8 @@ task alu_control_ops_test();
   begin
     tmp_branch  =  1'b0;
   end
-  tmp_res = NPC_p + (2<<Imm_SignExt_p);
-  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BLTU failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+  tmp_res = NPC_p + Imm_SignExt_p;
+  expect(@(posedge clk) (jmp_p===tmp_branch) && (jmp_pc_p===tmp_res)) else $display ("\tLogic. of ALU: BLTU failed! (Jmp_PC: res. was: %d, while expected was: %d, Jmp: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, jmp_p, tmp_branch);
 
 
   /******* BGEU *******/
@@ -566,8 +619,8 @@ task alu_control_ops_test();
   begin
     tmp_branch  =  1'b0;
   end
-  tmp_res = NPC_p + (2<<Imm_SignExt_p);
-  expect(@(posedge clk) (branch_p===tmp_branch) && (ALUOutput_p===tmp_res)) else $display ("\tLogic. of ALU: BGEU failed! (Out: res. was: %d, while expected was: %d, Branch: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, branch_p, tmp_branch);
+  tmp_res = NPC_p + Imm_SignExt_p;
+  expect(@(posedge clk) (jmp_p===tmp_branch) && (jmp_pc_p===tmp_res)) else $display ("\tLogic. of ALU: BGEU failed! (Jmp_PC: res. was: %d, while expected was: %d, Jmp: es. was: %d, while expected was: %d)\n", ALUOutput_p, tmp_res, jmp_p, tmp_branch);
 
 
 
@@ -583,7 +636,7 @@ task alu_control_ops_test();
   ALUmode_p   = AUIPC;
   set_params();
   @(posedge clk);
-  tmp_res = NPC_p + (2<<Imm_SignExt_p);
+  tmp_res = NPC_p + Imm_SignExt_p;
   expect(@(posedge clk) ( (ALUOutput_p == tmp_res) ) ) else $display ("\tLogic. of ALU: JAL failed! (Out: res. was: %d, while expected was: %d\n", ALUOutput_p, NPC_p + Imm_SignExt_p);
 
 	/******* JAL *******/
@@ -591,7 +644,7 @@ task alu_control_ops_test();
   ALUmode_p 	= JAL;
   set_params();
   @(posedge clk);
-  tmp_res = NPC_p + (2<<Imm_SignExt_p);
+  tmp_res = NPC_p + 4;
   expect(@(posedge clk) ( (ALUOutput_p == tmp_res) ) ) else $display ("\tLogic. of ALU: JAL failed! (Out: res. was: %d, while expected was: %d\n", ALUOutput_p, NPC_p + Imm_SignExt_p);
 	
   /******* JALR *******/
@@ -599,11 +652,15 @@ task alu_control_ops_test();
   ALUmode_p   = JALR;
   set_params();
   @(posedge clk);
-  expect(@(posedge clk) ( (ALUOutput_p == (A_p + Imm_SignExt_p)) ) ) else $display ("\tLogic. of ALU: JALR failed! (Out: res. was: %d, while expected was: %d\n", ALUOutput_p, A_p + Imm_SignExt_p);
+  tmp_res = NPC_p + 4;
+  expect(@(posedge clk) ( (ALUOutput_p == tmp_res) ) ) else $display ("\tLogic. of ALU: JALR failed! (Out: res. was: %d, while expected was: %d\n", ALUOutput_p, A_p + Imm_SignExt_p);
   
 
 endtask
 
+
+
+/* ------------------------------------------------------------- DATA TRANSFER ------------------------------------------------------------- */
 task alu_data_transf_test();
 	$write("Task alu_data_transf_test: Data Transfers of ALU - Verification\n");
 
@@ -646,8 +703,8 @@ task alu_data_transf_test();
   @(posedge clk);
   expect(@(posedge clk) ALUOutput_p == (A_p+Imm_SignExt_p)) else $display ("\tData transf. of ALU: LHU failed! (res. was: %d, while expected was: %d)\n", ALUOutput_p, (A_p+Imm_SignExt_p));
 
-	/******* SB *******/
-	@(posedge clk);
+  /******* SB *******/
+  @(posedge clk);
   ALUmode_p 	= SB;
   set_params();
   @(posedge clk);
@@ -674,7 +731,7 @@ endtask
 
 
 initial begin
-	repeat(2)
+	repeat(1)
 	begin
 		alu_arithmetic_ops_test();
 		alu_logic_ops_test();

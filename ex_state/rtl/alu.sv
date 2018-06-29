@@ -197,7 +197,7 @@ begin
           if(i_func7 == 0)      // ADD
           begin
             o_ALUOutput       = i_A + i_B;
-            // $display ("\tALUout (res. was: %d)\n", o_ALUOutput);
+             //$display ("\tALUout (res. was: %d)\n", o_ALUOutput);
           end
           else if(i_func7 == 1) // SUB (func7==1'b1)
           begin
