@@ -7,7 +7,7 @@
  *                                                                   *
  *                                                                   *
  *  Author:       Antonios Psistakis (psistakis@csd.uoc.gr)          *
- *  Date:         June 21th, 2018                                    *
+ *  Date:         June 29th, 2018                                    *
  *  Description:  Data memory for a 32-bit RISC-V                    *  
  *                                                                   *
  *********************************************************************/
