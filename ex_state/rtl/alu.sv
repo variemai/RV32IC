@@ -34,57 +34,6 @@
 `define MTYPE_UHALFWORD 12  // 4'b1100 , upper half word
 `define MTYPE_INVALID   0   // invalid case, should never go there
 
-/*typedef enum bit [6:0]{
-
-  // I-type
-  LUI,
-  AUIPC,
-  JAL,
-  JALR,
-
-  // Control - Branch
-  BEQ,
-  BNE,
-  BLT,
-  BGE,
-  BLTU,
-  BGEU,
-
-  // Data transfers
-  LB,
-  LH,
-  LW,
-  LBU,
-  LHU,
-  SB,
-  SH,
-  SW,
-
-  // I-type (more)
-  ADDI,
-  SLTI,
-  SLTIU,
-  XORI,
-  ORI,
-  ANDI,
-  SLLI,
-  SRLI,
-  SRAI,
-
-  // R-type
-  ADD,
-  SUB,
-  SLL,
-  SLT,
-  SLTU,
-  XOR,
-  SRL,
-  SRA,
-  OR,
-  AND
-
-} ALUmode_t;*/
-
 
 module alu (i_clk, i_reset, i_A, i_B, i_Imm_SignExt, i_NPC, i_ALUop, i_func3, i_func7, o_ALUOutput, i_ex_state, o_mem_state, o_jmp_pc, o_jmp);// o_retaddr);
 
