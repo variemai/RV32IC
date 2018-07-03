@@ -92,7 +92,7 @@ module top;
 		.reset		( reset )
 	);
 
-	dmem MEM_WB(
+	dmem_state MEM_WB(
 		.i_clk		( clk ),
         	.i_reset	( reset ),
 		.i_we		( mem_state.MemWrite ),
@@ -104,17 +104,6 @@ module top;
 		.o_wback_state	( wb_state )
 	);
 
-/*
-	 top_tb tb(
-                .clk(clk),
-                .ex_state(ex_reg),
-                .jmp_pc(pc_jump),
-                .data0(data_out0),
-                .data1(data_out1),
-                .reset(reset)
-        );
-
-*/
 	initial begin
 		clk = 0;
 		forever begin

@@ -34,7 +34,7 @@ module dmem_test_top
 	logic [DATA_WIDTH-1:0] 	data_to_mem;
 	logic [DATA_BYTES-1:0] 	mem_type;
 
-	dmem dut(
+	dmem_state dut(
                 .i_clk(clk),
 		.i_reset(reset),
                 .i_addr(addr),

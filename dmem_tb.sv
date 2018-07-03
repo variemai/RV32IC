@@ -33,12 +33,12 @@ program testbench(
 		$write("MemWrite\n ex: %d, mem: %d\n", ex_state.MemWrite, mem_state.MemWrite);
 		
 
-		$write("MemToReg\n ex: %d, mem: %d", ex_state.MemToReg, mem_state.MemToReg);
+		$write("MemToReg\n ex: %d, mem: %d\n", ex_state.MemToReg, mem_state.MemToReg);
 
-		$write("RegWrite\n ex: %d, mem: %d", ex_state.RegWrite, mem_state.RegWrite);
+		$write("RegWrite\n ex: %d, mem: %d\n", ex_state.RegWrite, mem_state.RegWrite);
 
 
-		$write("rd\n ex: %d, mem: %d, wb:%d \n", ex_state.rd, mem_state.rd, wb_state.rd);
+		$write("rd\n ex: %d, mem: %d, wb:%d\n", ex_state.rd, mem_state.rd, wb_state.rd);
 
 
 		$write("ALU_A\n ex: %d\n", i_A);
