@@ -1,8 +1,10 @@
 `include "PipelineRegs.sv"
 
-module top;
-	bit clk;
-	logic reset;
+module top(
+	input clk,
+	input logic reset
+	);
+
 	logic valid;
 	logic pc_enable;
 	logic nop;
@@ -96,7 +98,7 @@ module top;
         	.i_reset	( reset ),
 		.i_we		( mem_state.MemWrite ),
 		.i_mem_type	( mem_state.mem_type ),
-        	.i_addr		( [10:0]mem_state.ALUOutput ),
+        	.i_addr		( mem_state.ALUOutput[10:0] ),
         	.i_wdata	( mem_state.write_reg ),
         	.i_mem_state	( mem_state ),
 		.o_rdata	( rdata ),

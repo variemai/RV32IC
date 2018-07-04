@@ -6,7 +6,6 @@
  * Computer Science Department University of Crete 27/03/2018                *
  *****************************************************************************/
 `include "PipelineRegs.sv"
-`include "imem.sv"
 
 module IFetch(
 	input clk,
@@ -66,7 +65,7 @@ module IFetch(
 	imem InstructionMem(
 		.clk(clk),
 		.reset(reset),
-		.addr(pc_in[10:2]),
+		.addr(pc_in[12:2]),
 		.dout(instruction)
 	);
 	/*

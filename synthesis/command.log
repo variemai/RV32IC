@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version M-2016.12 for linux64 -- Nov 21, 2016
-#@ # Date:   Thu Jun 28 18:33:05 2018
+#@ # Date:   Wed Jul  4 15:20:00 2018
 #@ # Run by: vardas@socofreta.ics.forth.gr
 #@ 
 
@@ -41938,87 +41938,96 @@ gui_start
 #@ 
 #@ # -- End source /eda/synopsys/syn/M-2016.12/auxx/tcllib/lib/iwidgets4.1/watch.itk
 
-read_file -format sverilog {/home/vardas/rv32ic/synthesis/alu.sv /home/vardas/rv32ic/synthesis/Decoder.sv /home/vardas/rv32ic/synthesis/dmem.sv /home/vardas/rv32ic/synthesis/ID_EX_reg.sv /home/vardas/rv32ic/synthesis/IFetch.sv /home/vardas/rv32ic/synthesis/imem.sv /home/vardas/rv32ic/synthesis/regfile.sv /home/vardas/rv32ic/synthesis/RegFile.sv /home/vardas/rv32ic/synthesis/top.v}
-read_file -format sverilog {/home/vardas/rv32ic/synthesis/alu.sv /home/vardas/rv32ic/synthesis/Decoder.sv /home/vardas/rv32ic/synthesis/dmem.sv /home/vardas/rv32ic/synthesis/ID_EX_reg.sv /home/vardas/rv32ic/synthesis/IFetch.sv /home/vardas/rv32ic/synthesis/imem.sv /home/vardas/rv32ic/synthesis/regfile.sv /home/vardas/rv32ic/synthesis/RegFile.sv /home/vardas/rv32ic/synthesis/top.v}
-read_file -format sverilog {/home/vardas/rv32ic/synthesis/alu.sv /home/vardas/rv32ic/synthesis/Decoder.sv /home/vardas/rv32ic/synthesis/dmem.sv /home/vardas/rv32ic/synthesis/ID_EX_reg.sv /home/vardas/rv32ic/synthesis/IFetch.sv /home/vardas/rv32ic/synthesis/imem.sv /home/vardas/rv32ic/synthesis/PipelineRegs.sv /home/vardas/rv32ic/synthesis/regfile.sv /home/vardas/rv32ic/synthesis/RegFile.sv /home/vardas/rv32ic/synthesis/top.v}
-read_file -format sverilog {/home/vardas/rv32ic/synthesis/alu.sv /home/vardas/rv32ic/synthesis/Decoder.sv /home/vardas/rv32ic/synthesis/dmem.sv /home/vardas/rv32ic/synthesis/ID_EX_reg.sv /home/vardas/rv32ic/synthesis/IFetch.sv /home/vardas/rv32ic/synthesis/imem.sv /home/vardas/rv32ic/synthesis/PipelineRegs.sv /home/vardas/rv32ic/synthesis/regfile.sv /home/vardas/rv32ic/synthesis/RegFile.sv /home/vardas/rv32ic/synthesis/top.v}
-read_sverilog *.sv
-read_sverilog Decoder.sv dmem.sv alu.sv ID_EX_reg.sv ID_EX_reg.sv IFetch.sv imem.sv regfile.sv RegFile.sv top.sv
-read_sverilog Decoder.sv
-read_sverilog IFetch.sv
-read_sverilog top.sv
+source ~/lab3/common/scripts/common.tcl
+#@ # -- Starting source ~/lab3/common/scripts/common.tcl
+
+#@ ##########  VARIABLES TO MODIFY ###########################
+#@ # MAIN PATHS
+#@ set ROOT_DIR              "/eda/cs523/labs/lab3"
+#@ set VERILOG_DIR           "${ROOT_DIR}/common/i2c_project/rtl/verilog"
+#@ ###########################################################
+#@ 
+#@ set DESIGN_NAME           "i2c_master_top"
+#@ 
+#@ ############### outputs 
+#@ set Design_MW             "${DESIGN_NAME}.mw"
+#@ set Design_SYNTH          "${DESIGN_NAME}_basic_synth.v"
+#@ ###########################################################
+#@ 
+#@ set pns_vlayer M6
+#@ set pns_hlayer M7
+#@ set route_min_layer M2
+#@ set route_max_layer M5
+#@ 
+#@ source "${ROOT_DIR}/common/scripts/techlibs_tt.tcl"
+#@ # -- Starting source /eda/cs523/labs/lab3/common/scripts/techlibs_tt.tcl
+
+#@ ###################################################################################################
+#@ # DO NOT MODIFY THIS FILE
+#@ ###################################################################################################
+#@ 
+#@ set DESIGN_REF_PATH       "/eda/tech-libs/SAED32_EDK"
+#@ set STARRC_BIN_PATH	  "/eda/synopsys/starrc/M-2016.12/bin"
+#@ set PRIMETIME_BIN_PATH	  "/eda/synopsys/pt/M-2016.12/bin"
+#@ 
+#@ ###################################################################################################
+#@ set DESIGN_REF_LIB_PATH  "${DESIGN_REF_PATH}/lib"
+#@ set DESIGN_REF_TECH_PATH "${DESIGN_REF_PATH}/tech"
+#@ 
+#@ ###################################################################################################
+#@ set DESIGN_REF_MW_PATH   "${DESIGN_REF_TECH_PATH}/milkyway"
+#@ set DESIGN_REF_RC_PATH   "${DESIGN_REF_TECH_PATH}/star_rcxt"
+#@ 
+#@ ###################################################################################################
+#@ 
+#@ set Std_cell_lib         "${DESIGN_REF_LIB_PATH}/stdcell_rvt/db_nldm/saed32rvt_tt1p05v25c.db"
+#@ 
+#@ set Ram_lib              "${DESIGN_REF_LIB_PATH}/sram/db_nldm/saed32sram_tt1p05v25c.db"
+#@ 
+#@ set Ram_lp_lib           "${DESIGN_REF_LIB_PATH}/sram_lp/db_nldm/saed32sramlp_tt1p05v25c_i0p78v.db                           ${DESIGN_REF_LIB_PATH}/sram_lp/db_nldm/saed32sramlp_tt1p05v25c_i0p85v.db                           ${DESIGN_REF_LIB_PATH}/sram_lp/db_nldm/saed32sramlp_tt1p05v25c_i1p05v.db 			 "
+#@ set Io_sp_lib            "${DESIGN_REF_LIB_PATH}/io_sp/db_nldm/saed32io_fc_hstl_tt1p05v25c_2p5v.db                           ${DESIGN_REF_LIB_PATH}/io_sp/db_nldm/saed32io_fc_mddr_tt1p05v25c_1p8v.db                           ${DESIGN_REF_LIB_PATH}/io_sp/db_nldm/saed32io_fc_sstl_tt1p05v25c_2p5v.db                           ${DESIGN_REF_LIB_PATH}/io_sp/db_nldm/saed32io_wb_hstl_tt1p05v25c_2p5v.db                           ${DESIGN_REF_LIB_PATH}/io_sp/db_nldm/saed32io_wb_mddr_tt1p05v25c_1p8v.db                           ${DESIGN_REF_LIB_PATH}/io_sp/db_nldm/saed32io_wb_sstl_tt1p05v25c_2p5v.db 			 "
+#@ 
+#@ set Io_std_lib           "${DESIGN_REF_LIB_PATH}/io_std/db_nldm/saed32io_fc_tt1p05v25c_2p5v.db                           ${DESIGN_REF_LIB_PATH}/io_std/db_nldm/saed32io_wb_tt1p05v25c_2p5v.db 	                 " 
+#@ set Pll_lib              "${DESIGN_REF_LIB_PATH}/pll/db_nldm/saed32pll_tt1p05v25c_2p5v.db" 
+#@ 
+#@ ###################################################################################################
+#@ 
+#@ set Milkyway_reference_lib "${DESIGN_REF_LIB_PATH}/stdcell_rvt/milkyway/saed32nm_rvt_1p9m                             ${DESIGN_REF_LIB_PATH}/sram/milkyway/SRAM32NM 			   " 
+#@ #${DESIGN_REF_LIB_PATH}/io_std/milkyway/saed32_io_fc                             #${DESIGN_REF_LIB_PATH}/io_std/milkyway/saed32_io_wb                             #${DESIGN_REF_LIB_PATH}/pll/milkyway/SAED32_PLL_FR                             #${DESIGN_REF_LIB_PATH}/sram_lp/milkyway/saed32sram_lp                             #${DESIGN_REF_LIB_PATH}/io_sp/milkyway/HSTL_fc                             #${DESIGN_REF_LIB_PATH}/io_sp/milkyway/HSTL_wb                             #${DESIGN_REF_LIB_PATH}/io_sp/milkyway/MDDR_fc                             #${DESIGN_REF_LIB_PATH}/io_sp/milkyway/MDDR_wb                             #${DESIGN_REF_LIB_PATH}/io_sp/milkyway/SSTL_fc                             #${DESIGN_REF_LIB_PATH}/io_sp/milkyway/SSTL_wb 			    
+#@ set Tech_file             "${DESIGN_REF_MW_PATH}/saed32nm_1p9m_mw.tf"
+#@ set Map_file              "${DESIGN_REF_MW_PATH}/saed32nm_tf_itf_tluplus.map"
+#@ set Antenna_file          "${DESIGN_REF_MW_PATH}/saed32nm_ant_1p9m.tcl"
+#@ set Alf_file              "${DESIGN_REF_MW_PATH}/saed32nm_em_1p9m.alf"
+#@ set Gds_map_file          "${DESIGN_REF_MW_PATH}/saed32nm_1p9m_gdsout_mw.map"
+#@ set Tlup_max_file         "${DESIGN_REF_RC_PATH}/saed32nm_1p9m_Cmax.tluplus"
+#@ set Tlup_min_file         "${DESIGN_REF_RC_PATH}/saed32nm_1p9m_Cmin.tluplus"
+#@ set Nxtgrd_max_file       "${DESIGN_REF_RC_PATH}/saed32nm_1p9m_Cmax.nxtgrd"
+#@ set Nxtgrd_min_file       "${DESIGN_REF_RC_PATH}/saed32nm_1p9m_Cmin.nxtgrd"
+#@ 
+#@ set Icv_drc_runset	  "${DESIGN_REF_TECH_PATH}/icv_drc/saed32nm_1p9m_drc_rules.rs"
+#@ ###################################################################################################
+#@ # -- End source /eda/cs523/labs/lab3/common/scripts/techlibs_tt.tcl
+
+#@ # -- End source ~/lab3/common/scripts/common.tcl
+
+set link_library          "$Std_cell_lib $Ram_lib"
+set target_library        "$Std_cell_lib $Ram_lib"
+analyze -format sverilog {imem.sv regfile.sv mem_sync_sp.sv alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv top.sv}
+elaborate IFetch -architecture verilog -library DEFAULT -update
+elaborate top
+link
+check_design
+read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
+read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
 change_selection [get_s top]
-change_selection [get_s decode]
 change_selection [get_s top]
-change_selection [get_s decode]
-change_selection [get_s fetch]
 change_selection [get_s top]
-change_selection [get_s decode]
-change_selection [get_s fetch]
 change_selection [get_s top]
-read_sverilog alu.sv
-change_selection [get_s decode]
-change_selection [get_s decode]
-change_selection 
-read_sverilog ID_EX_reg.sv
-change_selection [get_s id_ex_reg]
-read_sverilog top.sv
-change_selection -remove [get_s id_ex_reg]
-change_selection [get_s ID_EX]
-change_selection [get_s top]
-read_sverilog alu.sv
+read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
+analyze -format sverilog {imem.sv regfile.sv mem_sync_sp.sv alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv top.sv}
+elaborate top
 change_selection -remove [get_s top]
-change_selection [get_s alu]
-read_sverilog top.sv
-change_selection -remove [get_s alu]
-read_sverilog dmem.sv
-read_sverilog top.sv
-change_selection [get_s top]
 link
-read_sverilog regfile.sv
-change_selection -remove [get_s top]
-read_sverilog RegFile.sv
-read_sverilog imem.sv
-read_sverilog top.sv
-change_selection [get_s top]
-link
-link
-read_sverilog top.sv
-link
-read_sverilog imem.sv
-read_sverilog top.sv
-link
-change_selection [get_s decode]
-change_selection [get_s regF]
-change_selection [get_s ID_EX]
-change_selection [get_s decode]
-change_selection [get_s fetch]
-read_sverilog imem.sv
-read_sverilog top.sv
-link
-change_selection [get_s fetch]
-change_selection [get_s fetch]
-change_selection [get_s fetch/add_50]
-change_selection [get_s fetch]
-remove_design -designs
-read_sverilog imem.sv
-read_sverilog IFetch.sv
-read_sverilog regfile.sv
-read_sverilog RegFile.sv
-read_sverilog Decoder.sv
-read_sverilog ID_EX_reg.sv
-read_sverilog alu.sv
-read_sverilog dmem.sv
-read_sverilog top.sv
-change_selection [get_s top]
-change_selection [get_s top]
-change_selection [get_s top]
-change_selection [get_s top]
-link
-change_selection [get_s fetch]
-change_selection [get_s top]
-change_selection [get_s ID_EX]
-change_selection [get_s regF]
-change_selection [get_s EX_MEM]
-link
-uplevel #0 check_design
+check_design
+read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
+compile

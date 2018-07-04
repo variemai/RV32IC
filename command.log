@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version M-2016.12 for linux64 -- Nov 21, 2016
-#@ # Date:   Thu Jun 28 18:15:27 2018
+#@ # Date:   Wed Jul  4 12:51:27 2018
 #@ # Run by: vardas@socofreta.ics.forth.gr
 #@ 
 
@@ -5577,7 +5577,7 @@ source /eda/synopsys/syn/M-2016.12/admin/setup/.synopsys_dc.setup
 #@ }
 #@ # -- End source /eda/synopsys/syn/M-2016.12/admin/setup/.synopsys_dc.setup
 
-start_gui
+gui_start
 #@ # -- Starting source /eda/synopsys/syn/M-2016.12/auxx/tcllib/lib/itk4.0.1/itk.tcl
 
 #@ #
@@ -41938,5 +41938,11 @@ start_gui
 #@ 
 #@ # -- End source /eda/synopsys/syn/M-2016.12/auxx/tcllib/lib/iwidgets4.1/watch.itk
 
-read_file -format sverilog {/home/vardas/rv32ic/synthesis/alu.sv /home/vardas/rv32ic/synthesis/Decoder.sv /home/vardas/rv32ic/synthesis/dmem.sv /home/vardas/rv32ic/synthesis/ID_EX_reg.sv /home/vardas/rv32ic/synthesis/IFetch.sv /home/vardas/rv32ic/synthesis/imem.sv /home/vardas/rv32ic/synthesis/reg_test.sv /home/vardas/rv32ic/synthesis/RegFile.sv /home/vardas/rv32ic/synthesis/top.sv}
-read_file -format verilog {/home/vardas/rv32ic/synthesis/alu.v /home/vardas/rv32ic/synthesis/Decoder.v /home/vardas/rv32ic/synthesis/dmem.v /home/vardas/rv32ic/synthesis/ID_EX_reg.v /home/vardas/rv32ic/synthesis/IFetch.v /home/vardas/rv32ic/synthesis/imem.v /home/vardas/rv32ic/synthesis/RegFile.v /home/vardas/rv32ic/synthesis/regfile.v /home/vardas/rv32ic/synthesis/top.v}
+set link_library          "$Std_cell_lib $Ram_lib"
+set target_library  {../ref/db_nldm/saed32rvt_tt1p05v25c.db   }
+set link_library    {* ../ref/db_nldm/saed32rvt_tt1p05v25c.db }
+analyze -format sverilog {imem.sv alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+set target_library  {/home/vardas/lab2/lab2a/ref/db_nldm/saed32rvt_tt1p05v25c.db   }
+set link_library    {* /home/vardas/lab2/lab2a/ref/db_nldm/saed32rvt_tt1p05v25c.db }
+analyze -format sverilog {imem.sv alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+exit

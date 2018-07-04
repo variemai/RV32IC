@@ -46,11 +46,10 @@ module decoder(
 				else begin
 					ex_state.ALUOp = 3'b010;
 					ex_state.RegWrite = 1;
-					ex_state.func3 = id_state.instruction[14:12];
 					stall = 0; 
 				end
 				ex_state.jmp = 0;
-				//$write("R-Format Instruction\n");
+				ex_state.immediate = 32'b0;
 				ex_state.MemRead = 0;
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
@@ -234,6 +233,7 @@ module decoder(
 					ex_state.ALUOp = 3'b001;
 					stall = 0;
 				end
+				ex_state.jmp = 0;
 				ex_state.MemWrite = 0;
 				ex_state.RegWrite = 0;
 				ex_state.MemRead = 0;
@@ -243,23 +243,33 @@ module decoder(
 			
 			default: 
 			begin
-				stall = 0;
+				ex_state.rs1 = 5'b0;
+				ex_state.rd = 5'b0;
+				ex_state.ALUOp = 3'b011;
+				ex_state.immediate = 32'b0;
+				ex_state.func3 = 3'b0;
+				ex_state.jmp = 0; 
 				ex_state.MemToReg = 0;
 				ex_state.MemWrite = 0;
 				ex_state.RegWrite = 0;
+				ex_state.MemRead = 0;
+				stall = 0;
 				$write("Unknown Instruction Format!\n");
 			end
 		endcase
 	end else begin 
 		ex_state.rs1 = 5'b0;
+		ex_state.rs2 = 5'b0;
 		ex_state.rd = 5'b0;
 		ex_state.ALUOp = 3'b011;
 		ex_state.immediate = 32'b0;
 		ex_state.func3 = 3'b0;
+		ex_state.func7 = 1'b0;
 		ex_state.jmp = 0; 
 		ex_state.MemToReg = 0;
 		ex_state.MemWrite = 0;
 		ex_state.RegWrite = 0;
+		ex_state.MemRead = 0;
 		stall = 0;
 	end
 	end

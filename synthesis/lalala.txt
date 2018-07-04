@@ -1,0 +1,38 @@
+     1  gui_start
+     2  analyze -format sverilog { *.sv }
+     source ~/lab3/common/scripts/common.tcl
+     set link_library          "$Std_cell_lib $Ram_lib"
+     set target_library        "$Std_cell_lib $Ram_lib"
+     9  analyze -format sverilog { *.sv }
+    10  analyze -format sverilog *.sv
+    11  analyze -format sverilog "*.sv"
+    12  ls
+    13  analyze -format sverilog alu.sv IFetch.sv imem.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv
+    14  analyze -format sverilog {alu.sv IFetch.sv imem.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    15  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    16  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    17  elaborate top -architecture verilog -library DEFAULT
+    18  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    19  elaborate top -architecture verilog -library DEFAULT
+    20  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    21  elaborate
+    22  elaborate top.sv
+    23  elaborate top
+    24  link
+    25  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    26  elaborate top
+    27  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    28  elaborate top
+    29  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    30  elaborate top
+    31  link
+    32  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv imem.sv top.sv}
+    33  elaborate top
+    34  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv imem.sv top.sv}
+    35  elaborate top
+    36  analyze -format sverilog {alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv imem.sv top.sv}
+    37  elaborate top
+    analyze -format sverilog {imem.sv alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv regfile.sv top.sv}
+    39  elaborate top
+    40  elaborate InstructionMem
+    41  history > lalala.txt
