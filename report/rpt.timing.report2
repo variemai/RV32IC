@@ -1,0 +1,129 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Information: Timing loop detected. (OPT-150)
+	fetch/U108/A1 fetch/U108/Y fetch/U89/A2 fetch/U89/Y fetch/__tmp360/U51/A fetch/__tmp360/U51/Y fetch/__tmp360/U41/A2 fetch/__tmp360/U41/Y decode/U168/A2 decode/U168/Y decode/U163/A1 decode/U163/Y decode/U171/A1 decode/U171/Y decode/U48/A1 decode/U48/Y decode/U47/A2 decode/U47/Y 
+Information: Timing loop detected. (OPT-150)
+	fetch/U5/A fetch/U5/Y fetch/U107/A2 fetch/U107/Y fetch/U89/A6 fetch/U89/Y fetch/__tmp360/U51/A fetch/__tmp360/U51/Y fetch/__tmp360/U41/A2 fetch/__tmp360/U41/Y decode/U168/A2 decode/U168/Y decode/U163/A1 decode/U163/Y decode/U171/A1 decode/U171/Y decode/U48/A1 decode/U48/Y decode/U47/A2 decode/U47/Y 
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : top
+Version: M-2016.12
+Date   : Thu Jul  5 13:00:21 2018
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt1p05v25c   Library: saed32rvt_tt1p05v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: regF/sram01
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: fetch/pc_reg[11]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  top                1000000               saed32rvt_tt1p05v25c
+  alu                8000                  saed32rvt_tt1p05v25c
+  IFetch             280000                saed32rvt_tt1p05v25c
+  mem_sync_sp_syn    280000                saed32rvt_tt1p05v25c
+  decoder            8000                  saed32rvt_tt1p05v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  regF/sram01/CE1 (SRAM2RW32x32)                          0.00 #     0.00 r
+  regF/sram01/O1[1] (SRAM2RW32x32)                        0.06       0.06 r
+  regF/o_rdataB[1] (reg_file_2r1w_syn)                    0.00       0.06 r
+  EX_MEM/i_B[1] (alu)                                     0.00       0.06 r
+  EX_MEM/U24/Y (OR2X1_RVT)                                0.26       0.32 r
+  EX_MEM/U478/Y (AND2X1_RVT)                              0.04       0.36 r
+  EX_MEM/U477/Y (AO22X1_RVT)                              0.05       0.41 r
+  EX_MEM/U476/Y (OR2X1_RVT)                               0.05       0.46 r
+  EX_MEM/U475/Y (AO222X1_RVT)                             0.07       0.53 r
+  EX_MEM/U82/Y (AND2X1_RVT)                               0.04       0.57 r
+  EX_MEM/U473/Y (AO221X1_RVT)                             0.05       0.63 r
+  EX_MEM/U78/Y (AND2X1_RVT)                               0.04       0.67 r
+  EX_MEM/U471/Y (AO221X1_RVT)                             0.05       0.72 r
+  EX_MEM/U72/Y (AND2X1_RVT)                               0.04       0.76 r
+  EX_MEM/U469/Y (AO221X1_RVT)                             0.05       0.82 r
+  EX_MEM/U468/Y (NAND2X0_RVT)                             0.03       0.85 f
+  EX_MEM/U467/Y (OA222X1_RVT)                             0.06       0.91 f
+  EX_MEM/U466/Y (AO221X1_RVT)                             0.05       0.96 f
+  EX_MEM/U798/Y (OAI221X1_RVT)                            0.06       1.02 r
+  EX_MEM/U84/Y (NAND2X0_RVT)                              0.03       1.05 f
+  EX_MEM/U463/Y (AO22X1_RVT)                              0.04       1.09 f
+  EX_MEM/U460/Y (OA22X1_RVT)                              0.04       1.13 f
+  EX_MEM/U457/Y (AO222X1_RVT)                             0.05       1.19 f
+  EX_MEM/U456/Y (OA221X1_RVT)                             0.05       1.24 f
+  EX_MEM/U455/Y (AO221X1_RVT)                             0.05       1.28 f
+  EX_MEM/U454/Y (OA221X1_RVT)                             0.05       1.33 f
+  EX_MEM/U453/Y (AO21X1_RVT)                              0.04       1.37 f
+  EX_MEM/U794/Y (OAI221X1_RVT)                            0.07       1.44 r
+  EX_MEM/U793/Y (NAND2X0_RVT)                             0.03       1.47 f
+  EX_MEM/U448/Y (OAI222X1_RVT)                            0.07       1.54 r
+  EX_MEM/U447/Y (AND2X1_RVT)                              0.04       1.58 r
+  EX_MEM/U446/Y (AO22X1_RVT)                              0.05       1.63 r
+  EX_MEM/U445/Y (OR2X1_RVT)                               0.05       1.68 r
+  EX_MEM/U444/Y (AO22X1_RVT)                              0.05       1.72 r
+  EX_MEM/U799/Y (INVX0_RVT)                               0.03       1.76 f
+  EX_MEM/U253/Y (OA222X1_RVT)                             0.06       1.81 f
+  EX_MEM/U251/Y (AO21X1_RVT)                              0.05       1.87 f
+  EX_MEM/U250/Y (NAND2X0_RVT)                             0.04       1.91 r
+  EX_MEM/o_jmp (alu)                                      0.00       1.91 r
+  fetch/jmp (IFetch)                                      0.00       1.91 r
+  fetch/U112/Y (IBUFFX2_RVT)                              0.23       2.14 f
+  fetch/U107/Y (AND2X1_RVT)                               0.22       2.36 f
+  fetch/U89/Y (AO222X1_RVT)                               0.32       2.68 f
+  fetch/__tmp360/i_addr[10] (mem_sync_sp_syn)             0.00       2.68 f
+  fetch/__tmp360/U5/Y (INVX0_RVT)                         0.21       2.89 r
+  fetch/__tmp360/U2/Y (INVX0_RVT)                         0.21       3.11 f
+  fetch/__tmp360/U3/Y (IBUFFX2_RVT)                       0.20       3.31 r
+  fetch/__tmp360/U29/Y (AO22X1_RVT)                       0.36       3.67 r
+  fetch/__tmp360/o_rdata[18] (mem_sync_sp_syn)            0.00       3.67 r
+  fetch/instruction[18] (IFetch)                          0.00       3.67 r
+  decode/id_state[instruction][18] (decoder)              0.00       3.67 r
+  decode/U146/Y (XNOR2X1_RVT)                             0.50       4.17 r
+  decode/U162/Y (NAND3X0_RVT)                             0.04       4.21 f
+  decode/U171/Y (OA22X2_RVT)                              0.07       4.28 f
+  decode/U170/Y (AND3X1_RVT)                              0.07       4.35 f
+  decode/U48/Y (OAI222X1_RVT)                             0.08       4.43 r
+  decode/U47/Y (AND2X1_RVT)                               0.05       4.48 r
+  decode/stall (decoder)                                  0.00       4.48 r
+  fetch/stall (IFetch)                                    0.00       4.48 r
+  fetch/U10/Y (OR2X1_RVT)                                 0.29       4.77 r
+  fetch/U44/Y (AND2X1_RVT)                                0.16       4.93 r
+  fetch/U122/Y (NBUFFX2_RVT)                              0.21       5.13 r
+  fetch/U23/Y (AO22X1_RVT)                                0.40       5.54 r
+  fetch/pc_reg[11]/D (DFFX1_RVT)                          0.13       5.66 r
+  data arrival time                                                  5.66
+
+  clock clk (rise edge)                                   6.00       6.00
+  clock network delay (ideal)                             0.00       6.00
+  clock uncertainty                                      -0.30       5.70
+  fetch/pc_reg[11]/CLK (DFFX1_RVT)                        0.00       5.70 r
+  library setup time                                     -0.03       5.67
+  data required time                                                 5.67
+  --------------------------------------------------------------------------
+  data required time                                                 5.67
+  data arrival time                                                 -5.66
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.01
+
+
+1

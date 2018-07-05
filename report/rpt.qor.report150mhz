@@ -1,0 +1,98 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Information: Timing loop detected. (OPT-150)
+	fetch/U108/A1 fetch/U108/Y fetch/U90/A2 fetch/U90/Y fetch/__tmp360/U4/A fetch/__tmp360/U4/Y fetch/__tmp360/U3/A fetch/__tmp360/U3/Y fetch/__tmp360/U11/A2 fetch/__tmp360/U11/Y decode/U133/A1 decode/U133/Y decode/U36/A decode/U36/Y decode/U51/A1 decode/U51/Y decode/U50/A1 decode/U50/Y 
+Information: Timing loop detected. (OPT-150)
+	fetch/U6/A fetch/U6/Y fetch/U107/A2 fetch/U107/Y fetch/U90/A6 fetch/U90/Y fetch/__tmp360/U4/A fetch/__tmp360/U4/Y fetch/__tmp360/U3/A fetch/__tmp360/U3/Y fetch/__tmp360/U11/A2 fetch/__tmp360/U11/Y decode/U133/A1 decode/U133/Y decode/U36/A decode/U36/Y decode/U51/A1 decode/U51/Y decode/U50/A1 decode/U50/Y 
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+ 
+****************************************
+Report : qor
+Design : top
+Version: M-2016.12
+Date   : Thu Jul  5 18:15:27 2018
+****************************************
+
+
+  Timing Path Group 'clk'
+  -----------------------------------
+  Levels of Logic:              21.00
+  Critical Path Length:          5.78
+  Critical Path Slack:          -0.11
+  Critical Path Clk Period:      6.00
+  Total Negative Slack:         -3.14
+  No. of Violating Paths:       55.00
+  Worst Hold Violation:          0.00
+  Total Hold Violation:          0.00
+  No. of Hold Violations:        0.00
+  -----------------------------------
+
+
+  Cell Count
+  -----------------------------------
+  Hierarchical Cell Count:         18
+  Hierarchical Port Count:       2749
+  Leaf Cell Count:             204537
+  Buf/Inv Cell Count:           23015
+  Buf Cell Count:               12706
+  Inv Cell Count:               10309
+  CT Buf/Inv Cell Count:            0
+  Combinational Cell Count:    138624
+  Sequential Cell Count:        65913
+  Macro Count:                      0
+  -----------------------------------
+
+
+  Area
+  -----------------------------------
+  Combinational Area:   342010.987433
+  Noncombinational Area:
+                        435486.940629
+  Buf/Inv Area:          40723.273494
+  Total Buffer Area:         26036.55
+  Total Inverter Area:       14686.73
+  Macro/Black Box Area: 224887.496094
+  Net Area:             577953.564121
+  -----------------------------------
+  Cell Area:           1002385.424156
+  Design Area:         1580338.988277
+
+
+  Design Rules
+  -----------------------------------
+  Total Number of Nets:        204843
+  Nets With Violations:             0
+  Max Trans Violations:             0
+  Max Cap Violations:               0
+  -----------------------------------
+
+
+  Hostname: socofreta.ics.forth.gr
+
+  Compile CPU Statistics
+  -----------------------------------------
+  Resource Sharing:                   38.62
+  Logic Optimization:                318.91
+  Mapping Optimization:             1810.74
+  -----------------------------------------
+  Overall Compile Time:             2212.39
+  Overall Compile Wall Clock Time:  2213.60
+
+  --------------------------------------------------------------------
+
+  Design  WNS: 0.11  TNS: 3.14  Number of Violating Paths: 55
+
+
+  Design (Hold)  WNS: 0.00  TNS: 0.00  Number of Violating Paths: 0
+
+  --------------------------------------------------------------------
+
+
+1

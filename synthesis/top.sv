@@ -44,7 +44,7 @@ module top(
 	   .kill(jmp),
        .valid(valid)
    );
-
+	/*
 	RegFile regF(
 		.clk(clk),
 		.we(wb_state.RegWrite),
@@ -55,7 +55,18 @@ module top(
 		.dout0(reg_dataA),
 		.dout1(reg_dataB)
 	);
-
+*/
+	reg_file_2r1w_syn regF(
+		.clk(clk),
+		.i_addrA(id_ex_reg.rs1),
+		.i_addrB(id_ex_reg.rs2),
+		.i_waddr(wb_state.rd),
+		.i_wdata(wb_state.final_out),
+		.i_wen(wb_state.RegWrite),
+		.o_rdataA(reg_dataA),
+		.o_rdataB(reg_dataB)
+	);
+	
 	id_ex_reg ID_EX(
 		.clk(clk),
 		.in(id_ex_reg),

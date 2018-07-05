@@ -1,0 +1,47 @@
+ 
+****************************************
+Report : constraint
+Design : top
+Version: M-2016.12
+Date   : Thu Jul  5 15:58:40 2018
+****************************************
+
+
+                                                   Weighted
+    Group (max_delay/setup)      Cost     Weight     Cost
+    -----------------------------------------------------
+    clk                          4.12      1.00      4.12
+    default                      0.00      1.00      0.00
+    -----------------------------------------------------
+    max_delay/setup                                  4.12
+
+                              Total Neg  Critical
+    Group (critical_range)      Slack    Endpoints   Cost
+    -----------------------------------------------------
+    clk                      123743.40        1      4.12
+    default                      0.00         0      0.00
+    -----------------------------------------------------
+    critical_range                                   4.12
+
+                                                   Weighted
+    Group (min_delay/hold)       Cost     Weight     Cost
+    -----------------------------------------------------
+    clk (no fix_hold)            0.00      1.00      0.00
+    default                      0.00      1.00      0.00
+    -----------------------------------------------------
+    min_delay/hold                                   0.00
+
+
+    Constraint                                       Cost
+    -----------------------------------------------------
+    min_capacitance                                  0.00 (MET)
+    max_transition                                   0.00 (MET)
+    max_capacitance                                  0.00 (MET)
+    max_delay/setup                                  4.12 (VIOLATED)
+    sequential_clock_pulse_width                     0.00 (MET)
+    critical_range                                   4.12 (VIOLATED)
+    max_area                                     1582094.88
+                                                          (VIOLATED)
+
+
+1

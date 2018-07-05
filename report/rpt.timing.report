@@ -1,0 +1,70 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : top
+Version: M-2016.12
+Date   : Wed Jul  4 18:20:02 2018
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt1p05v25c   Library: saed32rvt_tt1p05v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: EX_MEM/o_ALUOutput_reg[4]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: MEM_WB/o_rdata_reg[7]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  top                2000000               saed32rvt_tt1p05v25c
+  dmem               1000000               saed32rvt_tt1p05v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  EX_MEM/o_ALUOutput_reg[4]/CLK (DFFSSRX1_RVT)            0.00 #     0.00 r
+  EX_MEM/o_ALUOutput_reg[4]/Q (DFFSSRX1_RVT)              0.13       0.13 f
+  EX_MEM/o_mem_state[ALUOutput][4] (alu)                  0.00       0.13 f
+  MEM_WB/i_addr[4] (dmem)                                 0.00       0.13 f
+  MEM_WB/U3345/Y (IBUFFX2_RVT)                            0.44       0.57 r
+  MEM_WB/U3358/Y (AND3X2_RVT)                             0.33       0.90 r
+  MEM_WB/U91493/Y (NAND2X0_RVT)                           0.38       1.28 f
+  MEM_WB/U120/Y (IBUFFX2_RVT)                             0.21       1.49 r
+  MEM_WB/U90192/Y (NBUFFX2_RVT)                           0.30       1.79 r
+  MEM_WB/U67623/Y (NAND2X0_RVT)                           0.56       2.36 f
+  MEM_WB/U136876/Y (INVX1_RVT)                            0.59       2.95 r
+  MEM_WB/U67622/Y (AO22X1_RVT)                            0.39       3.34 r
+  MEM_WB/U130066/Y (AO22X1_RVT)                           0.22       3.56 r
+  MEM_WB/U130067/Y (AO221X1_RVT)                          0.20       3.76 r
+  MEM_WB/U130068/Y (NOR4X0_RVT)                           0.23       3.99 f
+  MEM_WB/U130097/Y (OA221X1_RVT)                          0.19       4.18 f
+  MEM_WB/U130173/Y (NAND4X0_RVT)                          0.18       4.36 r
+  MEM_WB/U130174/Y (AO22X1_RVT)                           0.20       4.56 r
+  MEM_WB/U934/Y (AOI221X1_RVT)                            0.21       4.76 f
+  MEM_WB/U933/Y (NAND2X0_RVT)                             0.17       4.93 r
+  MEM_WB/U63698/Y (AND2X1_RVT)                            0.18       5.11 r
+  MEM_WB/o_rdata_reg[7]/D (DFFX1_RVT)                     0.15       5.26 r
+  data arrival time                                                  5.26
+
+  clock clk (rise edge)                                   2.00       2.00
+  clock network delay (ideal)                             0.00       2.00
+  clock uncertainty                                      -0.30       1.70
+  MEM_WB/o_rdata_reg[7]/CLK (DFFX1_RVT)                   0.00       1.70 r
+  library setup time                                     -0.03       1.67
+  data required time                                                 1.67
+  --------------------------------------------------------------------------
+  data required time                                                 1.67
+  data arrival time                                                 -5.26
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -3.59
+
+
+1

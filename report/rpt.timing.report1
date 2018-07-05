@@ -1,0 +1,84 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Information: Timing loop detected. (OPT-150)
+	fetch/U108/A1 fetch/U108/Y fetch/U86/A2 fetch/U86/Y fetch/__tmp360/U4/A fetch/__tmp360/U4/Y fetch/__tmp360/U13/A fetch/__tmp360/U13/Y fetch/__tmp360/U25/A2 fetch/__tmp360/U25/Y decode/U168/A decode/U168/Y decode/U159/A1 decode/U159/Y decode/U153/A1 decode/U153/Y decode/U152/A1 decode/U152/Y decode/U52/A1 decode/U52/Y decode/U51/A1 decode/U51/Y 
+Information: Timing loop detected. (OPT-150)
+	fetch/U3/A fetch/U3/Y fetch/U114/A fetch/U114/Y fetch/U107/A2 fetch/U107/Y fetch/U86/A4 fetch/U86/Y fetch/__tmp360/U4/A fetch/__tmp360/U4/Y fetch/__tmp360/U13/A fetch/__tmp360/U13/Y fetch/__tmp360/U25/A2 fetch/__tmp360/U25/Y decode/U168/A decode/U168/Y decode/U159/A1 decode/U159/Y decode/U153/A1 decode/U153/Y decode/U152/A1 decode/U152/Y decode/U52/A1 decode/U52/Y decode/U51/A1 decode/U51/Y 
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : top
+Version: M-2016.12
+Date   : Thu Jul  5 12:06:42 2018
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt1p05v25c   Library: saed32rvt_tt1p05v25c
+Wire Load Model Mode: enclosed
+
+  Startpoint: EX_MEM/o_ALUOutput_reg[9]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: MEM_WB/o_rdata_reg[7]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  top                2000000               saed32rvt_tt1p05v25c
+  dmem               1000000               saed32rvt_tt1p05v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  EX_MEM/o_ALUOutput_reg[9]/CLK (DFFSSRX1_RVT)            0.00 #     0.00 r
+  EX_MEM/o_ALUOutput_reg[9]/Q (DFFSSRX1_RVT)              0.12       0.12 f
+  EX_MEM/o_mem_state[ALUOutput][9] (alu)                  0.00       0.12 f
+  MEM_WB/i_addr[9] (dmem)                                 0.00       0.12 f
+  MEM_WB/U83050/Y (IBUFFX2_RVT)                           0.32       0.44 r
+  MEM_WB/U82294/Y (AND2X1_RVT)                            0.22       0.66 r
+  MEM_WB/U78158/Y (AND2X1_RVT)                            0.43       1.09 r
+  MEM_WB/U3796/Y (AND2X4_RVT)                             0.30       1.38 r
+  MEM_WB/U95496/Y (NBUFFX2_RVT)                           0.37       1.75 r
+  MEM_WB/U77841/Y (NAND2X0_RVT)                           0.59       2.35 f
+  MEM_WB/U4086/Y (IBUFFX2_RVT)                            0.43       2.77 r
+  MEM_WB/U77840/Y (AO22X1_RVT)                            0.38       3.15 r
+  MEM_WB/U134236/Y (AO22X1_RVT)                           0.21       3.37 r
+  MEM_WB/U134237/Y (AO221X1_RVT)                          0.20       3.57 r
+  MEM_WB/U134244/Y (NOR4X0_RVT)                           0.22       3.78 f
+  MEM_WB/U134245/Y (OA22X1_RVT)                           0.18       3.96 f
+  MEM_WB/U134246/Y (OA221X1_RVT)                          0.19       4.15 f
+  MEM_WB/U134247/Y (NAND4X0_RVT)                          0.18       4.33 r
+  MEM_WB/U82390/Y (AOI221X1_RVT)                          0.22       4.55 f
+  MEM_WB/U82388/Y (NAND2X0_RVT)                           0.15       4.70 r
+  MEM_WB/U63698/Y (AND2X1_RVT)                            0.18       4.88 r
+  MEM_WB/o_rdata_reg[7]/D (DFFX1_RVT)                     0.15       5.03 r
+  data arrival time                                                  5.03
+
+  clock clk (rise edge)                                   5.00       5.00
+  clock network delay (ideal)                             0.00       5.00
+  clock uncertainty                                      -0.30       4.70
+  MEM_WB/o_rdata_reg[7]/CLK (DFFX1_RVT)                   0.00       4.70 r
+  library setup time                                     -0.03       4.67
+  data required time                                                 4.67
+  --------------------------------------------------------------------------
+  data required time                                                 4.67
+  data arrival time                                                 -5.03
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.36
+
+
+1

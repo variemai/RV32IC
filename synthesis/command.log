@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version M-2016.12 for linux64 -- Nov 21, 2016
-#@ # Date:   Wed Jul  4 15:20:00 2018
+#@ # Date:   Wed Jul  4 18:41:41 2018
 #@ # Run by: vardas@socofreta.ics.forth.gr
 #@ 
 
@@ -41938,7 +41938,10 @@ gui_start
 #@ 
 #@ # -- End source /eda/synopsys/syn/M-2016.12/auxx/tcllib/lib/iwidgets4.1/watch.itk
 
-source ~/lab3/common/scripts/common.tcl
+source synthesis.sh
+#@ # -- Starting source synthesis.sh
+
+#@ source ~/lab3/common/scripts/common.tcl
 #@ # -- Starting source ~/lab3/common/scripts/common.tcl
 
 #@ ##########  VARIABLES TO MODIFY ###########################
@@ -42010,24 +42013,36 @@ source ~/lab3/common/scripts/common.tcl
 
 #@ # -- End source ~/lab3/common/scripts/common.tcl
 
-set link_library          "$Std_cell_lib $Ram_lib"
-set target_library        "$Std_cell_lib $Ram_lib"
-analyze -format sverilog {imem.sv regfile.sv mem_sync_sp.sv alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv top.sv}
-elaborate IFetch -architecture verilog -library DEFAULT -update
-elaborate top
-link
-check_design
-read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
-read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
-change_selection [get_s top]
-change_selection [get_s top]
-change_selection [get_s top]
-change_selection [get_s top]
-read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
-analyze -format sverilog {imem.sv regfile.sv mem_sync_sp.sv alu.sv IFetch.sv Decoder.sv ID_EX_reg.sv dmem.sv RegFile.sv top.sv}
-elaborate top
-change_selection -remove [get_s top]
-link
-check_design
-read_sdc ~/lab3/common/constraints/i2c_master_top.sdc
-compile
+#@ set link_library          "$Std_cell_lib $Ram_lib"
+#@ set target_library        "$Std_cell_lib $Ram_lib"
+#@ analyze -format sverilog {mem_sync_sp_syn.sv reg_file_2r1w_syn.sv IFetch.sv Decoder.sv ID_EX_reg.sv alu.sv dmem.sv RegFile.sv top.sv}
+#@ elaborate top
+#@ link
+#@ check_design
+#@ read_sdc top.sdc
+#@ # -- End source synthesis.sh
+
+compile -exact_map
+report_timing > ../report/rpt.timing.report1
+read_sdc top.sdc
+compile -exact_map
+report_timing > ../report/rpt.timing.report2
+read_sdc top.sdc
+compile -exact_map
+ls
+report_timing > ../report/rpt.timing.report500mhz
+report_constraint > ../report/rpt.constrain.report500mhz
+report_area > ../report/rpt.area.report500mhz
+report_qor > ../report/rpt.qor.report500mhz
+compile -exact_map -effort_high
+compile -exact_map -effort high
+compile -exact_map -area_effort high -gate_clock -only_hold_time
+compile -exact_map -area_effort high -only_hold_time
+compile -exact_map -map_effort high -area_effort high -power_effort high
+report_timing > ../report/rpt.timing.report500_2mhz
+report_area > ../report/rpt.area.report500_2mhz
+report_qor > ../report/rpt.qor.report500_2mhz
+report_power > ../report/rpt.power.report500_2mhz
+read_sdc top.sdc
+compile -exact_map
+report_qor > ../report/rpt.qor.report150mhz

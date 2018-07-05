@@ -110,7 +110,6 @@ always_comb begin
 		case(i_mem_type)
         		`MTYPE_BYTE: begin
 				o_rdata = { {28{byte_rdata[DATA_WIDTH/4-1]}}, byte_rdata };
-				//$displa is: %d\n", i_ALUop);
 			end
         		`MTYPE_HALFWORD: begin
 				o_rdata = { {24{halfword_rdata[DATA_WIDTH/2-1]}}, halfword_rdata };
@@ -152,7 +151,7 @@ end
 
 
 
-mem_sync_sp dmem(
+mem_sync_sp_syn dmem(
 		.clk			( i_clk ),
 		.i_addr			( i_addr ),
 		.i_wdata		( i_wdata ),

@@ -1,0 +1,45 @@
+ 
+****************************************
+Report : area
+Design : top
+Version: M-2016.12
+Date   : Wed Jul  4 18:18:47 2018
+****************************************
+
+Information: Updating design information... (UID-85)
+Warning: Design 'top' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Information: Timing loop detected. (OPT-150)
+	fetch/U22/A fetch/U22/Y fetch/U107/A2 fetch/U107/Y fetch/U45/A2 fetch/U45/Y fetch/__tmp360/U3/A fetch/__tmp360/U3/Y fetch/__tmp360/U8/S0 fetch/__tmp360/U8/Y decode/U51/A decode/U51/Y decode/U65/A1 decode/U65/Y decode/U7/A1 decode/U7/Y decode/U10/A1 decode/U10/Y decode/U102/A1 decode/U102/Y decode/U26/A1 decode/U26/Y 
+Information: Timing loop detected. (OPT-150)
+	fetch/U108/A1 fetch/U108/Y fetch/U45/A6 fetch/U45/Y fetch/__tmp360/U3/A fetch/__tmp360/U3/Y fetch/__tmp360/U8/S0 fetch/__tmp360/U8/Y decode/U51/A decode/U51/Y decode/U65/A1 decode/U65/Y decode/U7/A1 decode/U7/Y decode/U10/A1 decode/U10/Y decode/U102/A1 decode/U102/Y decode/U26/A1 decode/U26/Y 
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A2' and 'Y' on cell 'fetch/U107'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Warning: Disabling timing arc between pins 'A1' and 'Y' on cell 'fetch/U108'
+         to break a timing loop. (OPT-314)
+Library(s) Used:
+
+    saed32rvt_tt1p05v25c (File: /eda/tech-libs/SAED32_EDK/lib/stdcell_rvt/db_nldm/saed32rvt_tt1p05v25c.db)
+    saed32sram_tt1p05v25c (File: /eda/tech-libs/SAED32_EDK/lib/sram/db_nldm/saed32sram_tt1p05v25c.db)
+
+Number of ports:                         2751
+Number of nets:                        208978
+Number of cells:                       206779
+Number of combinational cells:         140666
+Number of sequential cells:             66085
+Number of macros/black boxes:              10
+Number of buf/inv:                      24375
+Number of references:                       7
+
+Combinational area:             342517.747515
+Buf/Inv area:                    44599.223674
+Noncombinational area:          435486.940629
+Macro/Black Box area:           224887.496094
+Net Interconnect area:          648802.337442
+
+Total cell area:               1002892.184237
+Total area:                    1651694.521679
+1

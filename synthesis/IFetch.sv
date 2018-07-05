@@ -62,12 +62,23 @@ module IFetch(
 		if(reset) pc_out <= 32'b0;
 		else      pc_out <= pc_in;
 	end
+	
+	mem_sync_sp_syn(
+		.clk(clk),
+		.i_addr(pc_in[10:0]),
+		.i_wdata(32'b0),
+		.i_wen(4'b0000),
+		.o_rdata(instruction)
+	);
+	
+	/*
 	imem InstructionMem(
 		.clk(clk),
 		.reset(reset),
 		.addr(pc_in[12:2]),
 		.dout(instruction)
 	);
+	*/
 	/*
 	always_comb begin
 		if (stall_r) begin
