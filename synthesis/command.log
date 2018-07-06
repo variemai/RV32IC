@@ -42046,3 +42046,4 @@ report_power > ../report/rpt.power.report500_2mhz
 read_sdc top.sdc
 compile -exact_map
 report_qor > ../report/rpt.qor.report150mhz
+exit
