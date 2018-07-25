@@ -15,6 +15,7 @@ module top;
 	logic [31:0] data_in;
 	logic [31:0] rdata;
 	logic [31:0] jmp_pc;
+	logic [31:0] instruction;
 	PipelineReg::ID_STATE id_reg;
 	PipelineReg::EX_STATE id_ex_reg;
 	PipelineReg::EX_STATE ex_reg;
@@ -28,9 +29,18 @@ module top;
         .pc_out(id_reg.pc),
         .jmp_pc(jmp_pc),
 		.jmp(jmp),
+		.comp_control(control),
         .reset(reset),
         .valid(valid),
-        .instruction(id_reg.instruction)
+        .instruction(instruction)
+   );
+	
+   comp_instr_top(
+	   .aclk(clk),
+	   .aresetn(~reset),
+	   .instruction(instruction),
+	   .decomp_instruction(id_reg.instruction),
+	   .control(control)
    );
 
    decoder decode(
