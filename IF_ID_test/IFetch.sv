@@ -13,7 +13,7 @@ module IFetch(
 	input logic stall,
 	input logic jmp,
 	input logic [31:0] jmp_pc,
-	input logic [1:0] comp_control,
+	input logic [2:0] comp_control,
 	output logic [31:0] pc_out,
 	output logic [31:0] instruction,
 	output logic valid
@@ -24,7 +24,6 @@ module IFetch(
 	logic [31:0] pc_4;
 	//logic stall_r;
 	logic valid_int;
-	logic [31:0] pc_2;
 	/*
 	always_ff @ (posedge clk) begin
 		if(reset) stall_r <= 0;
@@ -52,13 +51,12 @@ module IFetch(
 	//assign	pc_4 = pc_out + 4;
 	//assign	pc_in = stall ? pc_out: pc_4;
 	assign pc_4 = pc + 4;
-	assign pc_2 = pc + 2;
 	always_comb begin
 		if(jmp) begin 
 			pc_in = jmp_pc;
 		end else if (stall )  begin
 			pc_in = pc;
-		end	else if ( control != 2'b00 ) begin
+		end	else if ( comp_control == 3'b001 || comp_control == 3'b100 ) begin
 			pc_in = pc;
 		end else 
 		begin

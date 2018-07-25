@@ -14,7 +14,8 @@ parameter RAM_SIZE = 2048
 
 	logic [DATA_WIDTH-1:0] RAM [RAM_SIZE-1:0];
 	initial begin
-		$readmemh("ldst_code.hex", RAM, 0, 2048);
+		//$readmemh("ldst_code.hex", RAM, 0, 2048);
+		$readmemb("compressed_instr.bin", RAM, 0, 32);
 	end
 	always_ff @(posedge clk) begin
 		if(reset) dout <= 0;

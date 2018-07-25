@@ -16,6 +16,7 @@ module top;
 	logic [31:0] rdata;
 	logic [31:0] jmp_pc;
 	logic [31:0] instruction;
+	logic [2:0] control;
 	PipelineReg::ID_STATE id_reg;
 	PipelineReg::EX_STATE id_ex_reg;
 	PipelineReg::EX_STATE ex_reg;

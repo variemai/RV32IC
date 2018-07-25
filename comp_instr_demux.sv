@@ -7,7 +7,8 @@ module comp_instr_demux(
 	input					aclk,
 	input  logic			aresetn,
 	input  logic	[31:0]	input_word,
-	input  logic	[1:0]	control,
+	input  logic	[2:0]	control,
+	output logic	[31:0]	reg_out,
 	output logic	[31:0]	decomp_instruction);
 	
 	
@@ -28,20 +29,22 @@ module comp_instr_demux(
 		.decomp_instruction		(regular_instr));
 
 	always_comb	begin
-		if(control == 2'b00) begin
+		if(control == 3'b000) begin
 			instruction	= input_word[15:0];
 			if(input_word[1:0] == 2'b11) begin
 				decomp_instruction		= input_word;
 			end else begin
 				decomp_instruction		= regular_instr;
 			end
-		end else if(control == 2'b01) begin
+		end else if(control == 3'b001) begin
 			instruction					= next_instr[31:16];
 			decomp_instruction			= regular_instr;
-		end else if (control == 2'b10) begin
+		end else if (control == 3'b010) begin
 			instruction					= next_instr[31:16];
 			decomp_instruction[31:16]	= input_word[15:0];
 			decomp_instruction[15:0]	= next_instr[31:16];
+		end else if (control == 3'b100) begin
+			reg_out = next_instr;
 		end else begin
 			instruction					= next_instr[31:16];
 			decomp_instruction			= regular_instr;
