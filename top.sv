@@ -41,7 +41,8 @@ module top;
 	   .aresetn(~reset),
 	   .instruction(instruction),
 	   .decomp_instruction(id_reg.instruction),
-	   .control(control)
+	   .control(control),
+	   .stall(pc_enable)
    );
 
    decoder decode(

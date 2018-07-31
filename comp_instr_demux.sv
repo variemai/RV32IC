@@ -8,6 +8,7 @@ module comp_instr_demux(
 	input  logic			aresetn,
 	input  logic	[31:0]	input_word,
 	input  logic	[2:0]	control,
+	input  logic			stall,
 	output logic	[31:0]	reg_out,
 	output logic	[31:0]	decomp_instruction);
 	
@@ -18,9 +19,13 @@ module comp_instr_demux(
 
 	always_ff @(posedge aclk)	begin
 		if (~aresetn) begin
-			next_instr <= #1 0;
+			next_instr <= 		0;
 		end else begin
-			next_instr <= #1 input_word;
+			if(~stall) begin
+				next_instr <=	input_word;
+			end else begin
+				next_instr <=	next_instr;
+			end
 		end
 	end
 

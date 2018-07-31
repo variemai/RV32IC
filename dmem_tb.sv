@@ -16,7 +16,7 @@ program testbench(
 		reset <= 1;
 		repeat (2) @(posedge clk); 
 		reset <= 0;
-		for(int i=0; i<100; i++) begin
+		for(int i=0; i<1000; i++) begin
 			@(posedge clk)
 			read_all_states();
 			//read_wb_state();

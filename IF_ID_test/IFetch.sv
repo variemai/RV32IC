@@ -36,7 +36,7 @@ module IFetch(
 		//$write("STALL SIGNAL: %d\n",stall);
 		if(reset) begin 
 			//pc <= 32'hFC;
-			pc <= 32'b0;
+			pc <= 32'h96;
 			//pc_out <= 32'b0;
 			valid_int <= 0;
 		end

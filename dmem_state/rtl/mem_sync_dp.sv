@@ -5,7 +5,7 @@ module mem_sync_dp #(
   parameter DATA_WIDTH  = 32,
   parameter DATA_BYTES  = DATA_WIDTH/8,
   parameter INIT_ZERO   = 0,
-  parameter INIT_FILE   = "mem.hex",
+  parameter INIT_FILE   = "datamem_compressed0.hex",
   parameter INIT_START  = 0,
   parameter INIT_END    = DEPTH-1
 ) (

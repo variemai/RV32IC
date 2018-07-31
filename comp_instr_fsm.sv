@@ -2,6 +2,7 @@
 
 module comp_instr_fsm(
 	input  logic			aclk,
+	input  logic 			stall,
 	input  logic			aresetn,
 	input  logic	[3:0]	instruction,
 	output logic	[2:0]	fsm_out);
@@ -10,8 +11,14 @@ module comp_instr_fsm(
 	enum bit [2:0] { idle=3'b000, bothcomp=3'b001, compregular=3'b010, regularcomp=3'b011, bothcompsec=3'b100 } curr_state, next_state;
 
 	always_ff @(posedge aclk) begin
-		if (~aresetn)	curr_state <= #1	idle;
-		else			curr_state <= #1	next_state;
+		if (~aresetn)	curr_state <=	idle;
+		else begin
+			if(stall) begin
+				curr_state <= 			curr_state;
+			end else begin
+				curr_state <=			next_state;
+			end
+		end
 	end
 
 
